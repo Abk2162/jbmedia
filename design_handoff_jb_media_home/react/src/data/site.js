@@ -11,7 +11,7 @@ export const NAV = [
 ];
 
 // Curated high-resolution crops from the college archive
-const PHOTO_BANK = [
+export const PHOTO_BANK = [
   "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=400&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=400&auto=format&fit=crop",

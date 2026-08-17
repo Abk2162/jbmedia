@@ -8,9 +8,9 @@ import CircularGallery from "@/components/CircularGallery.jsx";
 import ProfileCard from "@/components/ProfileCard.jsx";
 import StatsBand from "@/components/StatsBand.jsx";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { SPHERE_ITEMS, STATS, LEADERSHIP, REELS } from "@/data/site.js";
+import GradualBlur from "@/components/GradualBlur.jsx";
+import { SPHERE_ITEMS, STATS, LEADERSHIP, REELS, PHOTO_BANK } from "@/data/site.js";
 
 function useOnScreen(ref, initial = false) {
   const [visible, setVisible] = useState(initial);
@@ -100,6 +100,17 @@ export function HomePage() {
             </PhoneMockup>
           </div>
         </div>
+
+        {/* React Bits Gradual Blur bottom fade transition */}
+        <GradualBlur
+          position="bottom"
+          height="8rem"
+          strength={2.5}
+          divCount={6}
+          curve="bezier"
+          exponential={true}
+          opacity={1}
+        />
       </section>
 
       {/* ---------------- COUNTER STATS BAND ---------------- */}
@@ -172,7 +183,7 @@ export function HomePage() {
 
       {/* ---------------- RECRUITMENT CALL (DRIFT WALL) ---------------- */}
       <section className="jb-join">
-        <div className="jb-driftwall">
+        <div className="jb-driftwall" aria-hidden="true">
           {[0, 1, 2, 3, 4].map((col) => (
             <div
               key={col}
@@ -181,13 +192,19 @@ export function HomePage() {
                 animation: `jbDrift${col % 2 === 0 ? "Up" : "Down"} ${28 + col * 4}s linear infinite`,
               }}
             >
-              {[0, 1, 2, 3, 4, 5].map((tile) => (
-                <div
-                  key={tile}
-                  className="jb-driftwall__tile"
-                  style={{ height: 160 + ((tile * 37 + col * 23) % 90) }}
-                />
-              ))}
+              {[0, 1, 2, 3, 4, 5].map((tile) => {
+                const photoIndex = (col * 6 + tile) % PHOTO_BANK.length;
+                return (
+                  <div
+                    key={tile}
+                    className="jb-driftwall__tile"
+                    style={{
+                      height: 170 + ((tile * 37 + col * 23) % 90),
+                      backgroundImage: `url(${PHOTO_BANK[photoIndex]})`,
+                    }}
+                  />
+                );
+              })}
             </div>
           ))}
         </div>
@@ -195,23 +212,23 @@ export function HomePage() {
         <div className="jb-join__scrim" />
 
         <div className="jb-join__inner">
-          <Badge variant="default" className="gap-1.5">
+          <Badge variant="default" className="gap-1.5 px-4 py-1.5 shadow-[0_0_20px_rgba(212,162,46,0.15)]">
             <Sparkles className="w-3.5 h-3.5 text-gold-400" />
             <span>Recruitments Active</span>
           </Badge>
 
-          <h2 className="jb-join__title text-foreground">
+          <h2 className="jb-join__title">
             The Frame Is Ready. <br />
             <span className="bg-gold-gradient bg-clip-text text-transparent">Are You?</span>
           </h2>
 
-          <p className="font-barlow text-lg text-foreground/80 max-w-lg leading-relaxed">
+          <p className="font-barlow text-lg sm:text-xl text-foreground/80 max-w-xl leading-relaxed font-light">
             We are looking for passionate photographers, cinematographers, video editors, poster designers, podcast hosts, and web creators.
           </p>
 
-          <div className="pt-4 flex flex-wrap gap-4 justify-center">
+          <div className="pt-3 flex flex-wrap gap-4 justify-center">
             <Link to="/join">
-              <Button size="lg" variant="default" className="min-w-[200px] gap-2">
+              <Button size="lg" variant="default" className="min-w-[210px] gap-2 shadow-[0_10px_25px_rgba(212,162,46,0.25)]">
                 <span>Apply for Induction</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Button>

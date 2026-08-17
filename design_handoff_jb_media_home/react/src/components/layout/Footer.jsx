@@ -3,10 +3,21 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowUpRight, Camera } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/SocialIcons.jsx";
 import { Button } from "@/components/ui/button";
+import GradualBlur from "@/components/GradualBlur.jsx";
 
 export function Footer() {
   return (
     <footer className="border-t border-gold-500/20 bg-dark-base relative overflow-hidden">
+      {/* Top Edge Gradual Blur */}
+      <GradualBlur
+        position="top"
+        height="5rem"
+        strength={2}
+        divCount={5}
+        curve="ease-out"
+        opacity={0.8}
+      />
+
       {/* Background ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-gold-500/5 blur-[100px] pointer-events-none" />
 

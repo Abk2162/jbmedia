@@ -1,0 +1,406 @@
+.staggered-menu-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.staggered-menu-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: transparent;
+  pointer-events: none;
+  z-index: 60;
+  transition: all 0.3s ease;
+}
+
+.staggered-menu-header.is-scrolled {
+  background: rgba(10, 9, 8, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 162, 46, 0.2);
+  padding: 1rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.staggered-menu-header > * {
+  pointer-events: auto;
+}
+
+.sm-logo {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sm-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sm-logo-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 162, 46, 0.45);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(212, 162, 46, 0.25);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.sm-logo:hover .sm-logo-badge {
+  transform: scale(1.08);
+  border-color: #f5c542;
+}
+
+.sm-logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sm-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-logo-title {
+  font-family: "Anton", sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f7f1e4;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.sm-logo:hover .sm-logo-title {
+  color: #f5c542;
+}
+
+.sm-logo-subtitle {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245, 197, 66, 0.85);
+  margin-top: 2px;
+}
+
+.sm-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(16, 14, 12, 0.75);
+  border: 1px solid rgba(212, 162, 46, 0.35);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #f7f1e4;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sm-toggle:hover {
+  border-color: #f5c542;
+  color: #f5c542;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(212, 162, 46, 0.25);
+}
+
+.sm-toggle:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 3px;
+}
+
+.sm-toggle-textWrap {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 3.2rem;
+}
+
+.sm-toggle-textInner {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.sm-toggle-line {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+
+.sm-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.sm-icon-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.sm-icon-line-v {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Staggered Underlay Pre-layers */
+.sm-prelayers {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: clamp(300px, 36vw, 480px);
+  pointer-events: none;
+  z-index: 55;
+  overflow: hidden;
+}
+
+[data-position="left"] .sm-prelayers {
+  right: auto;
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Main Sliding Drawer Panel */
+.staggered-menu-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: clamp(300px, 36vw, 480px);
+  height: 100%;
+  background: #100e0c;
+  border-left: 1px solid rgba(212, 162, 46, 0.35);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  padding: 4.8rem 2rem 1.8rem 2rem;
+  overflow-y: auto;
+  z-index: 58;
+  pointer-events: auto;
+}
+
+[data-position="left"] .staggered-menu-panel {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 1px solid rgba(212, 162, 46, 0.35);
+}
+
+.sm-panel-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sm-panel-itemWrap {
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+  border-bottom: 1px solid rgba(212, 162, 46, 0.12);
+}
+
+.sm-panel-item {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 0.65rem 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Signature Gold Wipe-in Background Fill */
+.sm-panel-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #fbebc0 0%, #f5c542 22%, #d4a22e 48%, #a97418 74%, #f5c542 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+.sm-panel-item:hover .sm-panel-fill {
+  transform: scaleX(1);
+}
+
+.sm-panel-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sm-panel-itemLabel {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f7f1e4;
+  display: inline-block;
+  will-change: transform;
+  transform-origin: 50% 100%;
+  transition: color 0.25s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-panel-itemNum {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #f5c542;
+  transition: color 0.25s ease;
+  opacity: var(--sm-num-opacity, 0);
+}
+
+/* Hover flips text and number to Dark Base */
+.sm-panel-item:hover .sm-panel-itemLabel {
+  color: #0a0908;
+  transform: translateX(8px);
+}
+
+.sm-panel-item:hover .sm-panel-itemNum {
+  color: #0a0908;
+}
+
+/* Social links footer inside drawer */
+.sm-socials {
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(212, 162, 46, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sm-socials-title {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sm-accent, #f5c542);
+}
+
+.sm-socials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.sm-socials-link {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(247, 241, 228, 0.75);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.sm-socials-link:hover {
+  color: var(--sm-accent, #f5c542);
+}
+
+.staggered-menu-panel .sm-socials-list:hover .sm-socials-link:not(:hover) {
+  opacity: 0.35;
+}
+
+@media (max-width: 768px) {
+  .staggered-menu-panel,
+  .sm-prelayers {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  .staggered-menu-panel {
+    padding: 6rem 2rem 2rem 2rem;
+  }
+  .sm-panel-item {
+    font-size: 2.5rem;
+  }
+}

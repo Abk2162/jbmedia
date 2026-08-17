@@ -19,6 +19,7 @@
     "autoprefixer": "^10.5.4",
     "clsx": "^2.1.1",
     "framer-motion": "^13.1.0",
+    "gl-matrix": "^3.4.4",
     "gsap": "^3.15.0",
     "lucide-react": "^1.31.0",
     "postcss": "^8.5.26",

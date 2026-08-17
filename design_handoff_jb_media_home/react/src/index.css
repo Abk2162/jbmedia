@@ -198,11 +198,77 @@ html, body {
 }
 
 /* Drift wall */
-.jb-join { position: relative; overflow: hidden; border-top: 1px solid var(--jb-gold-line); }
-.jb-driftwall { position: absolute; inset: -16%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; transform: rotate(-8deg) scale(1.15); opacity: 0.45; }
-.jb-driftwall__col { display: flex; flex-direction: column; gap: 18px; }
-.jb-driftwall__tile { border-radius: 10px; background: linear-gradient(160deg, #2a211a, #14100c); border: 1px solid rgba(212, 162, 46, 0.1); }
-.jb-join__scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(10, 9, 8, 0.65) 0%, rgba(10, 9, 8, 0.95) 70%); }
+.jb-join {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--jb-gold-line);
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jb-driftwall {
+  position: absolute;
+  inset: -20%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  transform: rotate(-8deg) scale(1.15);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+.jb-driftwall__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform;
+}
+.jb-driftwall__tile {
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #1a1510;
+  border: 1px solid rgba(212, 162, 46, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+.jb-driftwall__tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(36, 28, 21, 0.65), rgba(16, 14, 12, 0.85));
+}
+.jb-join__scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(10, 9, 8, 0.62) 0%, rgba(10, 9, 8, 0.94) 70%, #0a0908 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.jb-join__inner {
+  position: relative;
+  z-index: 10;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 120px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+.jb-join__title {
+  font-family: var(--jb-font-display, "Anton", sans-serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.94;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--jb-cream, #f7f1e4);
+}
 
 /* Wordmark */
 .jb-wordmark-wrap { padding: 40px 32px 48px; overflow: hidden; }
