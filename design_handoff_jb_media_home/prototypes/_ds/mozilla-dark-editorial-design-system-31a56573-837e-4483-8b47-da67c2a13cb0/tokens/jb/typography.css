@@ -1,0 +1,33 @@
+:root{
+  /* Display — Anton, always uppercase, tight leading, slight positive tracking */
+  --jb-type-hero-size:104px;
+  --jb-type-hero-line:0.92;
+  --jb-type-hero-tracking:0.02em;
+
+  --jb-type-display-size:72px;
+  --jb-type-display-line:0.94;
+  --jb-type-display-tracking:0.02em;
+
+  --jb-type-section-size:44px;
+  --jb-type-section-line:1.0;
+  --jb-type-section-tracking:0.03em;
+
+  --jb-type-title-size:28px;
+  --jb-type-title-line:1.1;
+  --jb-type-title-tracking:0.02em;
+
+  /* Condensed subheads / UI — Barlow Condensed 600 */
+  --jb-type-subhead-size:20px;
+  --jb-type-subhead-line:1.3;
+  --jb-type-eyebrow-size:13px;
+  --jb-type-eyebrow-line:1.2;
+  --jb-type-eyebrow-tracking:0.22em;
+
+  /* Body — Barlow */
+  --jb-type-lead-size:19px;
+  --jb-type-lead-line:1.65;
+  --jb-type-body-size:16px;
+  --jb-type-body-line:1.7;
+  --jb-type-small-size:14px;
+  --jb-type-small-line:1.55;
+}

@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- JB Media design tokens ---------- */
+:root {
+  --jb-gold-100: #fbebc0;
+  --jb-gold-300: #f5c542;
+  --jb-gold-500: #d4a22e;
+  --jb-gold-700: #a97418;
+  --jb-gold-900: #6b4610;
+
+  --jb-black: #0a0908;
+  --jb-ink-900: #100e0c;
+  --jb-ink-800: #161311;
+  --jb-ink-700: #1f1a16;
+  --jb-brown-600: #3a2a16;
+
+  --jb-cream: #f7f1e4;
+  --jb-crimson: #b3121c; /* fest material only */
+
+  --jb-gold-line: rgba(212, 162, 46, 0.28);
+  --jb-gold-line-strong: rgba(212, 162, 46, 0.55);
+  --jb-text-secondary: rgba(255, 255, 255, 0.7);
+  --jb-text-muted: rgba(255, 255, 255, 0.5);
+
+  --jb-gradient-gold: linear-gradient(160deg, #fbebc0 0%, #f5c542 22%, #d4a22e 48%, #a97418 74%, #f5c542 100%);
+  --jb-gradient-scrim: linear-gradient(180deg, rgba(10, 9, 8, 0) 0%, rgba(10, 9, 8, 0.85) 70%, #0a0908 100%);
+
+  --jb-font-display: "Anton", "Barlow Condensed", Impact, sans-serif;
+  --jb-font-condensed: "Barlow Condensed", "Barlow", sans-serif;
+  --jb-font-body: "Barlow", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --jb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --jb-container: 1240px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  background: #0A0908;
+  color: #F7F1E4;
+  font-family: "Barlow", sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0908;
+}
+::-webkit-scrollbar-thumb {
+  background: #282019;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 162, 46, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4A22E;
+}
+
+/* Selection */
+::selection {
+  background: #D4A22E;
+  color: #0A0908;
+}
+
+@keyframes jbMarquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes jbDriftUp { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+@keyframes jbDriftDown { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+
+/* Shared CSS classes */
+.jb-container { max-width: var(--jb-container); margin: 0 auto; padding-inline: 32px; }
+.jb-eyebrow {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #F5C542;
+}
+.jb-h2 {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-size: clamp(38px, 5vw, 56px);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
+.jb-rule { height: 2px; width: 96px; background: var(--jb-gradient-gold); }
+.jb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: 2px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+.jb-btn--gold {
+  background: var(--jb-gradient-gold);
+  color: #0A0908;
+  border: none;
+}
+.jb-btn--gold:hover {
+  box-shadow: 0 12px 34px rgba(212, 162, 46, 0.38);
+  transform: translateY(-2px);
+  color: #0A0908;
+}
+.jb-btn--outline {
+  border: 1px solid #D4A22E;
+  color: #F5C542;
+  background: transparent;
+}
+.jb-btn--outline:hover {
+  border-color: #F5C542;
+  color: #FBEBC0;
+  background: rgba(212, 162, 46, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(16, 14, 12, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 162, 46, 0.2);
+}
+
+/* Text glow */
+.gold-glow {
+  text-shadow: 0 0 20px rgba(245, 197, 66, 0.4);
+}
+
+/* Device Mockup */
+.jb-device {
+  position: relative; width: min(340px, 86vw); aspect-ratio: 34 / 69; max-height: 78vh;
+  justify-self: center; flex: none;
+  border: 11px solid #17130f; border-radius: 50px; background: #080706;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.75), inset 0 0 0 1px rgba(212, 162, 46, 0.14);
+  overflow: hidden;
+}
+.jb-device__notch { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 104px; height: 26px; border-radius: 999px; background: #17130f; z-index: 6; }
+.jb-device__caption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+  padding: 22px 24px 26px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 7, 6, 0), rgba(8, 7, 6, 0.92));
+  display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
+}
+
+/* Marquee & Drift */
+.jb-marquee { border-top: 1px solid var(--jb-gold-line); border-bottom: 1px solid var(--jb-gold-line); background: #100E0C; padding: 24px 0; overflow: hidden; }
+.jb-marquee__track { display: flex; width: max-content; align-items: center; gap: 48px; animation: jbMarquee 30s linear infinite; }
+.jb-marquee:hover .jb-marquee__track { animation-play-state: paused; }
+.jb-marquee__dot { width: 14px; height: 14px; background: #D4A22E; flex: none; transform: rotate(45deg); }
+.jb-marquee__word { font-family: "Anton", sans-serif; font-size: clamp(48px, 6vw, 84px); line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.jb-marquee__word--outline { -webkit-text-stroke: 1px rgba(212, 162, 46, 0.8); color: transparent; }
+.jb-marquee__word--gold { background: var(--jb-gradient-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Leadership card */
+.jb-card {
+  position: relative; border: 1px solid rgba(212, 162, 46, 0.35); border-radius: 16px;
+  background: linear-gradient(150deg, #241d17, #100e0c 55%, #191410);
+  padding: 20px; display: flex; flex-direction: column; gap: 16px; overflow: hidden;
+  transform-style: preserve-3d; will-change: transform;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.jb-card__sheen { position: absolute; inset: -40%; pointer-events: none; opacity: 0; transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1); background: radial-gradient(circle at 50% 50%, rgba(251, 235, 192, 0.32) 0%, rgba(212, 162, 46, 0.14) 30%, transparent 62%); }
+.jb-card__frame {
+  position: relative; height: 320px; border: 1px dashed rgba(212, 162, 46, 0.34); border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 118%, rgba(212, 162, 46, 0.16), transparent 62%);
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; overflow: hidden;
+}
+
+/* Circular gallery */
+.jb-gallery { position: relative; height: 400px; cursor: grab; touch-action: pan-y; overflow: hidden; perspective: 1200px; }
+.jb-gallery:active { cursor: grabbing; }
+.jb-gallery__item {
+  position: absolute; left: 50%; top: 50%; width: 232px; height: 340px; margin: -170px 0 0 -116px;
+  border-radius: 24px; overflow: hidden; border: 1px solid var(--jb-gold-line); will-change: transform;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Drift wall */
+.jb-join { position: relative; overflow: hidden; border-top: 1px solid var(--jb-gold-line); }
+.jb-driftwall { position: absolute; inset: -16%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; transform: rotate(-8deg) scale(1.15); opacity: 0.45; }
+.jb-driftwall__col { display: flex; flex-direction: column; gap: 18px; }
+.jb-driftwall__tile { border-radius: 10px; background: linear-gradient(160deg, #2a211a, #14100c); border: 1px solid rgba(212, 162, 46, 0.1); }
+.jb-join__scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(10, 9, 8, 0.65) 0%, rgba(10, 9, 8, 0.95) 70%); }
+
+/* Wordmark */
+.jb-wordmark-wrap { padding: 40px 32px 48px; overflow: hidden; }
+.jb-wordmark { font-family: "Anton", sans-serif; font-size: clamp(84px, 18vw, 260px); line-height: 0.88; text-transform: uppercase; color: #F7F1E4; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .jb-marquee__track, .jb-driftwall__col { animation: none !important; }
+}

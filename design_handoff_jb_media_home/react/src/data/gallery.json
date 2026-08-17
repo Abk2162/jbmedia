@@ -1,0 +1,101 @@
+[
+  {
+    "id": "g-01",
+    "title": "Abhav 2K26 — Inaugural Night Lights",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Fest", "Stage", "Crowd", "Night"],
+    "photographer": "JB Media Cine Team",
+    "description": "Opening celebration of JBIET's annual flagship fest Abhav 2K26."
+  },
+  {
+    "id": "g-02",
+    "title": "Freshers 2K25 — The Welcoming Wave",
+    "category": "Cultural",
+    "eventDate": "November 2025",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Freshers", "Dance", "Auditorium"],
+    "photographer": "Karthik R.",
+    "description": "First-year orientation and vibrant cultural performances."
+  },
+  {
+    "id": "g-03",
+    "title": "Annual Sports Meet — 100m Sprint Finals",
+    "category": "Sports",
+    "eventDate": "January 2026",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Sports", "Athletics", "Track"],
+    "photographer": "Siddharth V.",
+    "description": "High-adrenaline track finals captured on 70-200mm telephoto."
+  },
+  {
+    "id": "g-04",
+    "title": "Hackathon 24H — Midnight Code Hustle",
+    "category": "Tech & Workshops",
+    "eventDate": "December 2025",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Hackathon", "Coding", "JBIET Labs"],
+    "photographer": "Neha P.",
+    "description": "24-hour campus hackathon innovation session."
+  },
+  {
+    "id": "g-05",
+    "title": "Campus Heritage Photowalk",
+    "category": "Photowalks",
+    "eventDate": "October 2025",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Golden Hour", "Architecture", "Campus"],
+    "photographer": "Ananya K.",
+    "description": "Golden hour explorations capturing the JBIET campus architecture."
+  },
+  {
+    "id": "g-06",
+    "title": "Ethnic Day — Colors of JBIET",
+    "category": "Cultural",
+    "eventDate": "February 2026",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Traditional", "Portraits", "Celebration"],
+    "photographer": "JB Media Photo Club",
+    "description": "Traditional attire celebrations and group photo sessions."
+  },
+  {
+    "id": "g-07",
+    "title": "Convocation 2K25 — Caps in the Air",
+    "category": "Cultural",
+    "eventDate": "August 2025",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Graduation", "Milestone", "Auditorium"],
+    "photographer": "Lead Cinematographer",
+    "description": "Graduating batch of JBIET celebrating their commencement."
+  },
+  {
+    "id": "g-08",
+    "title": "DJ Night — Abhav Finale",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["EDM", "Concert", "Stage Lights"],
+    "photographer": "Prashanth M.",
+    "description": "High-octane musical concert closing the fest."
+  },
+  {
+    "id": "g-09",
+    "title": "Photography Masterclass — Lighting & Gimbals",
+    "category": "Tech & Workshops",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop",
+    "hdUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop",
+    "tags": ["Workshop", "Gear", "Training"],
+    "photographer": "JB Media Mentor",
+    "description": "Hands-on studio lighting and gimbal balance workshop for juniors."
+  }
+]

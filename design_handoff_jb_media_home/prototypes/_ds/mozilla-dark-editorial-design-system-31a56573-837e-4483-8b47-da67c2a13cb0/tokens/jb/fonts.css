@@ -1,0 +1,11 @@
+/* JB Media display type. The club's posters set headlines in heavy condensed
+   caps (see assets/posters/recruitments-open.png); Anton is the closest freely
+   licensed match, with Barlow Condensed for subheads and Barlow for body.
+   SUBSTITUTION — the posters' actual typefaces were not supplied. */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap");
+
+:root{
+  --jb-font-display:"Anton","Barlow Condensed",Impact,sans-serif;
+  --jb-font-condensed:"Barlow Condensed","Barlow",sans-serif;
+  --jb-font-body:"Barlow",-apple-system,BlinkMacSystemFont,sans-serif;
+}
