@@ -38,11 +38,11 @@ const DOMAINS = [
   },
   {
     icon: PenTool,
-    title: "Content, Scripting & PR",
-    lead: "Neha P.",
-    leadRole: "Editorial & PR Head",
-    skills: ["Scriptwriting", "Podcast Host", "Social PR", "Press Releases"],
-    bio: "Voice behind the club's narrative, campus interviews, spotlight podcasts, and press dispatches.",
+    title: "Content & Editorial",
+    lead: "Rohan M.",
+    leadRole: "Editorial Lead",
+    skills: ["Scriptwriting", "Voiceovers", "PR Releases", "Interviews"],
+    bio: "Writing compelling scripts for aftermovies, student spotlights, and official press announcements.",
     count: "4 Crew Members",
   },
   {

@@ -9,7 +9,6 @@ import ProfileCard from "@/components/ProfileCard.jsx";
 import StatsBand from "@/components/StatsBand.jsx";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import GradualBlur from "@/components/GradualBlur.jsx";
 import { SPHERE_ITEMS, STATS, LEADERSHIP, REELS, PHOTO_BANK } from "@/data/site.js";
 
 function useOnScreen(ref, initial = false) {
@@ -28,6 +27,7 @@ const MARQUEE = ["Connect", "Communicate", "Collaborate"];
 
 export function HomePage() {
   const [activeTitle, setActiveTitle] = useState(SPHERE_ITEMS[0]?.title || "Abhav 2K26");
+  const [isMoving, setIsMoving] = useState(false);
   const heroRef = useRef(null);
   const workRef = useRef(null);
   const heroVisible = useOnScreen(heroRef, true);
@@ -89,28 +89,19 @@ export function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Half-Phone Bleed Showcase */}
-          <div className="lg:col-span-6 flex justify-end items-center relative">
-            <PhoneMockup activeTitle={activeTitle}>
+          {/* Right Column: Realistic iPhone Showcase */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative">
+            <PhoneMockup activeTitle={activeTitle} isMoving={isMoving}>
               <InfiniteMenu
                 items={SPHERE_ITEMS}
+                scale={0.65}
                 paused={!heroVisible}
                 onActiveChange={(item) => item && setActiveTitle(item.title)}
+                onMovementChange={setIsMoving}
               />
             </PhoneMockup>
           </div>
         </div>
-
-        {/* React Bits Gradual Blur bottom fade transition */}
-        <GradualBlur
-          position="bottom"
-          height="8rem"
-          strength={2.5}
-          divCount={6}
-          curve="bezier"
-          exponential={true}
-          opacity={1}
-        />
       </section>
 
       {/* ---------------- COUNTER STATS BAND ---------------- */}
@@ -125,12 +116,9 @@ export function HomePage() {
                 <span className="jb-marquee__dot" />
                 <span
                   className={
-                    "jb-marquee__word " +
-                    (i === 1
-                      ? "jb-marquee__word--outline"
-                      : i === 2
-                      ? "jb-marquee__word--gold"
-                      : "text-foreground")
+                    word === "BRANDS" || word === "CREATIVES" || word === "IMPACT"
+                      ? "jb-marquee__item text-gold-300 font-bold"
+                      : "jb-marquee__item"
                   }
                 >
                   {word}
@@ -182,7 +170,7 @@ export function HomePage() {
       </section>
 
       {/* ---------------- RECRUITMENT CALL (DRIFT WALL) ---------------- */}
-      <section className="jb-join">
+      <section className="jb-join relative overflow-hidden">
         <div className="jb-driftwall" aria-hidden="true">
           {[0, 1, 2, 3, 4].map((col) => (
             <div
