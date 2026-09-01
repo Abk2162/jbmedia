@@ -97,7 +97,7 @@ export function HomePage() {
           </div>
 
           {/* Right Column: Realistic iPhone Showcase */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative">
+          <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative w-full">
             <PhoneMockup activeTitle={activeTitle} isMoving={isMoving}>
               <InfiniteMenu
                 items={SPHERE_ITEMS}
