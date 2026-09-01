@@ -46,12 +46,13 @@ export default function ProfileCard({ name, role, portrait, person }) {
         className="jb-card relative rounded-2xl border border-gold-500/35 bg-card-gradient p-5 flex flex-col gap-4 overflow-hidden transform-style-3d shadow-xl"
       >
         <div ref={sheenRef} className="jb-card__sheen" />
-        <div className="jb-card__frame relative h-80 rounded-xl border border-dashed border-gold-500/35 bg-radial-gold flex items-end justify-center pb-4 overflow-hidden">
+        <div className={`jb-card__frame relative h-80 rounded-xl ${finalPortrait ? 'border border-gold-500/25 bg-gradient-to-b from-black/80 via-black/40 to-black/80' : 'border border-dashed border-gold-500/35 bg-radial-gold'} flex items-end justify-center pb-2 overflow-hidden`}>
           {finalPortrait ? (
             <img
               src={finalPortrait}
               alt={finalName}
-              className="absolute inset-0 w-full h-full object-contain object-bottom"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-contain object-bottom p-1.5 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             <div className="flex flex-col items-center gap-2 p-4 text-center">

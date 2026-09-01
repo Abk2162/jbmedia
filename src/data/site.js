@@ -169,19 +169,19 @@ export const LEADERSHIP = [
   {
     name: "Sri J. V. Krishna Rao",
     role: "Hon. Secretary, JBES",
-    portrait: null,
+    portrait: "/leadership/secretary-j-v-krishna-rao.png",
     quote: "Empowering students to articulate the legacy, culture, and innovation of JBIET with integrity and professional excellence."
   },
   {
     name: "Prof. Ch. Sanjay",
     role: "Director, JBES",
-    portrait: null,
+    portrait: "/leadership/director-prof-ch-sanjay.png",
     quote: "Fostering a creative ecosystem where technology meets storytelling and student leadership thrives across every domain."
   },
   {
     name: "Dr. P. C. Krishnamachary",
     role: "Principal, JBIET",
-    portrait: null,
+    portrait: "/leadership/principal-dr-p-c-krishnamachary.png",
     quote: "Celebrating our vibrant campus spirit, academic milestones, and student achievements through state-of-the-art media."
   }
 ];
