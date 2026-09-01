@@ -112,7 +112,7 @@ export function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
+    <div className="min-h-screen pt-32 pb-24 px-4 sm:px-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-4 mb-12 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-3">

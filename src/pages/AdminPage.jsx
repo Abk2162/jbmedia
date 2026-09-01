@@ -353,7 +353,7 @@ export function AdminPage() {
      AUTHENTICATED ADMIN DASHBOARD
      ========================================================== */
   return (
-    <div className="min-h-screen bg-dark-base text-foreground pt-28 pb-20 px-4 sm:px-8">
+    <div className="min-h-screen bg-dark-base text-foreground pt-32 pb-24 px-4 sm:px-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
         
         {/* Top Header & Status Bar */}
