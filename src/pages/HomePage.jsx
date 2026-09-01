@@ -10,6 +10,8 @@ import StatsBand from "@/components/StatsBand.jsx";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SPHERE_ITEMS, STATS, LEADERSHIP, REELS, PHOTO_BANK } from "@/data/site.js";
+import { fetchHomepageReels } from "@/lib/supabase";
+import { getDriveThumbnail } from "@/lib/drive";
 
 function useOnScreen(ref, initial = false) {
   const [visible, setVisible] = useState(initial);
@@ -35,10 +37,31 @@ const MARQUEE = [
 export function HomePage() {
   const [activeTitle, setActiveTitle] = useState(SPHERE_ITEMS[0]?.title || "JB Media");
   const [isMoving, setIsMoving] = useState(false);
+  const [liveReels, setLiveReels] = useState(REELS);
   const heroRef = useRef(null);
   const workRef = useRef(null);
   const heroVisible = useOnScreen(heroRef, true);
   const workVisible = useOnScreen(workRef);
+
+  useEffect(() => {
+    async function loadReels() {
+      try {
+        const data = await fetchHomepageReels();
+        if (data && data.length > 0) {
+          const formatted = data.map(r => ({
+            title: r.title,
+            meta: r.duration || "0:30",
+            cover: getDriveThumbnail(r.thumbnail_url || r.cover, "w800"),
+            href: r.instagram_url || r.url || "https://www.instagram.com/media_jbiet/"
+          }));
+          setLiveReels(formatted);
+        }
+      } catch (err) {
+        console.warn("Using default reels:", err);
+      }
+    }
+    loadReels();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -154,7 +177,7 @@ export function HomePage() {
 
         {/* 3D Circular Reel Gallery */}
         <div className="w-full">
-          <CircularGallery items={REELS} paused={!workVisible} />
+          <CircularGallery items={liveReels} paused={!workVisible} />
         </div>
       </section>
           

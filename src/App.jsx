@@ -11,6 +11,7 @@ const GalleryPage = lazy(() => import("@/pages/GalleryPage.jsx").then(m => ({ de
 const TeamPage = lazy(() => import("@/pages/TeamPage.jsx").then(m => ({ default: m.TeamPage })));
 const AboutPage = lazy(() => import("@/pages/AboutPage.jsx").then(m => ({ default: m.AboutPage })));
 const JoinPage = lazy(() => import("@/pages/JoinPage.jsx").then(m => ({ default: m.JoinPage })));
+const AdminPage = lazy(() => import("@/pages/AdminPage.jsx").then(m => ({ default: m.AdminPage })));
 
 // Helper to reset window scroll to top on route change
 function ScrollToTop() {
@@ -69,6 +70,7 @@ export default function App() {
                 <Route path="/team" element={<TeamPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/join" element={<JoinPage />} />
+                <Route path="/admin" element={<AdminPage />} />
                 <Route path="*" element={<HomePage />} />
               </Routes>
             </Suspense>
