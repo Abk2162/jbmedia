@@ -27,7 +27,7 @@ export function extractDriveId(input) {
 
 /**
  * Generate Google's global high-speed edge thumbnail URL
- * Uses lh3.googleusercontent.com CDN (direct browser renderable, no CORS block)
+ * NOTE: Images MUST be rendered with `referrerPolicy="no-referrer"` to prevent Google 403 blocks.
  * @param {string} fileId - Google Drive file ID
  * @param {string} size - 'w400', 'w800', 'w1200', 'w1600', or 'w2400'
  */
@@ -43,24 +43,7 @@ export function getDriveThumbnail(fileId, size = "w800") {
     }
   }
 
-  const sSize = size.replace("w", "s");
-  return `https://lh3.googleusercontent.com/d/${cleanId}=${sSize}`;
-}
-
-/**
- * Get multiple fallback URLs for a Drive image
- */
-export function getDriveImageFallbacks(fileId, size = "w800") {
-  const cleanId = extractDriveId(fileId);
-  if (!cleanId) return [];
-
-  const sSize = size.replace("w", "s");
-  return [
-    `https://lh3.googleusercontent.com/d/${cleanId}=${sSize}`,
-    `https://lh3.googleusercontent.com/d/${cleanId}`,
-    `https://drive.google.com/thumbnail?id=${cleanId}&sz=${size}`,
-    `https://drive.google.com/uc?export=view&id=${cleanId}`
-  ];
+  return `https://drive.google.com/thumbnail?id=${cleanId}&sz=${size}`;
 }
 
 /**

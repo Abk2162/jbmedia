@@ -259,16 +259,15 @@ export function GalleryPage() {
                     src={thumbUrl}
                     alt={photo.title || "Campus Moment"}
                     loading="lazy"
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                     onError={(e) => {
                       const current = e.target.src;
                       const cleanId = photo.drive_file_id;
                       if (!cleanId) return;
-                      if (current.includes("=s")) {
+                      if (current.includes("drive.google.com/thumbnail")) {
                         e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
                       } else if (current.includes("googleusercontent.com")) {
-                        e.target.src = `https://drive.google.com/thumbnail?id=${cleanId}&sz=w800`;
-                      } else if (current.includes("thumbnail?id=")) {
                         e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
                       }
                     }}
@@ -320,16 +319,15 @@ export function GalleryPage() {
                 <img
                   src={getDriveThumbnail(selectedPhoto.drive_file_id || selectedPhoto.hdUrl || selectedPhoto.image, "w1600")}
                   alt={selectedPhoto.title}
+                  referrerPolicy="no-referrer"
                   className="max-h-[75vh] w-full object-contain select-none"
                   onError={(e) => {
                     const current = e.target.src;
                     const cleanId = selectedPhoto.drive_file_id;
                     if (!cleanId) return;
-                    if (current.includes("=s")) {
+                    if (current.includes("drive.google.com/thumbnail")) {
                       e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
                     } else if (current.includes("googleusercontent.com")) {
-                      e.target.src = `https://drive.google.com/thumbnail?id=${cleanId}&sz=w1600`;
-                    } else if (current.includes("thumbnail?id=")) {
                       e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
                     }
                   }}

@@ -491,16 +491,15 @@ export function AdminPage() {
                         <img
                           src={getDriveThumbnail(ev.cover_image_id, "w800")}
                           alt={ev.title}
+                          referrerPolicy="no-referrer"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           onError={(e) => {
                             const current = e.target.src;
                             const cleanId = ev.cover_image_id;
                             if (!cleanId) return;
-                            if (current.includes("=s")) {
+                            if (current.includes("drive.google.com/thumbnail")) {
                               e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
                             } else if (current.includes("googleusercontent.com")) {
-                              e.target.src = `https://drive.google.com/thumbnail?id=${cleanId}&sz=w800`;
-                            } else if (current.includes("thumbnail?id=")) {
                               e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
                             }
                           }}
