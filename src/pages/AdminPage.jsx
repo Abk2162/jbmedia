@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { 
   ShieldCheck, 
   Lock, 
-  KeyRound, 
   FolderPlus, 
   RefreshCw, 
   Trash2, 
@@ -33,7 +32,6 @@ import {
   createHomepageReel, 
   deleteHomepageReel,
   verifyAdminCredentials,
-  updateLocalAdminPasscode,
   isSupabaseConfigured,
   saveConnectionConfig,
   getStoredAppsScriptUrl,
@@ -88,8 +86,6 @@ export function AdminPage() {
   const [scriptUrl, setScriptUrl] = useState(getStoredAppsScriptUrl());
   const [supabaseUrl, setSupabaseUrl] = useState(import.meta.env.VITE_SUPABASE_URL || localStorage.getItem("jbmedia_supabase_url") || "");
   const [supabaseKey, setSupabaseKey] = useState(import.meta.env.VITE_SUPABASE_ANON_KEY || localStorage.getItem("jbmedia_supabase_anon_key") || "");
-  const [newPasscode, setNewPasscode] = useState("");
-  const [passcodeNotice, setPasscodeNotice] = useState("");
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -266,17 +262,6 @@ export function AdminPage() {
     e.preventDefault();
     saveConnectionConfig(supabaseUrl, supabaseKey);
     notify("Supabase connection saved! Reloading...");
-  };
-
-  const handleUpdatePasscode = (e) => {
-    e.preventDefault();
-    if (newPasscode.length < 4) {
-      setPasscodeNotice("Passcode must be at least 4 characters.");
-      return;
-    }
-    updateLocalAdminPasscode(newPasscode);
-    setPasscodeNotice("Admin passcode updated successfully!");
-    setNewPasscode("");
   };
 
   /* ==========================================================
@@ -722,42 +707,6 @@ export function AdminPage() {
                   </span>
                   <Button type="submit" size="sm" className="text-xs font-barlow-condensed uppercase">
                     Connect Supabase
-                  </Button>
-                </div>
-              </form>
-            </Card>
-
-            {/* Change Admin Passcode */}
-            <Card className="p-6 bg-dark-card/80 border border-gold-500/20 rounded-2xl flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
-                  <KeyRound className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-anton text-lg tracking-wide uppercase text-foreground">
-                    Update Team Passcode
-                  </h3>
-                  <p className="font-barlow text-xs text-foreground/60">
-                    Change the secret passcode used to access this /admin route.
-                  </p>
-                </div>
-              </div>
-
-              <form onSubmit={handleUpdatePasscode} className="flex flex-col gap-3">
-                <input
-                  type="password"
-                  value={newPasscode}
-                  onChange={(e) => setNewPasscode(e.target.value)}
-                  placeholder="New passcode (min 4 chars)"
-                  required
-                  className="w-full px-4 py-2.5 rounded-lg bg-black/60 border border-gold-500/25 text-foreground text-xs focus:outline-none focus:border-gold-400"
-                />
-                {passcodeNotice && (
-                  <span className="text-xs text-emerald-400 font-barlow">{passcodeNotice}</span>
-                )}
-                <div className="flex justify-end">
-                  <Button type="submit" size="sm" className="text-xs font-barlow-condensed uppercase">
-                    Update Passcode
                   </Button>
                 </div>
               </form>

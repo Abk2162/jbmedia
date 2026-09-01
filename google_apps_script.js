@@ -44,14 +44,18 @@ function handleRequest(e) {
     var filesIterator = folder.getFiles();
     var photoList = [];
 
-    // Supported image mime types
-    var imageTypes = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/gif", "image/jpg"];
+    // Supported image mime types (including iPhone HEIC, HEIF, WebP, Camera RAW, etc.)
+    var imageTypes = [
+      "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
+      "image/gif", "image/jpg", "image/tiff", "image/x-adobe-dng",
+      "image/x-canon-cr2", "image/x-nikon-nef", "image/x-sony-arw", "image/bmp", "image/avif"
+    ];
 
     while (filesIterator.hasNext()) {
       var file = filesIterator.next();
       var mimeType = file.getMimeType();
 
-      // Filter to only image files
+      // Filter to only image files (by MIME or extension)
       if (imageTypes.indexOf(mimeType.toLowerCase()) !== -1 || isImageExtension(file.getName())) {
         var fileId = file.getId();
         photoList.push({
@@ -85,7 +89,11 @@ function handleRequest(e) {
 
 function isImageExtension(filename) {
   var ext = (filename || "").split('.').pop().toLowerCase();
-  return ["jpg", "jpeg", "png", "webp", "heic", "avif"].indexOf(ext) !== -1;
+  var supportedExts = [
+    "jpg", "jpeg", "png", "webp", "heic", "heif", "avif", 
+    "dng", "cr2", "nef", "arw", "tiff", "tif", "bmp", "gif"
+  ];
+  return supportedExts.indexOf(ext) !== -1;
 }
 
 function extractFolderId(input) {
