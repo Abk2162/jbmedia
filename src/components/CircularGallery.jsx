@@ -81,12 +81,17 @@ export default function CircularGallery({ items = [], paused = false, gap = 268 
           target="_blank"
           rel="noreferrer"
           ref={(el) => { itemRefs.current[i] = el; }}
-          style={{ background: item.cover ? "#14100C" : "linear-gradient(150deg,#3A2A16,#14100C)" }}
+          style={{ background: "#000000" }}
         >
           {item.cover ? (
-            <img src={item.cover} alt={item.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            <img
+              src={item.cover}
+              alt={item.title}
+              referrerPolicy="no-referrer"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "#000000" }}
+            />
           ) : null}
-          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
             <span className="jb-gallery__play">▶</span>
           </div>
           <div className="jb-gallery__caption">

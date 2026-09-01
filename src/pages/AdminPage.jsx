@@ -604,13 +604,14 @@ export function AdminPage() {
               {reels.map((reel) => (
                 <Card key={reel.id} className="p-4 bg-dark-card/80 border border-gold-500/20 rounded-2xl flex flex-col justify-between group">
                   <div>
-                    <div className="relative aspect-[9/16] w-full rounded-xl overflow-hidden bg-black/60 border border-gold-500/15 mb-3">
+                    <div className="relative aspect-[9/16] w-full rounded-xl overflow-hidden bg-black border border-gold-500/15 mb-3 flex items-center justify-center">
                       <img
                         src={getDriveThumbnail(reel.thumbnail_url || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop", "w800")}
                         alt={reel.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-contain"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                       
                       <div className="absolute top-2.5 left-2.5">
                         <Badge variant="outline" className="text-[9px] uppercase border-gold-400/40 bg-black/60 text-gold-300">
