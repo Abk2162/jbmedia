@@ -243,7 +243,8 @@ export function GalleryPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPhotos.map((photo) => {
-            const thumbUrl = getDriveThumbnail(photo.drive_file_id || photo.thumbnailUrl || photo.image, "w800");
+            const rawId = photo.drive_file_id || photo.thumbnailUrl || photo.image;
+            const thumbUrl = getDriveThumbnail(rawId, "w800");
             const parentEvent = events.find(e => e.id === photo.event_id);
 
             return (
@@ -253,14 +254,23 @@ export function GalleryPage() {
                 className="group relative rounded-2xl border border-gold-500/20 bg-dark-card/80 overflow-hidden cursor-pointer shadow-lg hover:border-gold-400/60 transition-all duration-300 hover:-translate-y-1.5"
               >
                 {/* Image Container with Google Drive Thumbnail */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/40">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/60">
                   <img
                     src={thumbUrl}
                     alt={photo.title || "Campus Moment"}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                     onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop";
+                      const current = e.target.src;
+                      const cleanId = photo.drive_file_id;
+                      if (!cleanId) return;
+                      if (current.includes("=s")) {
+                        e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
+                      } else if (current.includes("googleusercontent.com")) {
+                        e.target.src = `https://drive.google.com/thumbnail?id=${cleanId}&sz=w800`;
+                      } else if (current.includes("thumbnail?id=")) {
+                        e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
+                      }
                     }}
                   />
                   
@@ -305,14 +315,23 @@ export function GalleryPage() {
         <Dialog open={!!selectedPhoto} onOpenChange={(open) => !open && setSelectedPhoto(null)}>
           <DialogContent className="max-w-6xl p-0 overflow-hidden border-gold-500/40 bg-dark-base/98">
             <div className="relative flex flex-col lg:flex-row h-full max-h-[90vh]">
-              {/* Left/Main: HD Google Drive Image Area (sz=w1600) */}
+              {/* Left/Main: HD Google Drive Image Area */}
               <div className="relative flex-1 bg-black flex items-center justify-center min-h-[360px] lg:min-h-[600px] overflow-hidden group">
                 <img
                   src={getDriveThumbnail(selectedPhoto.drive_file_id || selectedPhoto.hdUrl || selectedPhoto.image, "w1600")}
                   alt={selectedPhoto.title}
                   className="max-h-[75vh] w-full object-contain select-none"
                   onError={(e) => {
-                    e.target.src = "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1600&auto=format&fit=crop";
+                    const current = e.target.src;
+                    const cleanId = selectedPhoto.drive_file_id;
+                    if (!cleanId) return;
+                    if (current.includes("=s")) {
+                      e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
+                    } else if (current.includes("googleusercontent.com")) {
+                      e.target.src = `https://drive.google.com/thumbnail?id=${cleanId}&sz=w1600`;
+                    } else if (current.includes("thumbnail?id=")) {
+                      e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
+                    }
                   }}
                 />
 
