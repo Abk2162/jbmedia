@@ -18,7 +18,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full border border-gold-500/40 p-1 bg-black/60">
                 <img
-                  src="/jb-media-logo.png"
+                  src="/jb-media-logo.webp"
                   alt="JB Media"
                   className="w-full h-full object-contain"
                   onError={(e) => {

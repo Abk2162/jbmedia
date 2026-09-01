@@ -48,7 +48,7 @@ export function Navbar() {
           >
             <div className="relative w-10 h-10 rounded-full border border-gold-500/40 p-1 bg-black/50 overflow-hidden group-hover:border-gold-300 transition-colors shadow-[0_0_15px_rgba(212,162,46,0.2)]">
               <img
-                src="/jb-media-logo.png"
+                src="/jb-media-logo.webp"
                 alt="JB Media Club Medallion"
                 className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
                 onError={(e) => {

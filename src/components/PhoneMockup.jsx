@@ -50,12 +50,17 @@ export function PhoneMockup({
         </div>
 
         {/* The Exact iPhone Frame (Transparent Cutout Overlay) */}
-        <img
-          src="/iphone-screen-cutout.png"
-          alt="iPhone 16 Pro Titanium"
-          className="real-iphone-bezel-img"
-          draggable={false}
-        />
+        <picture>
+          <source srcSet="/iphone-screen-cutout.webp" type="image/webp" />
+          <img
+            src="/iphone-screen-cutout.png"
+            alt="iPhone 16 Pro Titanium"
+            className="real-iphone-bezel-img"
+            draggable={false}
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
 
         {/* Live Dynamic Island Text Badge when item changes */}
         {activeTitle && (
