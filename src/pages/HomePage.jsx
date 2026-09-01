@@ -66,7 +66,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ---------------- HERO SECTION ---------------- */}
-      <section ref={heroRef} className="relative min-h-[calc(100vh-2rem)] flex flex-col justify-center overflow-hidden pt-28 pb-16">
+      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16">
         {/* React Bits Animated WebGL Silk Background */}
         <Silk
           speed={6}
@@ -81,9 +81,9 @@ export function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-base/80 via-dark-base/30 to-dark-base pointer-events-none z-[1]" />
 
         {/* Hero Content Grid */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center my-auto">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center pt-2 sm:pt-4">
           {/* Left Column Copy matching reference picture */}
-          <div className="lg:col-span-6 flex flex-col gap-5 text-left z-20">
+          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 text-left z-20">
             <div className="flex items-center gap-3">
               <Badge variant="default" className="gap-1.5 px-3.5 py-1">
                 <Sparkles className="w-3.5 h-3.5 text-gold-300" />
