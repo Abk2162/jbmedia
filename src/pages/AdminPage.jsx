@@ -64,6 +64,8 @@ export function AdminPage() {
 
   // New Event Form
   const [showEventModal, setShowEventModal] = useState(false);
+  const [isSubmittingEvent, setIsSubmittingEvent] = useState(false);
+  const [modalError, setModalError] = useState("");
   const [eventForm, setEventForm] = useState({
     title: "",
     category: "Fests",
@@ -136,13 +138,16 @@ export function AdminPage() {
 
   const notify = (msg, type = "success") => {
     setActionNotice({ msg, type });
-    setTimeout(() => setActionNotice(null), 5000);
+    setTimeout(() => setActionNotice(null), 7000);
   };
 
   // Create Event Handler
   const handleCreateEvent = async (e) => {
     e.preventDefault();
     if (!eventForm.title.trim()) return;
+
+    setIsSubmittingEvent(true);
+    setModalError("");
 
     try {
       const cleanFolderId = extractDriveId(eventForm.drive_folder_id);
@@ -167,7 +172,11 @@ export function AdminPage() {
         handleSyncEventPhotos(created.id, cleanFolderId, created.title);
       }
     } catch (err) {
+      console.error("Event creation error:", err);
+      setModalError(err.message || "Failed to create event. Please check database connection.");
       notify("Failed to create event: " + err.message, "error");
+    } finally {
+      setIsSubmittingEvent(false);
     }
   };
 
@@ -452,7 +461,20 @@ export function AdminPage() {
                 </p>
               </div>
 
-              <Button onClick={() => setShowEventModal(true)} className="gap-2 text-xs font-barlow-condensed uppercase font-semibold">
+              <Button 
+                onClick={() => {
+                  setModalError("");
+                  setEventForm({
+                    title: "",
+                    category: "Fests",
+                    event_date: new Date().toISOString().split("T")[0],
+                    drive_folder_id: "",
+                    description: ""
+                  });
+                  setShowEventModal(true);
+                }} 
+                className="gap-2 text-xs font-barlow-condensed uppercase font-semibold"
+              >
                 <Plus className="w-4 h-4" />
                 <span>New Event</span>
               </Button>
@@ -730,6 +752,16 @@ export function AdminPage() {
               <button onClick={() => setShowEventModal(false)} className="text-foreground/50 hover:text-foreground">✕</button>
             </div>
 
+            {modalError && (
+              <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-2.5 text-xs text-red-300 font-barlow">
+                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                <div className="flex-1 leading-relaxed">
+                  <strong>Could not create event:</strong>
+                  <p className="mt-0.5">{modalError}</p>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleCreateEvent} className="flex flex-col gap-4">
               <div>
                 <label className="block text-xs font-barlow uppercase text-gold-400 mb-1">Event Title *</label>
@@ -738,7 +770,7 @@ export function AdminPage() {
                   required
                   value={eventForm.title}
                   onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })}
-                  placeholder="e.g. Vaibhav 2026 Media Fest"
+                  placeholder="e.g. Orientation Day"
                   className="w-full px-4 py-2 rounded-lg bg-black/60 border border-gold-500/25 text-foreground text-sm focus:outline-none focus:border-gold-400"
                 />
               </div>
@@ -792,11 +824,12 @@ export function AdminPage() {
               </div>
 
               <div className="flex justify-end gap-2.5 pt-3 border-t border-gold-500/15">
-                <Button type="button" variant="ghost" size="sm" onClick={() => setShowEventModal(false)}>
+                <Button type="button" variant="ghost" size="sm" onClick={() => setShowEventModal(false)} disabled={isSubmittingEvent}>
                   Cancel
                 </Button>
-                <Button type="submit" size="sm" className="font-barlow-condensed uppercase font-semibold">
-                  Create Event
+                <Button type="submit" size="sm" disabled={isSubmittingEvent} className="font-barlow-condensed uppercase font-semibold gap-1.5">
+                  {isSubmittingEvent && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
+                  <span>{isSubmittingEvent ? "Creating & Syncing..." : "Create Event"}</span>
                 </Button>
               </div>
             </form>

@@ -152,11 +152,18 @@ export async function fetchEvents() {
  */
 export async function createEvent(event) {
   const slug = (event.slug || event.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")) + "-" + Date.now().toString().slice(-4);
+  
+  // Sanitize date to valid YYYY-MM-DD
+  let validDate = event.event_date;
+  if (!validDate || validDate.startsWith("000") || isNaN(Date.parse(validDate))) {
+    validDate = new Date().toISOString().split("T")[0];
+  }
+
   const payload = {
-    title: event.title,
+    title: event.title.trim(),
     slug,
     category: event.category || "Fests",
-    event_date: event.event_date || new Date().toISOString().split("T")[0],
+    event_date: validDate,
     drive_folder_id: event.drive_folder_id || null,
     cover_image_id: event.cover_image_id || null,
     description: event.description || ""
@@ -164,7 +171,15 @@ export async function createEvent(event) {
 
   if (supabase) {
     const { data, error } = await supabase.from("events").insert([payload]).select().single();
-    if (error) throw error;
+    if (error) {
+      if (error.code === "42P01" || error.message?.includes("does not exist")) {
+        throw new Error("Table 'events' does not exist in Supabase yet. Please open Supabase > SQL Editor, paste the contents of 'supabase_schema.sql', and click Run.");
+      }
+      if (error.message?.includes("row-level security") || error.code === "42501") {
+        throw new Error("Row-Level Security (RLS) blocked the insert. Please run the RLS policies in 'supabase_schema.sql' in Supabase SQL Editor.");
+      }
+      throw new Error(`Supabase Error (${error.code || 'DB'}): ${error.message}`);
+    }
     return data;
   }
 
