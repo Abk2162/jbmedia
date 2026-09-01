@@ -249,14 +249,24 @@ export async function fetchEventPhotos(eventId = null) {
 export async function saveSyncedPhotos(eventId, photosList) {
   if (!eventId || !photosList || photosList.length === 0) return [];
 
-  const rows = photosList.map((p, index) => ({
-    event_id: eventId,
-    drive_file_id: p.id,
-    title: p.name ? p.name.replace(/\.[^/.]+$/, "") : `Photo ${index + 1}`,
-    tags: ["JB Media", "Archive"],
-    photographer: "JB Media Team",
-    display_order: index
-  }));
+  const rows = photosList.map((p, index) => {
+    let clean = p.name ? p.name.replace(/\.[^/.]+$/, "") : `Photo ${index + 1}`;
+    clean = clean
+      .replace(/[_-]\d{5,}/g, "")
+      .replace(/\d{6,}/g, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\b(IMG|DSC|DCIM|PXL|PHOTO)\b/gi, "")
+      .trim();
+
+    return {
+      event_id: eventId,
+      drive_file_id: p.id,
+      title: clean || `Capture ${index + 1}`,
+      tags: ["JB Media", "Archive"],
+      photographer: "JB Media Team",
+      display_order: index
+    };
+  });
 
   if (supabase) {
     // Delete existing photos for this event to avoid duplicates on re-sync

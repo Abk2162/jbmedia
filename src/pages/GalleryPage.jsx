@@ -23,6 +23,21 @@ import { getDriveThumbnail, getDriveDirectUrl } from "@/lib/drive";
 
 const CATEGORIES = ["All", "Fests", "Cultural", "Sports", "Tech & Workshops", "Photowalks", "Campus Life"];
 
+export function formatCleanPhotoTitle(rawTitle, parentEventTitle) {
+  if (parentEventTitle) return parentEventTitle;
+  if (!rawTitle) return "Campus Moment";
+  
+  // Clean raw file names (strip _1786173..., long digits, hashes, underscores)
+  let clean = rawTitle
+    .replace(/[_-]\d{5,}/g, "")
+    .replace(/\d{6,}/g, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b(IMG|DSC|DCIM|PXL|PHOTO)\b/gi, "")
+    .trim();
+    
+  return clean || parentEventTitle || "Campus Moment";
+}
+
 export function GalleryPage() {
   const [events, setEvents] = useState([]);
   const [photos, setPhotos] = useState([]);
@@ -289,7 +304,7 @@ export function GalleryPage() {
                   {/* Bottom Caption */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 z-10 flex flex-col gap-1.5">
                     <h3 className="font-anton text-xl uppercase tracking-wide text-foreground line-clamp-1 group-hover:text-gold-200 transition-colors">
-                      {photo.title || parentEvent?.title || "JBIET Moment"}
+                      {formatCleanPhotoTitle(photo.title, parentEvent?.title)}
                     </h3>
                     <div className="flex items-center justify-between text-xs font-barlow text-foreground/70">
                       <span className="flex items-center gap-1">
@@ -359,7 +374,7 @@ export function GalleryPage() {
                   </div>
 
                   <h2 className="font-anton text-2xl uppercase tracking-wide text-foreground leading-tight">
-                    {selectedPhoto.title || "Campus Capture"}
+                    {formatCleanPhotoTitle(selectedPhoto.title, events.find(e => e.id === selectedPhoto.event_id)?.title)}
                   </h2>
 
                   {/* Metadata List */}
