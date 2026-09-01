@@ -1,57 +1,53 @@
-# JB Media — React starter
+# JB Media — Official Web Application
 
-Vite + React 18, no other dependencies. The five animated pieces are hand-written
-(WebGL / DOM 3D / canvas) rather than pulled from `reactbits.dev`, so there is
-nothing to install and every value is tuned to the JB Media gold system.
+Modern editorial, dark-luxe digital experience for JB Media, built with React 18, Vite, Three.js, WebGL shaders, Tailwind CSS, Framer Motion, and Lenis smooth scrolling.
+
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
 npm install
+
+# Start local development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## Structure
+## 📁 Project Architecture
 
-```
+```text
 src/
-  index.css                 design tokens, resets, keyframes, all layout classes
-  App.jsx                   the homepage: hero → counters → marquee → leadership
-                            → recent work → recruitment → footer
-  data/site.js              ALL copy, figures, names, reel links (placeholders)
-  components/
-    Silk.jsx                full-bleed WebGL silk background
-    InfiniteMenu.jsx        draggable sphere of circular photo tiles
-    SplashCursor.jsx        gold ink-splash pointer trail
-    CircularGallery.jsx     drag/scroll reel carousel
-    ProfileCard.jsx         pointer-tilt card with holographic sheen
-    MenuPanel.jsx           sliding nav with gold fill + staggered reveal
-    StatsBand.jsx           counters that ease up on scroll into view
+  ├── components/          # Reusable UI, interactive 3D WebGL & GSAP animations
+  │   ├── CircularGallery.jsx  # 3D interactive reel & media carousel
+  │   ├── InfiniteMenu.jsx     # WebGL spherical 3D archive browser
+  │   ├── MenuPanel.jsx        # Fullscreen staggered navigation menu
+  │   ├── PhoneMockup.jsx      # Photorealistic iPhone bezel viewport
+  │   ├── ProfileCard.jsx      # Holographic tilt leadership profile cards
+  │   ├── Silk.jsx             # WebGL interactive fluid silk background
+  │   ├── SmoothScroll.jsx     # Lenis smooth scroll engine
+  │   ├── SplashCursor.jsx     # Fluid pointer particle trail
+  │   ├── StatsBand.jsx        # Animated metrics & achievement counters
+  │   └── ui/                  # Radix UI primitives & design tokens
+  ├── data/
+  │   ├── gallery.json         # Media gallery archives & metadata
+  │   └── site.js              # Site copy, team members, statistics & links
+  ├── pages/                   # Main application route views
+  │   ├── HomePage.jsx         # Hero, 3D archive, leadership, recent work
+  │   ├── AboutPage.jsx        # Studio philosophy & editorial timeline
+  │   ├── GalleryPage.jsx      # Dynamic media archive grid & filter system
+  │   ├── TeamPage.jsx         # Executive leadership & team profiles
+  │   └── JoinPage.jsx         # Recruitment & application portal
+  ├── index.css                # Tailwind base, dark-editorial design tokens
+  └── main.jsx                 # React DOM entry point & Router configuration
 ```
 
-## Assets to drop in `public/`
+## ⚡ Performance Optimizations
 
-| File | What it is |
-| --- | --- |
-| `jb-media-logo.png` | the gold medallion (included in this bundle under `assets/`) |
-| `campus-map.png` | screenshot of the Google Maps pin for the footer |
-| `photos/*.jpg` | 20 square crops for the sphere — wire them into `SPHERE_ITEMS` |
-| reel covers | one export per reel — wire into `REELS` with the permalink |
-| portraits | transparent cut-out PNGs of the three leaders |
-
-## Performance rules baked in — keep them
-
-1. **No layout reads inside `requestAnimationFrame`.** Sizes are measured on
-   mount and in a `ResizeObserver`; reading `clientWidth` per frame froze the
-   page during development.
-2. **Every canvas pauses off-screen.** `useOnScreen` gates Silk, InfiniteMenu
-   and CircularGallery; all loops also bail on `document.hidden`.
-3. **One `backdrop-filter` layer**, not a stack of three.
-4. **SplashCursor disables itself** on touch devices and under
-   `prefers-reduced-motion`, and caps its blob count.
-5. **`box-sizing: border-box` globally** — the hero uses `width:100%` plus 32px
-   padding and overflows without it.
-
-## Using this in Google Antigravity (or any agent IDE)
-
-Open this folder as the workspace and point the agent at `../README.md` and
-`../CONTEXT.md` first — they carry the design spec and the decision history.
-`src/data/site.js` is the only file that needs editing to put real content in.
+1. **Off-Screen WebGL Culling:** Interactive canvas layers (`Silk`, `InfiniteMenu`, `CircularGallery`) automatically pause rendering loops when out of viewport.
+2. **Smooth Scroll & Animation Throttling:** Optimized `requestAnimationFrame` loop driven by Lenis without layout recalculations inside render passes.
+3. **Asset Optimization:** WebP compressed media assets with responsive fallbacks.
