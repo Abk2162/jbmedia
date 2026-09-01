@@ -88,7 +88,17 @@ export default function CircularGallery({ items = [], paused = false, gap = 268 
               src={item.cover}
               alt={item.title}
               referrerPolicy="no-referrer"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "#000000" }}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "0",
+                width: "100%",
+                height: "auto",
+                maxHeight: "100%",
+                transform: "translateY(-50%)",
+                objectFit: "contain",
+                display: "block"
+              }}
             />
           ) : null}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
