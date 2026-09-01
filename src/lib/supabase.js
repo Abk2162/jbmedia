@@ -28,7 +28,7 @@ export function saveConnectionConfig(url, key) {
 }
 
 export function getStoredAppsScriptUrl() {
-  return localStorage.getItem(STORAGE_SCRIPT_URL_KEY) || "";
+  return import.meta.env.VITE_APPS_SCRIPT_URL || localStorage.getItem(STORAGE_SCRIPT_URL_KEY) || "";
 }
 
 export function saveStoredAppsScriptUrl(url) {
