@@ -118,7 +118,7 @@ export default function DomeGallery({
   openedImageBorderRadius = '30px',
   grayscale = false,
   autoMove = true,
-  autoMoveSpeed = 0.12,
+  autoMoveSpeed = 0.035,
   scale = 1
 }) {
   const rootRef = useRef(null);

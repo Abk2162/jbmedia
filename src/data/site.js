@@ -159,10 +159,10 @@ export const SPHERE_ITEMS = [
 ];
 
 export const STATS = [
-  { label: "Events Covered", value: 40, kind: "" },
-  { label: "Active Creators", value: 120, kind: "" },
-  { label: "Combined Followers", value: 12000, kind: "K" },
-  { label: "Views Across Platforms", value: 2000000, kind: "M" }
+  { label: "Events Covered", value: 40, kind: "", sub: "Annual fests, sports & galas" },
+  { label: "Active Creators", value: 120, kind: "", sub: "Photographers, editors & crew" },
+  { label: "Combined Followers", value: 12000, kind: "K", sub: "Instagram, YouTube & socials" },
+  { label: "Views Across Platforms", value: 2000000, kind: "M", sub: "Cumulative digital impressions" }
 ];
 
 export const LEADERSHIP = [

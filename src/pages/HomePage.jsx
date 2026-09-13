@@ -217,7 +217,7 @@ export function HomePage() {
             dragSensitivity={20}
             dragDampening={1.8}
             autoMove={true}
-            autoMoveSpeed={0.1}
+            autoMoveSpeed={0.035}
             scale={1.12}
           />
         </div>
