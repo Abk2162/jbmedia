@@ -45,23 +45,23 @@
   box-sizing: border-box;
 }
 
-/* Subtle, tight gold electric glow - never thick or overwhelming */
+/* Enhanced gold electric glow with extra vibrancy */
 .eb-glow-1 {
-  border: 1px solid var(--electric-border-color);
-  opacity: 0.35;
-  filter: blur(1px);
+  border: 1.5px solid var(--electric-border-color);
+  opacity: 0.65;
+  filter: blur(1.5px);
 }
 
 .eb-glow-2 {
-  border: 1px solid var(--electric-border-color);
-  opacity: 0.2;
-  filter: blur(3px);
+  border: 1.5px solid var(--electric-border-color);
+  opacity: 0.42;
+  filter: blur(4.5px);
 }
 
 .eb-background-glow {
   z-index: -1;
-  transform: scale(1.02);
-  filter: blur(14px);
-  opacity: 0.12;
+  transform: scale(1.03);
+  filter: blur(20px);
+  opacity: 0.22;
   background: radial-gradient(circle, var(--electric-border-color) 0%, transparent 70%);
 }

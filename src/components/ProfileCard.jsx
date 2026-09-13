@@ -41,8 +41,8 @@ const ProfileCardComponent = ({
   person,
   electricBorder = true,
   electricColor = '#D4A22E',
-  electricSpeed = 1.2,
-  electricChaos = 0.02,
+  electricSpeed = 1.4,
+  electricChaos = 0.04,
   borderRadius = 28
 }) => {
   const finalName = name || person?.name || 'Leader Name';

@@ -4,8 +4,8 @@ import './ElectricBorder.css';
 const ElectricBorder = ({
   children,
   color = '#D4A22E',
-  speed = 1.2,
-  chaos = 0.02,
+  speed = 1.4,
+  chaos = 0.04,
   borderRadius = 28,
   className = '',
   style = {}
@@ -151,8 +151,8 @@ const ElectricBorder = ({
     const amplitude = chaos;
     const frequency = 10;
     const baseFlatness = 0;
-    const displacement = 25;
-    const borderOffset = 25;
+    const displacement = 35;
+    const borderOffset = 35;
 
     const updateSize = () => {
       const rect = container.getBoundingClientRect();
@@ -193,7 +193,7 @@ const ElectricBorder = ({
       ctx.scale(dpr, dpr);
 
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1.6;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
