@@ -66,7 +66,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ---------------- HERO SECTION ---------------- */}
-      <section ref={heroRef} className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-10">
+      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-12">
         {/* React Bits Animated WebGL Silk Background */}
         <Silk
           speed={6}
@@ -76,7 +76,7 @@ export function HomePage() {
           rotation={0}
           paused={!heroVisible}
         />
-        
+
         {/* Scrim Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-dark-base/80 via-dark-base/30 to-dark-base pointer-events-none z-[1]" />
 
@@ -177,7 +177,7 @@ export function HomePage() {
           <CircularGallery items={liveReels} paused={!workVisible} />
         </div>
       </section>
-          
+
       {/* ---------------- LEADERSHIP SPOTLIGHT ---------------- */}
       <section className="py-14 sm:py-18 max-w-7xl mx-auto px-6 sm:px-8 w-full">
         <div className="flex flex-col gap-3 mb-8 sm:mb-10 text-center sm:text-left">
@@ -193,11 +193,11 @@ export function HomePage() {
         </div>
       </section>
 
-      
+
 
       {/* ---------------- COUNTER STATS BAND ---------------- */}
       <StatsBand stats={STATS} />
-      
+
       {/* ---------------- RECRUITMENT CALL (DRIFT WALL) ---------------- */}
       <section className="jb-join relative overflow-hidden">
         <div className="jb-driftwall" aria-hidden="true">
