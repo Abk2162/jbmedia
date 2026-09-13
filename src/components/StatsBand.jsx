@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Camera, Users, TrendingUp, Eye, Flame, Sparkles } from "lucide-react";
+import { Camera, Users, TrendingUp, Eye } from "lucide-react";
 
 const STAT_CONFIG = [
   {
@@ -110,28 +110,7 @@ export default function StatsBand({ stats }) {
       <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold-400/60 to-transparent shadow-[0_0_12px_rgba(245,197,66,0.5)]" />
       <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold-400/40 to-transparent shadow-[0_0_10px_rgba(245,197,66,0.3)]" />
 
-      {/* Ambient Central Backlight Blobs */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-44 bg-gold-500/10 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[450px] h-40 bg-amber-500/10 blur-[110px] pointer-events-none rounded-full" />
-
       <div ref={containerRef} className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-        {/* Section Header / Eyebrow Banner */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-9 pb-5 border-b border-gold-500/15">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gold-500/15 border border-gold-500/30">
-              <span className="w-2 h-2 rounded-full bg-gold-400 animate-ping" />
-            </div>
-            <span className="font-barlow-condensed font-bold tracking-[0.28em] text-xs sm:text-sm uppercase text-gold-400">
-              Verified Campus Telemetry · 2025–26
-            </span>
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-[11px] font-barlow-condensed font-bold tracking-widest uppercase text-gold-300/90 shadow-[0_0_15px_rgba(245,197,66,0.1)]">
-            <Flame className="w-3.5 h-3.5 text-gold-400" />
-            <span>RECORD HIGH ENGAGEMENT</span>
-          </div>
-        </div>
-
         {/* 4 Bento Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {stats.map((stat, i) => {
