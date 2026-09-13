@@ -149,7 +149,7 @@ export default function CircularGallery({ items = [], paused = false, gap = 268,
       {displayItems.map((item, i) => (
         <a
           key={`${item.title || "reel"}-${i}`}
-          className="jb-gallery__item"
+          className="jb-gallery__item group"
           href={item.href}
           target="_blank"
           rel="noreferrer"
@@ -162,8 +162,19 @@ export default function CircularGallery({ items = [], paused = false, gap = 268,
               e.stopPropagation();
             }
           }}
-          style={{ background: "#000000" }}
+          style={{ background: "#0a0806" }}
         >
+          {/* Top Speaker Notch */}
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-11 h-1 rounded-full bg-white/[0.18] z-20 pointer-events-none" />
+
+          {/* Top Golden Hairline Beam */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold-400/50 to-transparent pointer-events-none z-20" />
+
+          {/* Top Right Mini Reel Pill */}
+          <span className="absolute top-2.5 right-2.5 z-20 font-barlow-condensed font-bold text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-gold-500/30 text-gold-300 shadow-sm pointer-events-none">
+            REEL
+          </span>
+
           {item.cover ? (
             <img
               src={item.cover}
@@ -185,6 +196,8 @@ export default function CircularGallery({ items = [], paused = false, gap = 268,
               }}
             />
           ) : null}
+
+          {/* Glassmorphic Glowing Play Button */}
           <div
             style={{
               position: "absolute",
@@ -195,33 +208,72 @@ export default function CircularGallery({ items = [], paused = false, gap = 268,
               pointerEvents: "none"
             }}
           >
-            <span className="jb-gallery__play">▶</span>
+            <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-gold-500/35 flex items-center justify-center text-gold-400 shadow-[0_0_15px_rgba(212,162,46,0.25)] group-hover:scale-110 group-hover:border-gold-400/60 group-hover:shadow-[0_0_24px_rgba(212,162,46,0.45)] transition-all duration-300">
+              <span className="text-xs ml-0.5 text-gold-400">▶</span>
+            </div>
           </div>
+
+          {/* Caption with Gold Scrim & Live Tag */}
           <div className="jb-gallery__caption">
             <span
               style={{
                 fontFamily: "var(--jb-font-condensed)",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: 12,
-                letterSpacing: "0.2em",
+                letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "var(--jb-cream)"
+                color: "var(--jb-cream)",
+                lineHeight: 1.2
               }}
             >
               {item.title}
             </span>
-            <span
+            <div
               style={{
-                fontFamily: "var(--jb-font-condensed)",
-                fontWeight: 600,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--jb-text-muted)"
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                marginTop: 2
               }}
             >
-              {item.meta}
-            </span>
+              <span
+                style={{
+                  fontFamily: "var(--jb-font-condensed)",
+                  fontWeight: 600,
+                  fontSize: 10,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "rgba(212, 162, 46, 0.9)"
+                }}
+              >
+                {item.meta}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--jb-font-condensed)",
+                  fontWeight: 700,
+                  fontSize: 9,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#f5c542",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 3
+                }}
+              >
+                <span
+                  style={{
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    background: "#f5c542",
+                    display: "inline-block"
+                  }}
+                />
+                WATCH
+              </span>
+            </div>
           </div>
         </a>
       ))}

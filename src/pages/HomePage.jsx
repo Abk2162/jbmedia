@@ -155,8 +155,20 @@ export function HomePage() {
         </div>
       </section>
       {/* ---------------- RECENT WORK / REELS CAROUSEL ---------------- */}
-      <section ref={workRef} className="py-12 sm:py-16 border-t border-gold-500/20 bg-dark-card/40 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+      <section ref={workRef} className="py-14 sm:py-20 border-t border-gold-500/20 bg-gradient-to-b from-[#0e0b08] via-[#090705] to-[#0e0b08] relative overflow-hidden">
+        {/* Tech Dot Matrix Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.09] pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(#f5c542 1px, transparent 1px)`,
+            backgroundSize: "28px 28px"
+          }}
+        />
+
+        {/* Top Shimmer Laser Beam */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold-400/50 to-transparent shadow-[0_0_10px_rgba(245,197,66,0.3)]" />
+
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10">
           <div>
             <div className="jb-eyebrow mb-2">Social & Visuals</div>
             <h2 className="jb-h2 text-foreground">Recent Releases</h2>
@@ -166,15 +178,15 @@ export function HomePage() {
             href="https://www.instagram.com/media_jbiet/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 font-barlow-condensed font-semibold text-sm uppercase tracking-widest text-gold-300 hover:text-gold-100"
+            className="inline-flex items-center gap-2 font-barlow-condensed font-semibold text-sm uppercase tracking-widest text-gold-300 hover:text-gold-100 group transition-colors"
           >
             <span>Instagram Feed</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
 
         {/* 3D Circular Reel Gallery */}
-        <div className="w-full">
+        <div className="w-full relative z-10">
           <CircularGallery items={liveReels} paused={!workVisible} />
         </div>
       </section>

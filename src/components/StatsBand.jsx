@@ -120,44 +120,41 @@ export default function StatsBand({ stats }) {
             return (
               <div
                 key={stat.label}
-                className="group relative rounded-2xl p-[1.5px] bg-gradient-to-b from-gold-400/35 via-gold-500/15 to-white/[0.04] hover:from-gold-300/70 hover:via-gold-400/40 hover:to-gold-500/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(212,162,46,0.2)]"
+                className="group relative rounded-2xl p-[1px] bg-gradient-to-b from-gold-400/30 via-gold-500/10 to-white/[0.03] hover:from-gold-400/55 hover:via-gold-500/20 hover:to-transparent transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(0,0,0,0.6)]"
               >
                 {/* Inner Card Container */}
                 <div className="relative h-full overflow-hidden rounded-[15px] p-6 bg-gradient-to-b from-[#17120d] via-[#100d0a] to-[#0a0806] flex flex-col justify-between min-h-[225px]">
                   {/* Subtle top edge glow beam */}
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold-400/50 to-transparent group-hover:via-gold-300 transition-all duration-300" />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold-400/40 to-transparent group-hover:via-gold-300/80 transition-all duration-300" />
 
                   {/* Giant Ghost Watermark Number in Background */}
-                  <span className="font-anton text-8xl tracking-tighter text-white/[0.03] group-hover:text-gold-400/[0.09] transition-colors duration-500 select-none absolute -right-2 -bottom-4 pointer-events-none leading-none">
+                  <span className="font-anton text-8xl tracking-tighter text-white/[0.025] group-hover:text-gold-400/[0.07] transition-colors duration-500 select-none absolute -right-2 -bottom-4 pointer-events-none leading-none">
                     {config.watermark}
                   </span>
 
-                  {/* Radiant Neon Aura Behind Number on Hover */}
-                  <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-gold-500/15 rounded-full blur-2xl opacity-40 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 pointer-events-none" />
-
                   {/* Card Header: Icon + Category Badge */}
                   <div className="flex items-center justify-between mb-2 relative z-10">
-                    <div className="w-11 h-11 rounded-xl bg-gold-500/10 border border-gold-500/25 flex items-center justify-center text-gold-400 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-gold-500/25 group-hover:border-gold-400/50 group-hover:shadow-[0_0_20px_rgba(245,197,66,0.3)] transition-all duration-300 shadow-inner">
+                    <div className="w-11 h-11 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:scale-105 group-hover:bg-gold-500/15 group-hover:border-gold-400/35 transition-all duration-300 shadow-inner">
                       <Icon className="w-5 h-5" />
                     </div>
 
-                    <span className="font-barlow-condensed font-bold tracking-widest text-[11px] uppercase px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.1] text-foreground/70 group-hover:text-gold-200 group-hover:border-gold-400/40 group-hover:bg-gold-500/10 transition-all shadow-sm">
+                    <span className="font-barlow-condensed font-bold tracking-widest text-[11px] uppercase px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-foreground/70 group-hover:text-gold-200 group-hover:border-gold-400/30 group-hover:bg-gold-500/10 transition-all shadow-sm">
                       {config.tag}
                     </span>
                   </div>
 
-                  {/* Number with Superscript Plus and Neon Glow */}
+                  {/* Number with Superscript Plus and Refined Drop Shadow */}
                   <div className="relative z-10 inline-flex items-start font-anton tracking-tight select-none my-1">
-                    <span className="bg-gold-gradient bg-clip-text text-transparent text-5xl sm:text-6xl lg:text-[68px] leading-none filter drop-shadow-[0_0_25px_rgba(245,197,66,0.4)] group-hover:drop-shadow-[0_0_35px_rgba(245,197,66,0.65)] transition-all">
+                    <span className="bg-gold-gradient bg-clip-text text-transparent text-5xl sm:text-6xl lg:text-[68px] leading-none filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] group-hover:drop-shadow-[0_0_15px_rgba(245,197,66,0.25)] transition-all">
                       {format(values[i], stat.kind)}
                     </span>
-                    <sup className="text-gold-400 text-2xl sm:text-3xl font-anton ml-1 mt-0.5 align-super leading-none drop-shadow-[0_0_12px_rgba(245,197,66,0.6)]">
+                    <sup className="text-gold-400/90 text-2xl sm:text-3xl font-anton ml-1 mt-0.5 align-super leading-none">
                       +
                     </sup>
                   </div>
 
                   {/* Label & Description */}
-                  <div className="relative z-10 mt-1 pt-2 border-t border-white/[0.06]">
+                  <div className="relative z-10 mt-1 pt-2 border-t border-white/[0.05]">
                     <div className="font-barlow-condensed font-bold text-base uppercase tracking-[0.16em] text-foreground/95 leading-tight group-hover:text-gold-200 transition-colors">
                       {stat.label}
                     </div>
@@ -176,9 +173,9 @@ export default function StatsBand({ stats }) {
                     </div>
 
                     {/* Glowing Progress Track */}
-                    <div className="w-full h-1.5 bg-white/[0.05] rounded-full overflow-hidden p-[1px] border border-white/[0.06]">
+                    <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden p-[1px] border border-white/[0.05]">
                       <div
-                        className="h-full bg-gradient-to-r from-gold-600 via-gold-400 to-amber-300 rounded-full shadow-[0_0_10px_rgba(245,197,66,0.7)] group-hover:shadow-[0_0_16px_rgba(245,197,66,0.9)] transition-all duration-700"
+                        className="h-full bg-gradient-to-r from-gold-600 via-gold-400 to-amber-300 rounded-full shadow-[0_0_6px_rgba(245,197,66,0.4)] transition-all duration-700"
                         style={{ width: config.progress }}
                       />
                     </div>
