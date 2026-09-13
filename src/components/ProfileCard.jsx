@@ -40,7 +40,7 @@ const ProfileCardComponent = ({
   onContactClick,
   person,
   electricBorder = true,
-  electricColor = '#D4A22E',
+  electricColor = '#d9b86c',
   electricSpeed = 1.4,
   electricChaos = 0.04,
   borderRadius = 28
