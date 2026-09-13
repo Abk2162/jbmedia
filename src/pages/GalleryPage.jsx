@@ -22,8 +22,6 @@ import { fetchEvents, fetchEventPhotos } from "@/lib/supabase";
 import { getDriveThumbnail, getDriveDirectUrl } from "@/lib/drive";
 import Masonry from "@/components/Masonry";
 
-const CATEGORIES = ["All", "Fests", "Cultural", "Sports", "Tech & Workshops", "Photowalks", "Campus Life"];
-
 export function formatCleanPhotoTitle(rawTitle, parentEventTitle) {
   if (parentEventTitle) return parentEventTitle;
   if (!rawTitle) return "Campus Moment";
@@ -43,7 +41,6 @@ export function GalleryPage() {
   const [events, setEvents] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [selectedEventId, setSelectedEventId] = useState("all");
-  const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,19 +65,15 @@ export function GalleryPage() {
     loadGallery();
   }, []);
 
-  // Filter photos based on event selection, category, and search query
+  // Filter photos based on user-selected drive section / album and search query
   const filteredPhotos = useMemo(() => {
     return photos.filter((photo) => {
-      // Event filter
+      // Drive uploaded event section filter
       const matchesEvent = selectedEventId === "all" || photo.event_id === selectedEventId;
-      
-      // Category filter (match photo category or parent event category)
-      const parentEvent = events.find(e => e.id === photo.event_id);
-      const photoCategory = photo.category || parentEvent?.category || "Fests";
-      const matchesCategory = activeCategory === "All" || photoCategory === activeCategory;
 
       // Search query filter
       const search = searchQuery.trim().toLowerCase();
+      const parentEvent = events.find((e) => e.id === photo.event_id);
       const matchesSearch =
         search === "" ||
         (photo.title && photo.title.toLowerCase().includes(search)) ||
@@ -88,9 +81,9 @@ export function GalleryPage() {
         (photo.tags && photo.tags.some((t) => t.toLowerCase().includes(search))) ||
         (photo.photographer && photo.photographer.toLowerCase().includes(search));
 
-      return matchesEvent && matchesCategory && matchesSearch;
+      return matchesEvent && matchesSearch;
     });
-  }, [photos, events, selectedEventId, activeCategory, searchQuery]);
+  }, [photos, events, selectedEventId, searchQuery]);
 
   // Curated heights for organic, interlocking masonry layout
   const MASONRY_HEIGHTS = [480, 620, 420, 720, 540, 390, 660, 460, 580, 500, 640, 440];
@@ -169,86 +162,90 @@ export function GalleryPage() {
         </p>
       </div>
 
-      {/* Control Bar: Categories, Event Dropdown, and Search */}
-      <div className="flex flex-col gap-4 mb-10 pb-6 border-b border-gold-500/20">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          
-          {/* Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setSelectedEventId("all");
-                }}
-                className={`px-4 py-2 rounded-full text-xs font-barlow-condensed font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-gold-gradient text-dark-base shadow-md font-bold"
-                    : "bg-dark-surface/80 text-foreground/70 border border-gold-500/20 hover:text-gold-200 hover:border-gold-400/40"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Search Bar */}
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gold-400/70" />
-            <input
-              type="text"
-              placeholder="Search moments, tags, fests..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-10 pr-4 rounded-full bg-dark-card border border-gold-500/30 text-xs text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 font-barlow transition-all"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-foreground/50 hover:text-foreground"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Specific Event Selector if events exist */}
-        {events.length > 0 && (
-          <div className="flex items-center gap-2 overflow-x-auto text-xs font-barlow pt-1">
-            <span className="text-foreground/50 text-[11px] uppercase tracking-wider whitespace-nowrap">Events:</span>
-            <button
-              onClick={() => setSelectedEventId("all")}
-              className={`px-3 py-1 rounded-md text-xs whitespace-nowrap transition-colors ${
+      {/* Control Bar: Drive Uploaded Section Tabs & Search */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8 pb-6 border-b border-gold-500/20">
+        
+        {/* Drive Uploaded Event Section Tabs */}
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+          <button
+            onClick={() => setSelectedEventId("all")}
+            className={`px-5 py-2.5 rounded-full text-xs font-barlow-condensed font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+              selectedEventId === "all"
+                ? "bg-gold-gradient text-dark-base shadow-lg shadow-gold-500/20 font-bold border border-gold-400 scale-[1.02]"
+                : "bg-dark-surface/80 text-foreground/75 border border-gold-500/20 hover:text-gold-200 hover:border-gold-400/50 hover:bg-gold-500/10"
+            }`}
+          >
+            <span>All Moments</span>
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full ${
                 selectedEventId === "all"
-                  ? "bg-gold-500/20 text-gold-300 border border-gold-500/40 font-semibold"
-                  : "text-foreground/70 hover:text-foreground hover:bg-white/5"
+                  ? "bg-dark-base/30 text-dark-base font-bold"
+                  : "bg-white/10 text-gold-400 font-normal"
               }`}
             >
-              All Events ({photos.length})
-            </button>
-            {events.map((ev) => (
+              {photos.length}
+            </span>
+          </button>
+
+          {events.map((ev) => {
+            const count = ev.photoCount || photos.filter((p) => p.event_id === ev.id).length;
+            const isSelected = selectedEventId === ev.id;
+            return (
               <button
                 key={ev.id}
                 onClick={() => setSelectedEventId(ev.id)}
-                className={`px-3 py-1 rounded-md text-xs whitespace-nowrap transition-colors ${
-                  selectedEventId === ev.id
-                    ? "bg-gold-500/20 text-gold-300 border border-gold-500/40 font-semibold"
-                    : "text-foreground/70 hover:text-foreground hover:bg-white/5"
+                className={`px-5 py-2.5 rounded-full text-xs font-barlow-condensed font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                  isSelected
+                    ? "bg-gold-gradient text-dark-base shadow-lg shadow-gold-500/20 font-bold border border-gold-400 scale-[1.02]"
+                    : "bg-dark-surface/80 text-foreground/75 border border-gold-500/20 hover:text-gold-200 hover:border-gold-400/50 hover:bg-gold-500/10"
                 }`}
               >
-                {ev.title} {ev.photoCount ? `(${ev.photoCount})` : ""}
+                <span>{ev.title}</span>
+                {count > 0 && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      isSelected
+                        ? "bg-dark-base/30 text-dark-base font-bold"
+                        : "bg-white/10 text-gold-400 font-normal"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                )}
               </button>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative w-full md:w-72 flex-shrink-0">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gold-400/70" />
+          <input
+            type="text"
+            placeholder="Search moments, tags..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full h-10 pl-10 pr-4 rounded-full bg-dark-card border border-gold-500/30 text-xs text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 font-barlow transition-all"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-foreground/50 hover:text-foreground"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Photo Count Status */}
       <div className="flex items-center justify-between text-xs font-barlow-condensed uppercase tracking-widest text-foreground/50 mb-6">
         <span>Showing {filteredPhotos.length} Captured Moments</span>
-        {activeCategory !== "All" && <span>Filtered by: {activeCategory}</span>}
+        {selectedEventId !== "all" && (
+          <span className="text-gold-400/80">
+            Section: {events.find((e) => e.id === selectedEventId)?.title}
+          </span>
+        )}
       </div>
 
       {/* Grid View */}
@@ -261,13 +258,12 @@ export function GalleryPage() {
         <div className="text-center py-24 border border-dashed border-gold-500/20 rounded-2xl bg-dark-card/30">
           <div className="font-anton text-2xl text-gold-300 uppercase mb-2">No Photos Found</div>
           <p className="font-barlow text-foreground/60 text-sm">
-            Try adjusting your search query or switching event albums.
+            Try adjusting your search query or selecting a different section.
           </p>
           <Button
             variant="outline"
             size="sm"
             onClick={() => {
-              setActiveCategory("All");
               setSelectedEventId("all");
               setSearchQuery("");
             }}
@@ -337,7 +333,9 @@ export function GalleryPage() {
               <div className="w-full lg:w-96 p-6 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-gold-500/20 bg-dark-card/90">
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-2">
-                    <Badge variant="gold">{selectedPhoto.category || "Media Highlight"}</Badge>
+                    <Badge variant="gold">
+                      {events.find(e => e.id === selectedPhoto.event_id)?.title || selectedPhoto.category || "Media Archive"}
+                    </Badge>
                   </div>
 
                   <h2 className="font-anton text-2xl uppercase tracking-wide text-foreground leading-tight">
