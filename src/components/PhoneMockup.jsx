@@ -62,13 +62,6 @@ export function PhoneMockup({
           />
         </picture>
 
-        {/* Live Dynamic Island Text Badge when item changes */}
-        {activeTitle && (
-          <div key={activeTitle} className="dynamic-island-live-hud">
-            <span className="island-hud-dot" />
-            <span className="island-hud-text">{activeTitle}</span>
-          </div>
-        )}
       </div>
 
       {/* Interaction Hint */}

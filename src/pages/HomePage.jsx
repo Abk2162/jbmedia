@@ -95,12 +95,12 @@ export function HomePage() {
             </div>
 
             <h1 className="font-anton text-4xl sm:text-5xl md:text-5xl lg:text-[3.25rem] xl:text-[4.2rem] tracking-tight uppercase leading-[0.92] text-foreground">
-              <span className="block whitespace-normal sm:whitespace-nowrap">THE Official MEDIA WING</span>
+              <span className="block whitespace-normal sm:whitespace-nowrap">THE MEDIA WING</span>
               <span className="block bg-gold-gradient bg-clip-text text-transparent">OF JBIET</span>
             </h1>
 
             <p className="font-barlow text-base sm:text-lg lg:text-xl text-foreground/85 max-w-xl leading-relaxed font-normal">
-              At JB Media, we capture history, celebrate student talent, and craft Brand JBIET through the power of cinematography, photography, design, and storytelling. Drag the sphere to explore our radial archive.
+              At JB Media, we capture history, celebrate student talent, and craft Brand JBIET through the power of cinematography, photography, design, and storytelling. Drag the sphere to explore our archive.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 w-full sm:w-auto">
