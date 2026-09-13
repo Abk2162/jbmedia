@@ -1,101 +1,534 @@
 [
   {
-    "id": "g-01",
-    "title": "Abhav 2K26 — Inaugural Night Lights",
-    "category": "Fests",
-    "eventDate": "March 2026",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Fest", "Stage", "Crowd", "Night"],
-    "photographer": "JB Media Cine Team",
-    "description": "Opening celebration of JBIET's annual flagship fest Abhav 2K26."
-  },
-  {
-    "id": "g-02",
-    "title": "Freshers 2K25 — The Welcoming Wave",
-    "category": "Cultural",
-    "eventDate": "November 2025",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Freshers", "Dance", "Auditorium"],
-    "photographer": "Karthik R.",
-    "description": "First-year orientation and vibrant cultural performances."
-  },
-  {
-    "id": "g-03",
-    "title": "Annual Sports Meet — 100m Sprint Finals",
-    "category": "Sports",
-    "eventDate": "January 2026",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Sports", "Athletics", "Track"],
-    "photographer": "Siddharth V.",
-    "description": "High-adrenaline track finals captured on 70-200mm telephoto."
-  },
-  {
-    "id": "g-04",
-    "title": "Hackathon 24H — Midnight Code Hustle",
-    "category": "Tech & Workshops",
-    "eventDate": "December 2025",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Hackathon", "Coding", "JBIET Labs"],
-    "photographer": "Neha P.",
-    "description": "24-hour campus hackathon innovation session."
-  },
-  {
-    "id": "g-05",
-    "title": "Campus Heritage Photowalk",
-    "category": "Photowalks",
-    "eventDate": "October 2025",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Golden Hour", "Architecture", "Campus"],
-    "photographer": "Ananya K.",
-    "description": "Golden hour explorations capturing the JBIET campus architecture."
-  },
-  {
-    "id": "g-06",
-    "title": "Ethnic Day — Colors of JBIET",
-    "category": "Cultural",
-    "eventDate": "February 2026",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Traditional", "Portraits", "Celebration"],
-    "photographer": "JB Media Photo Club",
-    "description": "Traditional attire celebrations and group photo sessions."
-  },
-  {
-    "id": "g-07",
-    "title": "Convocation 2K25 — Caps in the Air",
-    "category": "Cultural",
-    "eventDate": "August 2025",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Graduation", "Milestone", "Auditorium"],
-    "photographer": "Lead Cinematographer",
-    "description": "Graduating batch of JBIET celebrating their commencement."
-  },
-  {
-    "id": "g-08",
-    "title": "DJ Night — Abhav Finale",
-    "category": "Fests",
-    "eventDate": "March 2026",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["EDM", "Concert", "Stage Lights"],
-    "photographer": "Prashanth M.",
-    "description": "High-octane musical concert closing the fest."
-  },
-  {
-    "id": "g-09",
-    "title": "Photography Masterclass — Lighting & Gimbals",
-    "category": "Tech & Workshops",
+    "id": "ori-1",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1tBL4y2Bf5oNIU8jcgdBpG7oc1t4oDQmQ",
+    "title": "Orientation Day — Capture 1",
+    "category": "Campus Life",
     "eventDate": "September 2025",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop",
-    "hdUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop",
-    "tags": ["Workshop", "Gear", "Training"],
-    "photographer": "JB Media Mentor",
-    "description": "Hands-on studio lighting and gimbal balance workshop for juniors."
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1tBL4y2Bf5oNIU8jcgdBpG7oc1t4oDQmQ&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1tBL4y2Bf5oNIU8jcgdBpG7oc1t4oDQmQ&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-1",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1GPPrayRXfRsLDhnlp47X2ZItOL32BNzu",
+    "title": "Vaibhav 2K26 — Moment 1",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1GPPrayRXfRsLDhnlp47X2ZItOL32BNzu&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1GPPrayRXfRsLDhnlp47X2ZItOL32BNzu&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-2",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1leaiKBhyS_qIirrVY4QMHOdOURnOBbpr",
+    "title": "Orientation Day — Capture 2",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1leaiKBhyS_qIirrVY4QMHOdOURnOBbpr&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1leaiKBhyS_qIirrVY4QMHOdOURnOBbpr&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-2",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1UFXvkx6QEJT-GXooRPeoQ13oBQRtboSG",
+    "title": "Vaibhav 2K26 — Moment 2",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1UFXvkx6QEJT-GXooRPeoQ13oBQRtboSG&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1UFXvkx6QEJT-GXooRPeoQ13oBQRtboSG&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-3",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1ZMJTrBpeZoW7wZrdfs-UuVuSM5qvflQa",
+    "title": "Orientation Day — Capture 3",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ZMJTrBpeZoW7wZrdfs-UuVuSM5qvflQa&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1ZMJTrBpeZoW7wZrdfs-UuVuSM5qvflQa&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-3",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1yJX47q0sny2HMlR7pvKxoiAF0qSCYkLW",
+    "title": "Vaibhav 2K26 — Moment 3",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1yJX47q0sny2HMlR7pvKxoiAF0qSCYkLW&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1yJX47q0sny2HMlR7pvKxoiAF0qSCYkLW&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-4",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1KSeWF7Syw6210cYLSvFFsaZOwhbDBFYt",
+    "title": "Orientation Day — Capture 4",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1KSeWF7Syw6210cYLSvFFsaZOwhbDBFYt&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1KSeWF7Syw6210cYLSvFFsaZOwhbDBFYt&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-4",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1IXpJB4I2iQkYi2XshbEn0NZaLgnmukMR",
+    "title": "Vaibhav 2K26 — Moment 4",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1IXpJB4I2iQkYi2XshbEn0NZaLgnmukMR&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1IXpJB4I2iQkYi2XshbEn0NZaLgnmukMR&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-5",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1WHznSTL8ZyYMP_6PvL4mEBVbb1iwfKg_",
+    "title": "Orientation Day — Capture 5",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1WHznSTL8ZyYMP_6PvL4mEBVbb1iwfKg_&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1WHznSTL8ZyYMP_6PvL4mEBVbb1iwfKg_&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-5",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1OObG3XYXLXUPydrHmJ3o-DuPBqUdPtVJ",
+    "title": "Vaibhav 2K26 — Moment 5",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1OObG3XYXLXUPydrHmJ3o-DuPBqUdPtVJ&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1OObG3XYXLXUPydrHmJ3o-DuPBqUdPtVJ&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-6",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "10ogCN2lwuXNLXvDtB_N17j3aMY-f3NIP",
+    "title": "Orientation Day — Capture 6",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=10ogCN2lwuXNLXvDtB_N17j3aMY-f3NIP&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=10ogCN2lwuXNLXvDtB_N17j3aMY-f3NIP&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-6",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1f45rjpvn_jLYRTMJ0ikCMWVBEsNuQyAo",
+    "title": "Vaibhav 2K26 — Moment 6",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1f45rjpvn_jLYRTMJ0ikCMWVBEsNuQyAo&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1f45rjpvn_jLYRTMJ0ikCMWVBEsNuQyAo&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-7",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1NB7nQtyKrKdaMWBPprCSFZ79nGql1CIT",
+    "title": "Orientation Day — Capture 7",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1NB7nQtyKrKdaMWBPprCSFZ79nGql1CIT&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1NB7nQtyKrKdaMWBPprCSFZ79nGql1CIT&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-7",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1hkz1YZYxJt7ssjJRxyrVFfs5SsQODEdU",
+    "title": "Vaibhav 2K26 — Moment 7",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1hkz1YZYxJt7ssjJRxyrVFfs5SsQODEdU&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1hkz1YZYxJt7ssjJRxyrVFfs5SsQODEdU&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-8",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1_HEkQNxuqqilpy0CK-HIdhoGLwr2ygMP",
+    "title": "Orientation Day — Capture 8",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1_HEkQNxuqqilpy0CK-HIdhoGLwr2ygMP&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1_HEkQNxuqqilpy0CK-HIdhoGLwr2ygMP&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-8",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1OQfsrYIvATLGKQ1kmqvivsVb4NmXOL-w",
+    "title": "Vaibhav 2K26 — Moment 8",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1OQfsrYIvATLGKQ1kmqvivsVb4NmXOL-w&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1OQfsrYIvATLGKQ1kmqvivsVb4NmXOL-w&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-9",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1qqv3TBTh51KINAO2XZHkkMyVnJDRrglM",
+    "title": "Orientation Day — Capture 9",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1qqv3TBTh51KINAO2XZHkkMyVnJDRrglM&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1qqv3TBTh51KINAO2XZHkkMyVnJDRrglM&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-9",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1oXwai_e75Hc3OrGrEiQrnXZgMNA4IXtR",
+    "title": "Vaibhav 2K26 — Moment 9",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1oXwai_e75Hc3OrGrEiQrnXZgMNA4IXtR&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1oXwai_e75Hc3OrGrEiQrnXZgMNA4IXtR&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-10",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "1AsYPk5mTdIAy9IUmfOsaI9-ZJPSMgdYT",
+    "title": "Orientation Day — Capture 10",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1AsYPk5mTdIAy9IUmfOsaI9-ZJPSMgdYT&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1AsYPk5mTdIAy9IUmfOsaI9-ZJPSMgdYT&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-10",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1zynyEPF_KnvmTSWyOZCXMpaZmY4Ktte6",
+    "title": "Vaibhav 2K26 — Moment 10",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1zynyEPF_KnvmTSWyOZCXMpaZmY4Ktte6&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1zynyEPF_KnvmTSWyOZCXMpaZmY4Ktte6&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "ori-11",
+    "event_id": "ev-orientation-day",
+    "drive_file_id": "16i04sZ4y5NmPopr9VOy8bsIOC8ouid_D",
+    "title": "Orientation Day — Capture 11",
+    "category": "Campus Life",
+    "eventDate": "September 2025",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=16i04sZ4y5NmPopr9VOy8bsIOC8ouid_D&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=16i04sZ4y5NmPopr9VOy8bsIOC8ouid_D&sz=w1600",
+    "tags": [
+      "Orientation",
+      "Campus Life",
+      "Dignitaries",
+      "JBIET",
+      "Welcome"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Dignitary reception, student induction, and campus moments on Orientation Day."
+  },
+  {
+    "id": "v26-11",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1-qMNtfgSgdQCM7TT7TfPWqE-cbCRsvmN",
+    "title": "Vaibhav 2K26 — Moment 11",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1-qMNtfgSgdQCM7TT7TfPWqE-cbCRsvmN&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1-qMNtfgSgdQCM7TT7TfPWqE-cbCRsvmN&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-12",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1nXlFeVGMiEhYZ77JBkeQZI_0dVN1-DmM",
+    "title": "Vaibhav 2K26 — Moment 12",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1nXlFeVGMiEhYZ77JBkeQZI_0dVN1-DmM&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1nXlFeVGMiEhYZ77JBkeQZI_0dVN1-DmM&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-13",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "18MdOglbk_mAvwE-QVvE0So6GPilPaMRY",
+    "title": "Vaibhav 2K26 — Moment 13",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=18MdOglbk_mAvwE-QVvE0So6GPilPaMRY&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=18MdOglbk_mAvwE-QVvE0So6GPilPaMRY&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-14",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1Wup3mIijvNgS0iEC7UY1nPH7oGLkmn5S",
+    "title": "Vaibhav 2K26 — Moment 14",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Wup3mIijvNgS0iEC7UY1nPH7oGLkmn5S&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1Wup3mIijvNgS0iEC7UY1nPH7oGLkmn5S&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-15",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1QHgMSMyuXQDW0qvGxbJu24jPmY3sBAAH",
+    "title": "Vaibhav 2K26 — Moment 15",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1QHgMSMyuXQDW0qvGxbJu24jPmY3sBAAH&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1QHgMSMyuXQDW0qvGxbJu24jPmY3sBAAH&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-16",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "1ndkrR7AiWuz0-4RaV44bEaFWMhbY0SAr",
+    "title": "Vaibhav 2K26 — Moment 16",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ndkrR7AiWuz0-4RaV44bEaFWMhbY0SAr&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=1ndkrR7AiWuz0-4RaV44bEaFWMhbY0SAr&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
+  },
+  {
+    "id": "v26-17",
+    "event_id": "ev-vaibhav-2k26",
+    "drive_file_id": "13SCaYYOaFkSnKqNtXKkYscJpHUzeLUfV",
+    "title": "Vaibhav 2K26 — Moment 17",
+    "category": "Fests",
+    "eventDate": "March 2026",
+    "thumbnailUrl": "https://drive.google.com/thumbnail?id=13SCaYYOaFkSnKqNtXKkYscJpHUzeLUfV&sz=w800",
+    "hdUrl": "https://drive.google.com/thumbnail?id=13SCaYYOaFkSnKqNtXKkYscJpHUzeLUfV&sz=w1600",
+    "tags": [
+      "Vaibhav 2K26",
+      "Fest",
+      "JBIET",
+      "Stage",
+      "Celebration"
+    ],
+    "photographer": "JB Media Team",
+    "description": "Moments captured at Vaibhav 2K26, the premier media & cultural fest of JBIET."
   }
 ]

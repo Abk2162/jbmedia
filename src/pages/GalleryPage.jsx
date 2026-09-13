@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { fetchEvents, fetchEventPhotos } from "@/lib/supabase";
 import { getDriveThumbnail, getDriveDirectUrl } from "@/lib/drive";
+import Masonry from "@/components/Masonry";
 
 const CATEGORIES = ["All", "Fests", "Cultural", "Sports", "Tech & Workshops", "Photowalks", "Campus Life"];
 
@@ -91,6 +92,26 @@ export function GalleryPage() {
     });
   }, [photos, events, selectedEventId, activeCategory, searchQuery]);
 
+  // Curated heights for organic, interlocking masonry layout
+  const MASONRY_HEIGHTS = [480, 620, 420, 720, 540, 390, 660, 460, 580, 500, 640, 440];
+
+  const masonryItems = useMemo(() => {
+    return filteredPhotos.map((photo, index) => {
+      const rawId = photo.drive_file_id || photo.thumbnailUrl || photo.image || photo.hdUrl;
+      const imgUrl = getDriveThumbnail(rawId, "w800") || photo.thumbnailUrl || photo.hdUrl || photo.image || "";
+      const height = photo.height || MASONRY_HEIGHTS[index % MASONRY_HEIGHTS.length];
+
+      return {
+        id: String(photo.id || `photo-${index}`),
+        img: imgUrl,
+        driveId: photo.drive_file_id,
+        url: photo.url || "",
+        height,
+        rawPhoto: photo
+      };
+    });
+  }, [filteredPhotos]);
+
   // Keyboard navigation for Lightbox
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -127,7 +148,7 @@ export function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-4 sm:px-8 max-w-7xl mx-auto">
+    <div className="min-h-screen pt-32 pb-24 px-4 sm:px-8 max-w-7xl 2xl:max-w-[1550px] mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-4 mb-12 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-3">
@@ -256,72 +277,18 @@ export function GalleryPage() {
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPhotos.map((photo) => {
-            const rawId = photo.drive_file_id || photo.thumbnailUrl || photo.image;
-            const thumbUrl = getDriveThumbnail(rawId, "w800");
-            const parentEvent = events.find(e => e.id === photo.event_id);
-
-            return (
-              <div
-                key={photo.id}
-                onClick={() => setSelectedPhoto(photo)}
-                className="group relative rounded-2xl border border-gold-500/20 bg-dark-card/80 overflow-hidden cursor-pointer shadow-lg hover:border-gold-400/60 transition-all duration-300 hover:-translate-y-1.5"
-              >
-                {/* Image Container with Google Drive Thumbnail */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/60">
-                  <img
-                    src={thumbUrl}
-                    alt={photo.title || "Campus Moment"}
-                    loading="lazy"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                    onError={(e) => {
-                      const current = e.target.src;
-                      const cleanId = photo.drive_file_id;
-                      if (!cleanId) return;
-                      if (current.includes("drive.google.com/thumbnail")) {
-                        e.target.src = `https://lh3.googleusercontent.com/d/${cleanId}`;
-                      } else if (current.includes("googleusercontent.com")) {
-                        e.target.src = `https://drive.google.com/uc?export=view&id=${cleanId}`;
-                      }
-                    }}
-                  />
-                  
-                  {/* Scrim Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-between p-4" />
-
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                    <Badge variant="gold" className="text-[10px] px-2.5 py-0.5 shadow-md">
-                      {photo.category || parentEvent?.category || "Fest"}
-                    </Badge>
-                    <div className="w-8 h-8 rounded-full bg-black/60 border border-gold-500/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <Maximize2 className="w-4 h-4 text-gold-300" />
-                    </div>
-                  </div>
-
-                  {/* Bottom Caption */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 z-10 flex flex-col gap-1.5">
-                    <h3 className="font-anton text-xl uppercase tracking-wide text-foreground line-clamp-1 group-hover:text-gold-200 transition-colors">
-                      {formatCleanPhotoTitle(photo.title, parentEvent?.title)}
-                    </h3>
-                    <div className="flex items-center justify-between text-xs font-barlow text-foreground/70">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-gold-400" />
-                        {parentEvent?.event_date || photo.eventDate || "2025-2026"}
-                      </span>
-                      <span className="flex items-center gap-1 font-barlow-condensed uppercase tracking-wider text-gold-300">
-                        <User className="w-3 h-3" />
-                        {photo.photographer || "JB Media Team"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <Masonry
+          items={masonryItems}
+          ease="power3.out"
+          duration={0.6}
+          stagger={0.03}
+          animateFrom="bottom"
+          scaleOnHover={true}
+          hoverScale={0.96}
+          blurToFocus={true}
+          colorShiftOnHover={false}
+          onItemClick={(item) => setSelectedPhoto(item.rawPhoto)}
+        />
       )}
 
       {/* ---------------- FULL-SCREEN HD LIGHTBOX DIALOG ---------------- */}

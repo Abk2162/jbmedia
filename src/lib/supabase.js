@@ -109,40 +109,29 @@ export async function fetchEvents() {
     }
   }
 
-  // Default seed events from gallery.json categories
+  // Default seed events from real Google Drive albums
   return [
     {
-      id: "ev-1",
-      title: "Vaibhav 2025 Media Fest",
-      slug: "vaibhav-2025",
+      id: "ev-vaibhav-2k26",
+      title: "VAIBHAV 2K26",
+      slug: "vaibhav-2k26",
       category: "Fests",
-      event_date: "2025-03-14",
-      drive_folder_id: "1sampleFolderVaibhav2025",
-      cover_image_id: defaultGalleryData[0]?.driveId || "1sampleCover1",
-      description: "The landmark first-ever Media Fest of JBIET celebrating storytelling and design.",
-      photoCount: defaultGalleryData.filter(p => p.category === "Fests").length || 6
+      event_date: "2026-03-14",
+      drive_folder_id: "1kxk4wZpcpDnKpRR8sOYFvSv_jKiLu_7Y",
+      cover_image_id: "1GPPrayRXfRsLDhnlp47X2ZItOL32BNzu",
+      description: "JBIET's flagship Media & Cultural Fest celebrating photography, cinema, design and student creators.",
+      photoCount: defaultGalleryData.filter(p => p.event_id === "ev-vaibhav-2k26").length || 17
     },
     {
-      id: "ev-2",
-      title: "Abhav 2K25 Cultural Fest",
-      slug: "abhav-2025",
-      category: "Cultural",
-      event_date: "2025-04-18",
-      drive_folder_id: "1sampleFolderAbhav2025",
-      cover_image_id: defaultGalleryData[2]?.driveId || "1sampleCover2",
-      description: "National annual cultural fest uniting thousands in music, dance, and live concerts.",
-      photoCount: defaultGalleryData.filter(p => p.category === "Cultural").length || 4
-    },
-    {
-      id: "ev-3",
-      title: "Annual Sports Meet 2025",
-      slug: "sports-meet-2025",
-      category: "Sports",
-      event_date: "2025-02-10",
-      drive_folder_id: "1sampleFolderSports2025",
-      cover_image_id: defaultGalleryData[4]?.driveId || "1sampleCover3",
-      description: "Inter-department sports tournament track, football, basketball & athletics.",
-      photoCount: defaultGalleryData.filter(p => p.category === "Sports").length || 3
+      id: "ev-orientation-day",
+      title: "ORIENTATION DAY",
+      slug: "orientation-day",
+      category: "Campus Life",
+      event_date: "2025-09-01",
+      drive_folder_id: "1zJ5sz0jd0H1sokG2XxqNpzEpEqGuu8vV",
+      cover_image_id: "1tBL4y2Bf5oNIU8jcgdBpG7oc1t4oDQmQ",
+      description: "Welcoming the newest batch of students to JBIET campus with dignitary welcomes and faculty addresses.",
+      photoCount: defaultGalleryData.filter(p => p.event_id === "ev-orientation-day").length || 11
     }
   ];
 }
@@ -231,15 +220,22 @@ export async function fetchEventPhotos(eventId = null) {
     }
   }
 
-  // Fallback to sample gallery data
-  return defaultGalleryData.map((p, idx) => ({
+  // Fallback to real synced Google Drive gallery data
+  const basePhotos = eventId
+    ? defaultGalleryData.filter(p => p.event_id === eventId)
+    : defaultGalleryData;
+
+  return basePhotos.map((p, idx) => ({
     id: p.id || `photo-${idx}`,
-    event_id: "ev-1",
-    drive_file_id: p.driveId || p.image || "",
+    event_id: p.event_id || "ev-vaibhav-2k26",
+    drive_file_id: p.drive_file_id || p.id || "",
+    thumbnailUrl: p.thumbnailUrl || (p.drive_file_id ? `https://drive.google.com/thumbnail?id=${p.drive_file_id}&sz=w800` : ""),
+    hdUrl: p.hdUrl || (p.drive_file_id ? `https://drive.google.com/thumbnail?id=${p.drive_file_id}&sz=w1600` : ""),
     title: p.title || `Campus Moment ${idx + 1}`,
     tags: p.tags || ["JBIET", p.category || "Campus"],
-    photographer: p.photographer || "JB Media",
-    category: p.category || "Fests"
+    photographer: p.photographer || "JB Media Team",
+    category: p.category || "Fests",
+    eventDate: p.eventDate || "2025-2026"
   }));
 }
 
