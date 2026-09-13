@@ -5,7 +5,7 @@ import { InstagramIcon } from "@/components/icons/SocialIcons.jsx";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
-  const [mapMode, setMapMode] = useState("3d");
+  const [mapMode, setMapMode] = useState("dark");
   return (
     <footer className="border-t border-gold-500/20 bg-dark-base relative overflow-hidden">
       {/* Background ambient glow */}
@@ -138,8 +138,10 @@ export function Footer() {
                     : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.6981670739865!2d78.2956247741398!3d17.330106304454794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb95515c784b7d%3A0x73a884f17edcfeca!2sJ%20B%20Institute%20of%20Engineering%20and%20Technology%20(JBIET)!5e0!3m2!1sen!2sin!4v1789334386851!5m2!1sen!2sin"
                 }
                 title="JBIET Campus Google Maps"
-                className="w-full h-full border-0 transition-all duration-300"
+                className="w-full border-0 transition-all duration-300"
                 style={{
+                  height: "calc(100% + 50px)",
+                  marginTop: "-48px",
                   filter:
                     mapMode === "dark"
                       ? "invert(92%) hue-rotate(180deg) brightness(88%) contrast(95%)"
@@ -182,19 +184,6 @@ export function Footer() {
                 >
                   Dark
                 </button>
-              </div>
-
-              {/* Bottom Scrim with Link */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent pt-6 pb-2.5 px-3 flex items-center justify-between pointer-events-auto z-10">
-                <a
-                  href="https://www.google.com/maps/place/J+B+Institute+of+Engineering+and+Technology+(JBIET)/@17.3301063,78.2956248,600m/data=!3m1!1e3!4m6!3m5!1s0x3bcb95515c784b7d:0x73a884f17edcfeca!8m2!3d17.3301063!4d78.2956248!16s%2Fg%2F11b6_c88h_?entry=ttu"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs font-barlow-condensed font-semibold text-gold-300 hover:text-gold-100 uppercase tracking-widest inline-flex items-center gap-1 transition-colors group/link"
-                >
-                  <span>Open in Google Maps</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                </a>
               </div>
             </div>
           </div>
