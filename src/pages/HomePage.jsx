@@ -66,7 +66,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ---------------- HERO SECTION ---------------- */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16">
+      <section ref={heroRef} className="relative min-h-[90vh] lg:min-h-[85vh] xl:min-h-[88vh] flex flex-col justify-center overflow-hidden pt-12 sm:pt-14 pb-6 sm:pb-8">
         {/* React Bits Animated WebGL Silk Background */}
         <Silk
           speed={6}
@@ -81,37 +81,37 @@ export function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-base/80 via-dark-base/30 to-dark-base pointer-events-none z-[1]" />
 
         {/* Hero Content Grid */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center pt-2 sm:pt-4">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pt-1 sm:pt-2">
           {/* Left Column Copy matching reference picture */}
-          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 text-left z-20">
+          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-6 text-left z-20">
             <div className="flex items-center gap-3">
-              <Badge variant="default" className="gap-1.5 px-3.5 py-1">
-                <Sparkles className="w-3.5 h-3.5 text-gold-300" />
+              <Badge variant="default" className="gap-2 px-3.5 py-1 text-xs sm:text-sm font-medium">
+                <Sparkles className="w-4 h-4 text-gold-300" />
                 <span>The Branding Hub</span>
               </Badge>
-              <span className="text-xs font-barlow-condensed text-gold-400/80 tracking-widest uppercase font-semibold">
+              <span className="text-xs sm:text-sm font-barlow-condensed text-gold-400/90 tracking-widest uppercase font-semibold">
                 JBIET HYDERABAD
               </span>
             </div>
 
-            <h1 className="font-anton text-4xl sm:text-5xl lg:text-6xl tracking-tight uppercase leading-[0.92] text-foreground">
+            <h1 className="font-anton text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl tracking-tight uppercase leading-[0.9] text-foreground">
               THE BRANDING HUB <br />
               <span className="bg-gold-gradient bg-clip-text text-transparent">OF JBIET</span>
             </h1>
 
-            <p className="font-barlow text-base sm:text-lg text-foreground/80 max-w-lg leading-relaxed font-light">
+            <p className="font-barlow text-lg sm:text-xl lg:text-2xl text-foreground/85 max-w-xl leading-relaxed font-normal">
               At JB Media, we capture history, celebrate student talent, and craft Brand JBIET through the power of cinematography, photography, design, and storytelling. Drag the sphere to explore our radial archive.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link to="/gallery" className="w-full sm:w-auto">
-                <Button size="lg" variant="default" className="w-full sm:w-auto gap-2">
+                <Button size="lg" variant="default" className="w-full sm:w-auto h-12 sm:h-13 px-7 text-base font-semibold tracking-wide gap-2 shadow-[0_6px_25px_rgba(212,162,46,0.25)]">
                   <span>Explore Archive</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Button>
               </Link>
               <Link to="/join" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto gap-2">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 sm:h-13 px-7 text-base font-semibold tracking-wide gap-2 border-gold-500/40 hover:border-gold-400">
                   <span>Join The Family</span>
                   <ChevronRight className="w-4 h-4" />
                 </Button>
@@ -157,8 +157,8 @@ export function HomePage() {
         </div>
       </section>
       {/* ---------------- RECENT WORK / REELS CAROUSEL ---------------- */}
-      <section ref={workRef} className="py-20 border-t border-gold-500/20 bg-dark-card/40 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+      <section ref={workRef} className="py-12 sm:py-16 border-t border-gold-500/20 bg-dark-card/40 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
             <div className="jb-eyebrow mb-2">Social & Visuals</div>
             <h2 className="jb-h2 text-foreground">Recent Releases</h2>
@@ -182,8 +182,8 @@ export function HomePage() {
       </section>
           
       {/* ---------------- LEADERSHIP SPOTLIGHT ---------------- */}
-      <section className="py-24 max-w-7xl mx-auto px-6 sm:px-8 w-full">
-        <div className="flex flex-col gap-3 mb-14 text-center sm:text-left">
+      <section className="py-14 sm:py-18 max-w-7xl mx-auto px-6 sm:px-8 w-full">
+        <div className="flex flex-col gap-3 mb-8 sm:mb-10 text-center sm:text-left">
           <div className="jb-eyebrow">Under Whose Watch</div>
           <h2 className="jb-h2 text-foreground">Leadership</h2>
           <div className="jb-rule" />

@@ -93,6 +93,9 @@ void main() {
     st = st * cellSize + cellOffset;
 
     vec4 texColor = texture(uTex, st);
+    if (texColor.a < 0.05) {
+        discard;
+    }
     
     // Outer border & rim lighting
     float rim = smoothstep(0.43, 0.49, dist);
@@ -101,13 +104,15 @@ void main() {
     float light = max(0.4, dot(vWorldNormal, normalize(vec3(0.2, 0.4, 1.0))));
     vec3 col = texColor.rgb * (0.8 + light * 0.35);
     
-    // Highlight ring around disc
-    vec3 ringColor = vec3(0.95, 0.65, 0.20);
-    if (itemIndex == uActiveItemIndex) {
-        ringColor = vec3(1.0, 0.50, 0.15);
-        col = mix(col, ringColor, rim * 0.75);
-    } else {
-        col = mix(col, vec3(0.4, 0.7, 1.0), rim * 0.35);
+    // Highlight ring around disc (photos only, skipped for index 0 logo emblem)
+    if (itemIndex != 0) {
+        vec3 ringColor = vec3(0.95, 0.65, 0.20);
+        if (itemIndex == uActiveItemIndex) {
+            ringColor = vec3(1.0, 0.50, 0.15);
+            col = mix(col, ringColor, rim * 0.75);
+        } else {
+            col = mix(col, vec3(0.4, 0.7, 1.0), rim * 0.35);
+        }
     }
 
     outColor = vec4(col, texColor.a * vAlpha);
@@ -734,6 +739,12 @@ export class InfiniteGridMenu {
   }
 
   #paintGenerativeItem(ctx, item, x, y, size, index) {
+    const imgSrc = item.image || item.src || item.thumbnailUrl;
+    if (imgSrc && (imgSrc.includes("logo") || imgSrc.endsWith(".png") || imgSrc.endsWith(".webp"))) {
+      ctx.clearRect(x, y, size, size);
+      return;
+    }
+
     const accent = item.accentColor || ["#F97316", "#00f2fe", "#f43f5e", "#a855f7", "#10b981", "#fbbf24"][index % 6];
 
     // Smooth radial gradient background
@@ -822,21 +833,8 @@ export class InfiniteGridMenu {
         const y = Math.floor(i / this.atlasSize) * cellSize;
 
         ctx.save();
-        if (imgSrc.includes("logo") || imgSrc.endsWith(".png")) {
-          // Warm dark background with subtle gold halo
-          const grad = ctx.createRadialGradient(x + cellSize / 2, y + cellSize / 2, 20, x + cellSize / 2, y + cellSize / 2, cellSize / 2);
-          grad.addColorStop(0, "#281b0a");
-          grad.addColorStop(0.65, "#120c06");
-          grad.addColorStop(1, "#070503");
-          ctx.fillStyle = grad;
-          ctx.fillRect(x, y, cellSize, cellSize);
-
-          // Center logo with slight inset margin for round disc mask
-          const pad = 36;
-          ctx.drawImage(img, x + pad, y + pad, cellSize - pad * 2, cellSize - pad * 2);
-        } else {
-          ctx.drawImage(img, x, y, cellSize, cellSize);
-        }
+        ctx.clearRect(x, y, cellSize, cellSize);
+        ctx.drawImage(img, x, y, cellSize, cellSize);
         ctx.restore();
 
         gl.bindTexture(gl.TEXTURE_2D, this.tex);

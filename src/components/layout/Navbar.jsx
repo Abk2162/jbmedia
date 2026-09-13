@@ -46,11 +46,11 @@ export function Navbar() {
             to="/"
             className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 rounded"
           >
-            <div className="relative w-10 h-10 rounded-full border border-gold-500/40 p-1 bg-black/50 overflow-hidden group-hover:border-gold-300 transition-colors shadow-[0_0_15px_rgba(212,162,46,0.2)]">
+            <div className="relative w-11 h-11 flex items-center justify-center">
               <img
                 src="/jb-media-logo.webp"
                 alt="JB Media Club Medallion"
-                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.style.display = "none";
