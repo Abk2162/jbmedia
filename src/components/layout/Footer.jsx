@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowUpRight, Camera } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/SocialIcons.jsx";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
+  const [mapMode, setMapMode] = useState("3d");
   return (
     <footer className="border-t border-gold-500/20 bg-dark-base relative overflow-hidden">
       {/* Background ambient glow */}
@@ -128,24 +129,71 @@ export function Footer() {
             <div className="text-xs uppercase tracking-[0.24em] text-gold-400 font-semibold mb-1">
               Campus
             </div>
-            <div className="relative aspect-[16/10] w-full rounded-lg border border-gold-500/30 overflow-hidden bg-dark-card group">
-              <img
-                src="/campus-map.png"
-                alt="JBIET Campus Location"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  e.target.style.display = "none";
+            <div className="relative aspect-[16/10] w-full rounded-xl border border-gold-500/35 overflow-hidden bg-black group shadow-lg">
+              <iframe
+                key={mapMode}
+                src={
+                  mapMode === "3d"
+                    ? "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.6981670739865!2d78.2956247741398!3d17.330106304454794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb95515c784b7d%3A0x73a884f17edcfeca!2sJ%20B%20Institute%20of%20Engineering%20and%20Technology%20(JBIET)!5e1!3m2!1sen!2sin!4v1789334386851!5m2!1sen!2sin"
+                    : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.6981670739865!2d78.2956247741398!3d17.330106304454794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb95515c784b7d%3A0x73a884f17edcfeca!2sJ%20B%20Institute%20of%20Engineering%20and%20Technology%20(JBIET)!5e0!3m2!1sen!2sin!4v1789334386851!5m2!1sen!2sin"
+                }
+                title="JBIET Campus Google Maps"
+                className="w-full h-full border-0 transition-all duration-300"
+                style={{
+                  filter:
+                    mapMode === "dark"
+                      ? "invert(92%) hue-rotate(180deg) brightness(88%) contrast(95%)"
+                      : "contrast(105%) brightness(95%)",
                 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3">
+
+              {/* Mode Switcher Pill: 3D vs Dark */}
+              <div className="absolute top-2 right-2 z-30 pointer-events-auto flex items-center p-0.5 rounded bg-black/90 backdrop-blur-md border border-gold-500/40 shadow-md">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMapMode("3d");
+                  }}
+                  className={`px-2 py-0.5 rounded text-[10px] font-barlow-condensed font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+                    mapMode === "3d"
+                      ? "bg-gold-500 text-dark-base font-black shadow-sm"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                  title="3D Satellite Mode"
+                >
+                  3D
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMapMode("dark");
+                  }}
+                  className={`px-2 py-0.5 rounded text-[10px] font-barlow-condensed font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+                    mapMode === "dark"
+                      ? "bg-gold-500 text-dark-base font-black shadow-sm"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                  title="Black / Dark Mode"
+                >
+                  Dark
+                </button>
+              </div>
+
+              {/* Bottom Scrim with Link */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent pt-6 pb-2.5 px-3 flex items-center justify-between pointer-events-auto z-10">
                 <a
-                  href="https://maps.google.com/?q=JB+Institute+of+Engineering+and+Technology+Moinabad"
+                  href="https://www.google.com/maps/place/J+B+Institute+of+Engineering+and+Technology+(JBIET)/@17.3301063,78.2956248,600m/data=!3m1!1e3!4m6!3m5!1s0x3bcb95515c784b7d:0x73a884f17edcfeca!8m2!3d17.3301063!4d78.2956248!16s%2Fg%2F11b6_c88h_?entry=ttu"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-xs font-barlow-condensed font-semibold text-gold-300 hover:text-gold-100 uppercase tracking-widest inline-flex items-center gap-1"
+                  className="text-xs font-barlow-condensed font-semibold text-gold-300 hover:text-gold-100 uppercase tracking-widest inline-flex items-center gap-1 transition-colors group/link"
                 >
                   <span>Open in Google Maps</span>
-                  <ArrowUpRight className="w-3 h-3" />
+                  <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
             </div>
