@@ -40,9 +40,9 @@ const ProfileCardComponent = ({
   onContactClick,
   person,
   electricBorder = true,
-  electricColor = '#f97316',
-  electricSpeed = 2,
-  electricChaos = 0.03,
+  electricColor = '#D4A22E',
+  electricSpeed = 1.2,
+  electricChaos = 0.02,
   borderRadius = 28
 }) => {
   const finalName = name || person?.name || 'Leader Name';
