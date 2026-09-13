@@ -45,25 +45,23 @@
   box-sizing: border-box;
 }
 
-/* Refined electric rim with reduced edge color intensity */
+/* Enhanced gold electric glow with extra vibrancy */
 .eb-glow-1 {
-  border: 1px solid var(--electric-border-color);
-  opacity: 0.45;
+  border: 1.5px solid var(--electric-border-color);
+  opacity: 0.65;
   filter: blur(1.5px);
 }
 
 .eb-glow-2 {
-  border: 1px solid var(--electric-border-color);
-  opacity: 0.28;
-  filter: blur(4px);
+  border: 1.5px solid var(--electric-border-color);
+  opacity: 0.42;
+  filter: blur(4.5px);
 }
 
-/* Rich ambient electric backlight falling onto the background */
 .eb-background-glow {
   z-index: -1;
-  inset: -20px;
-  border-radius: inherit;
-  filter: blur(36px);
-  opacity: 0.5;
-  background: radial-gradient(ellipse at 50% 50%, var(--electric-border-color) 0%, rgba(212, 162, 46, 0.45) 40%, rgba(212, 162, 46, 0.15) 65%, transparent 80%);
+  transform: scale(1.03);
+  filter: blur(20px);
+  opacity: 0.22;
+  background: radial-gradient(circle, var(--electric-border-color) 0%, transparent 70%);
 }

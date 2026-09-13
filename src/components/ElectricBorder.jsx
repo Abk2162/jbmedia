@@ -3,7 +3,7 @@ import './ElectricBorder.css';
 
 const ElectricBorder = ({
   children,
-  color = '#d9b86c',
+  color = '#D4A22E',
   speed = 1.4,
   chaos = 0.04,
   borderRadius = 28,
@@ -193,7 +193,7 @@ const ElectricBorder = ({
       ctx.scale(dpr, dpr);
 
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1.3;
+      ctx.lineWidth = 1.6;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 

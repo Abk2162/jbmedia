@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { SPHERE_ITEMS, STATS, LEADERSHIP, REELS, PHOTO_BANK } from "@/data/site.js";
 import { fetchHomepageReels } from "@/lib/supabase";
 import { getDriveThumbnail } from "@/lib/drive";
+import DomeGallery from "@/components/DomeGallery.jsx";
 
 function useOnScreen(ref, initial = false) {
   const [visible, setVisible] = useState(initial);
@@ -198,52 +199,44 @@ export function HomePage() {
       {/* ---------------- COUNTER STATS BAND ---------------- */}
       <StatsBand stats={STATS} />
 
-      {/* ---------------- RECRUITMENT CALL (DRIFT WALL) ---------------- */}
-      <section className="jb-join relative overflow-hidden">
-        <div className="jb-driftwall" aria-hidden="true">
-          {[0, 1, 2, 3, 4].map((col) => (
-            <div
-              key={col}
-              className="jb-driftwall__col"
-              style={{
-                animation: `jbDrift${col % 2 === 0 ? "Up" : "Down"} ${28 + col * 4}s linear infinite`,
-              }}
-            >
-              {[0, 1, 2, 3, 4, 5].map((tile) => {
-                const photoIndex = (col * 6 + tile) % PHOTO_BANK.length;
-                return (
-                  <div
-                    key={tile}
-                    className="jb-driftwall__tile"
-                    style={{
-                      height: 170 + ((tile * 37 + col * 23) % 90),
-                      backgroundImage: `url(${PHOTO_BANK[photoIndex]})`,
-                    }}
-                  />
-                );
-              })}
-            </div>
-          ))}
+      {/* ---------------- RECRUITMENT CALL (DOME GALLERY BACKGROUND) ---------------- */}
+      <section className="jb-join relative overflow-hidden min-h-[580px] sm:min-h-[660px]">
+        {/* 3D Interactive Dome Gallery */}
+        <div className="jb-dome-wrap absolute inset-0 z-0">
+          <DomeGallery
+            images={PHOTO_BANK}
+            fit={0.7}
+            fitBasis="auto"
+            minRadius={480}
+            maxRadius={850}
+            padFactor={0.16}
+            overlayBlurColor="#0a0806"
+            grayscale={false}
+            imageBorderRadius="16px"
+            openedImageBorderRadius="24px"
+            dragSensitivity={20}
+            dragDampening={1.8}
+          />
         </div>
 
         <div className="jb-join__scrim" />
 
         <div className="jb-join__inner">
-          <Badge variant="default" className="gap-1.5 px-4 py-1.5 shadow-[0_0_20px_rgba(212,162,46,0.15)]">
+          <Badge variant="default" className="pointer-events-auto gap-1.5 px-4 py-1.5 shadow-[0_0_20px_rgba(212,162,46,0.15)]">
             <Sparkles className="w-3.5 h-3.5 text-gold-400" />
             <span>Inductions Open · 2025–26</span>
           </Badge>
 
-          <h2 className="jb-join__title">
-            Shape Brand JBIET. <br />
+          <h2 className="jb-join__title select-none">
+            Shape the Brand of JBIET. <br />
             <span className="bg-gold-gradient bg-clip-text text-transparent">Join The Family.</span>
           </h2>
 
-          <p className="font-barlow text-lg sm:text-xl text-foreground/80 max-w-xl leading-relaxed font-light">
+          <p className="font-barlow text-lg sm:text-xl text-foreground/85 max-w-xl leading-relaxed font-light select-none">
             We are looking for passionate photographers, cinematographers, video editors, poster designers, podcast hosts, and web creators to build history together.
           </p>
 
-          <div className="pt-3 flex flex-wrap gap-4 justify-center">
+          <div className="pt-3 flex flex-wrap gap-4 justify-center pointer-events-auto">
             <Link to="/join">
               <Button size="lg" variant="default" className="min-w-[210px] gap-2 shadow-[0_10px_25px_rgba(212,162,46,0.25)]">
                 <span>Apply for Induction</span>
