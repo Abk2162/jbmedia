@@ -205,10 +205,10 @@ export function HomePage() {
         <div className="jb-dome-wrap absolute inset-0 z-0">
           <DomeGallery
             images={PHOTO_BANK}
-            fit={0.7}
-            fitBasis="auto"
-            minRadius={480}
-            maxRadius={850}
+            fit={0.78}
+            fitBasis="width"
+            minRadius={680}
+            maxRadius={1400}
             padFactor={0.16}
             overlayBlurColor="#0a0806"
             grayscale={false}
@@ -216,6 +216,9 @@ export function HomePage() {
             openedImageBorderRadius="24px"
             dragSensitivity={20}
             dragDampening={1.8}
+            autoMove={true}
+            autoMoveSpeed={0.1}
+            scale={1.12}
           />
         </div>
 

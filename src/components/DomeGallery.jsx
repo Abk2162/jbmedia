@@ -116,7 +116,10 @@ export default function DomeGallery({
   openedImageHeight = '400px',
   imageBorderRadius = '20px',
   openedImageBorderRadius = '30px',
-  grayscale = false
+  grayscale = false,
+  autoMove = true,
+  autoMoveSpeed = 0.12,
+  scale = 1
 }) {
   const rootRef = useRef(null);
   const mainRef = useRef(null);
@@ -136,6 +139,7 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const autoMoveRAF = useRef(null);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -152,12 +156,12 @@ export default function DomeGallery({
 
   const items = useMemo(() => buildItems(images, segments), [images, segments]);
 
-  const applyTransform = (xDeg, yDeg) => {
+  const applyTransform = useCallback((xDeg, yDeg) => {
     const el = sphereRef.current;
     if (el) {
-      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
+      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg) scale(var(--sphere-scale, 1))`;
     }
-  };
+  }, []);
 
   const lockedRadiusRef = useRef(null);
 
@@ -189,7 +193,7 @@ export default function DomeGallery({
           basis = aspect >= 1.3 ? w : minDim;
       }
       let radius = basis * fit;
-      const heightGuard = h * 1.35;
+      const heightGuard = h * 2.2;
       radius = Math.min(radius, heightGuard);
       radius = clamp(radius, minRadius, maxRadius);
       lockedRadiusRef.current = Math.round(radius);
@@ -201,6 +205,7 @@ export default function DomeGallery({
       root.style.setProperty('--tile-radius', imageBorderRadius);
       root.style.setProperty('--enlarge-radius', openedImageBorderRadius);
       root.style.setProperty('--image-filter', grayscale ? 'grayscale(1)' : 'none');
+      root.style.setProperty('--sphere-scale', scale);
       applyTransform(rotationRef.current.x, rotationRef.current.y);
 
       const enlargedOverlay = viewerRef.current?.querySelector('.enlarge');
@@ -242,12 +247,51 @@ export default function DomeGallery({
     imageBorderRadius,
     openedImageBorderRadius,
     openedImageWidth,
-    openedImageHeight
+    openedImageHeight,
+    scale,
+    applyTransform
   ]);
 
   useEffect(() => {
     applyTransform(rotationRef.current.x, rotationRef.current.y);
-  }, []);
+  }, [applyTransform]);
+
+  useEffect(() => {
+    if (!autoMove) return;
+
+    let lastTime = performance.now();
+
+    const loop = (now) => {
+      const dt = Math.min(now - lastTime, 64);
+      lastTime = now;
+
+      const isDragging = draggingRef.current;
+      const isOpened =
+        openingRef.current ||
+        focusedElRef.current !== null ||
+        rootRef.current?.getAttribute('data-enlarging') === 'true';
+      const hasInertia = inertiaRAF.current !== null;
+      const justDragged = performance.now() - lastDragEndAt.current < 450;
+
+      if (!isDragging && !isOpened && !hasInertia && !justDragged) {
+        const deltaDeg = (autoMoveSpeed * dt) / 16.666;
+        const nextY = wrapAngleSigned(rotationRef.current.y + deltaDeg);
+        rotationRef.current.y = nextY;
+        applyTransform(rotationRef.current.x, nextY);
+      }
+
+      autoMoveRAF.current = requestAnimationFrame(loop);
+    };
+
+    autoMoveRAF.current = requestAnimationFrame(loop);
+
+    return () => {
+      if (autoMoveRAF.current) {
+        cancelAnimationFrame(autoMoveRAF.current);
+        autoMoveRAF.current = null;
+      }
+    };
+  }, [autoMove, autoMoveSpeed, applyTransform]);
 
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {
