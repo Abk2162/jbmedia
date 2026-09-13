@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import ElectricBorder from './ElectricBorder';
 import './ProfileCard.css';
 
 const DEFAULT_INNER_GRADIENT = 'none';
@@ -37,7 +38,12 @@ const ProfileCardComponent = ({
   contactText = 'Contact',
   showUserInfo = false,
   onContactClick,
-  person
+  person,
+  electricBorder = true,
+  electricColor = '#f97316',
+  electricSpeed = 2,
+  electricChaos = 0.03,
+  borderRadius = 28
 }) => {
   const finalName = name || person?.name || 'Leader Name';
   const finalTitle = title || role || person?.role || 'Leadership';
@@ -315,67 +321,139 @@ const ProfileCardComponent = ({
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
       {behindGlowEnabled && <div className="pc-behind" />}
       <div ref={shellRef} className="pc-card-shell">
-        <section className="pc-card">
-          <div className="pc-inside">
-            <div className="pc-shine" />
-            <div className="pc-glare" />
-            <div className="pc-content pc-avatar-content">
-              {finalAvatar ? (
-                <img
-                  className="avatar"
-                  src={finalAvatar}
-                  alt={`${finalName} portrait`}
-                  loading="lazy"
-                  onError={e => {
-                    const t = e.target;
-                    t.style.display = 'none';
-                  }}
-                />
-              ) : (
-                <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
-                  {finalName.charAt(0)}
+        {electricBorder ? (
+          <ElectricBorder
+            color={electricColor}
+            speed={electricSpeed}
+            chaos={electricChaos}
+            borderRadius={borderRadius}
+            className="pc-electric-container"
+          >
+            <section className="pc-card">
+              <div className="pc-inside">
+                <div className="pc-shine" />
+                <div className="pc-glare" />
+                <div className="pc-content pc-avatar-content">
+                  {finalAvatar ? (
+                    <img
+                      className="avatar"
+                      src={finalAvatar}
+                      alt={`${finalName} portrait`}
+                      loading="lazy"
+                      onError={e => {
+                        const t = e.target;
+                        t.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
+                      {finalName.charAt(0)}
+                    </div>
+                  )}
+                  {showUserInfo && (
+                    <div className="pc-user-info">
+                      <div className="pc-user-details">
+                        <div className="pc-mini-avatar">
+                          <img
+                            src={miniAvatarUrl || finalAvatar}
+                            alt={`${finalName} mini avatar`}
+                            loading="lazy"
+                            onError={e => {
+                              const t = e.target;
+                              t.style.opacity = '0.5';
+                              t.src = finalAvatar;
+                            }}
+                          />
+                        </div>
+                        <div className="pc-user-text">
+                          <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
+                          <div className="pc-status">{status || 'Leadership'}</div>
+                        </div>
+                      </div>
+                      <button
+                        className="pc-contact-btn"
+                        onClick={handleContactClick}
+                        style={{ pointerEvents: 'auto' }}
+                        type="button"
+                        aria-label={`Contact ${finalName}`}
+                      >
+                        {contactText}
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-              {showUserInfo && (
-                <div className="pc-user-info">
-                  <div className="pc-user-details">
-                    <div className="pc-mini-avatar">
-                      <img
-                        src={miniAvatarUrl || finalAvatar}
-                        alt={`${finalName} mini avatar`}
-                        loading="lazy"
-                        onError={e => {
-                          const t = e.target;
-                          t.style.opacity = '0.5';
-                          t.src = finalAvatar;
-                        }}
-                      />
-                    </div>
-                    <div className="pc-user-text">
-                      <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
-                      <div className="pc-status">{status || 'Leadership'}</div>
-                    </div>
+                <div className="pc-content">
+                  <div className="pc-details">
+                    <h3>{finalName}</h3>
+                    <p>{finalTitle}</p>
                   </div>
-                  <button
-                    className="pc-contact-btn"
-                    onClick={handleContactClick}
-                    style={{ pointerEvents: 'auto' }}
-                    type="button"
-                    aria-label={`Contact ${finalName}`}
-                  >
-                    {contactText}
-                  </button>
                 </div>
-              )}
-            </div>
-            <div className="pc-content">
-              <div className="pc-details">
-                <h3>{finalName}</h3>
-                <p>{finalTitle}</p>
+              </div>
+            </section>
+          </ElectricBorder>
+        ) : (
+          <section className="pc-card">
+            <div className="pc-inside">
+              <div className="pc-shine" />
+              <div className="pc-glare" />
+              <div className="pc-content pc-avatar-content">
+                {finalAvatar ? (
+                  <img
+                    className="avatar"
+                    src={finalAvatar}
+                    alt={`${finalName} portrait`}
+                    loading="lazy"
+                    onError={e => {
+                      const t = e.target;
+                      t.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
+                    {finalName.charAt(0)}
+                  </div>
+                )}
+                {showUserInfo && (
+                  <div className="pc-user-info">
+                    <div className="pc-user-details">
+                      <div className="pc-mini-avatar">
+                        <img
+                          src={miniAvatarUrl || finalAvatar}
+                          alt={`${finalName} mini avatar`}
+                          loading="lazy"
+                          onError={e => {
+                            const t = e.target;
+                            t.style.opacity = '0.5';
+                            t.src = finalAvatar;
+                          }}
+                        />
+                      </div>
+                      <div className="pc-user-text">
+                        <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
+                        <div className="pc-status">{status || 'Leadership'}</div>
+                      </div>
+                    </div>
+                    <button
+                      className="pc-contact-btn"
+                      onClick={handleContactClick}
+                      style={{ pointerEvents: 'auto' }}
+                      type="button"
+                      aria-label={`Contact ${finalName}`}
+                    >
+                      {contactText}
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="pc-content">
+                <div className="pc-details">
+                  <h3>{finalName}</h3>
+                  <p>{finalTitle}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
     </div>
   );
