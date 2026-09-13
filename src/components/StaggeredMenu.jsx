@@ -406,50 +406,52 @@ export const StaggeredMenu = ({
 
       {/* Main Top Header Navigation Bar */}
       <header className={`staggered-menu-header ${scrolled ? "is-scrolled" : ""}`} aria-label="Main navigation header">
-        <Link to="/" className="sm-logo" aria-label="JB Media Logo">
-          <div className="sm-logo-wrap">
-            <div className="sm-logo-badge">
-              <img
-                src={logoUrl}
-                alt="JB Media Logo"
-                className="sm-logo-img"
-                draggable={false}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
+        <div className="sm-header-inner">
+          <Link to="/" className="sm-logo" aria-label="JB Media Logo">
+            <div className="sm-logo-wrap">
+              <div className="sm-logo-badge">
+                <img
+                  src={logoUrl}
+                  alt="JB Media Logo"
+                  className="sm-logo-img"
+                  draggable={false}
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+              </div>
+              <div className="sm-logo-text">
+                <span className="sm-logo-title">JB MEDIA</span>
+                <span className="sm-logo-subtitle">JBIET HYDERABAD</span>
+              </div>
             </div>
-            <div className="sm-logo-text">
-              <span className="sm-logo-title">JB MEDIA</span>
-              <span className="sm-logo-subtitle">JBIET HYDERABAD</span>
-            </div>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Right Hamburger Toggle with Text Roll & +/X Rotation */}
-        <button
-          ref={toggleBtnRef}
-          className="sm-toggle"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
-        >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+          {/* Right Hamburger Toggle with Text Roll & +/X Rotation */}
+          <button
+            ref={toggleBtnRef}
+            className="sm-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true">
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </button>
+        </div>
       </header>
 
       {/* Sliding Side Panel Drawer */}

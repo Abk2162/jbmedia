@@ -66,7 +66,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ---------------- HERO SECTION ---------------- */}
-      <section ref={heroRef} className="relative min-h-[90vh] lg:min-h-[85vh] xl:min-h-[88vh] flex flex-col justify-center overflow-hidden pt-12 sm:pt-14 pb-6 sm:pb-8">
+      <section ref={heroRef} className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-10">
         {/* React Bits Animated WebGL Silk Background */}
         <Silk
           speed={6}
@@ -84,14 +84,11 @@ export function HomePage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pt-1 sm:pt-2">
           {/* Left Column Copy matching reference picture */}
           <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-5 text-left z-20">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center">
               <Badge variant="default" className="gap-2 px-3.5 py-1 text-xs sm:text-sm font-medium">
                 <Sparkles className="w-4 h-4 text-gold-300" />
                 <span>The Official Media Wing</span>
               </Badge>
-              <span className="text-xs sm:text-sm font-barlow-condensed text-gold-400/90 tracking-widest uppercase font-semibold">
-                JBIET HYDERABAD
-              </span>
             </div>
 
             <h1 className="font-anton text-4xl sm:text-5xl md:text-5xl lg:text-[3.25rem] xl:text-[4.2rem] tracking-tight uppercase leading-[0.92] text-foreground">
