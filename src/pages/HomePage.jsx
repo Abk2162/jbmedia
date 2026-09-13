@@ -179,22 +179,17 @@ export function HomePage() {
       </section>
 
       {/* ---------------- LEADERSHIP SPOTLIGHT ---------------- */}
-      <section className="relative py-16 sm:py-20 w-full overflow-hidden bg-gradient-to-b from-[#18110b] via-[#22170e] to-[#140e08] border-y border-[#3d2b1c]/50">
-        {/* Warm ambient brown/amber backlighting to make the black/blue cards pop */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#6e3a15]/20 blur-[90px] pointer-events-none rounded-full" />
+      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-6 sm:px-8 w-full">
+        <div className="flex flex-col gap-3 mb-10 sm:mb-12 text-center sm:text-left">
+          <div className="jb-eyebrow">Under Whose Watch</div>
+          <h2 className="jb-h2 text-foreground">Leadership</h2>
+          <div className="jb-rule" />
+        </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 w-full flex flex-col items-center">
-          <div className="flex flex-col gap-2 mb-10 text-center w-full max-w-md items-center">
-            <div className="jb-eyebrow text-gold-400">Under Whose Watch</div>
-            <h2 className="jb-h2 text-white">Leadership</h2>
-            <div className="jb-rule w-24 mx-auto mt-1" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full justify-items-center max-w-4xl">
-            {LEADERSHIP.map((leader, i) => (
-              <ProfileCard key={leader.name} person={leader} index={i} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 w-full justify-items-center">
+          {LEADERSHIP.map((leader, i) => (
+            <ProfileCard key={leader.name} person={leader} index={i} />
+          ))}
         </div>
       </section>
 

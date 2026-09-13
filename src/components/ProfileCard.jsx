@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 
-const DEFAULT_INNER_GRADIENT =
-  'linear-gradient(155deg, rgba(20, 42, 82, 0.75) 0%, rgba(10, 20, 38, 0.85) 40%, rgba(5, 8, 14, 0.98) 100%)';
+const DEFAULT_INNER_GRADIENT = 'none';
 
 const ANIMATION_CONFIG = {
   INITIAL_DURATION: 1200,
@@ -23,8 +22,8 @@ const ProfileCardComponent = ({
   grainUrl,
   innerGradient,
   behindGlowEnabled = true,
-  behindGlowColor = 'rgba(75, 155, 255, 0.7)',
-  behindGlowSize = '42%',
+  behindGlowColor = 'rgba(50, 110, 220, 0.3)',
+  behindGlowSize = '35%',
   className = '',
   enableTilt = true,
   enableMobileTilt = false,
