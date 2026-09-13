@@ -83,23 +83,23 @@ export function HomePage() {
         {/* Hero Content Grid */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pt-1 sm:pt-2">
           {/* Left Column Copy matching reference picture */}
-          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-6 text-left z-20">
+          <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-5 text-left z-20">
             <div className="flex items-center gap-3">
               <Badge variant="default" className="gap-2 px-3.5 py-1 text-xs sm:text-sm font-medium">
                 <Sparkles className="w-4 h-4 text-gold-300" />
-                <span>The Branding Hub</span>
+                <span>The Official Media Wing</span>
               </Badge>
               <span className="text-xs sm:text-sm font-barlow-condensed text-gold-400/90 tracking-widest uppercase font-semibold">
                 JBIET HYDERABAD
               </span>
             </div>
 
-            <h1 className="font-anton text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl tracking-tight uppercase leading-[0.9] text-foreground">
-              THE BRANDING HUB <br />
-              <span className="bg-gold-gradient bg-clip-text text-transparent">OF JBIET</span>
+            <h1 className="font-anton text-4xl sm:text-5xl md:text-5xl lg:text-[3.25rem] xl:text-[4.2rem] tracking-tight uppercase leading-[0.92] text-foreground">
+              <span className="block whitespace-normal sm:whitespace-nowrap">THE Official MEDIA WING</span>
+              <span className="block bg-gold-gradient bg-clip-text text-transparent">OF JBIET</span>
             </h1>
 
-            <p className="font-barlow text-lg sm:text-xl lg:text-2xl text-foreground/85 max-w-xl leading-relaxed font-normal">
+            <p className="font-barlow text-base sm:text-lg lg:text-xl text-foreground/85 max-w-xl leading-relaxed font-normal">
               At JB Media, we capture history, celebrate student talent, and craft Brand JBIET through the power of cinematography, photography, design, and storytelling. Drag the sphere to explore our radial archive.
             </p>
 
@@ -119,8 +119,8 @@ export function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Realistic iPhone Showcase */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative w-full">
+          {/* Right Column: Realistic iPhone Showcase (enlarged by 10%) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end items-center relative w-full">
             <PhoneMockup activeTitle={activeTitle} isMoving={isMoving}>
               <InfiniteMenu
                 items={SPHERE_ITEMS}
