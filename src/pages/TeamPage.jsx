@@ -77,14 +77,16 @@ export function TeamPage() {
       </div>
 
       {/* ---------------- SECTION 1: INSTITUTIONAL LEADERSHIP ---------------- */}
-      <section className="flex flex-col gap-8">
-        <div className="flex flex-col gap-2">
-          <div className="jb-eyebrow">Institutional Patrons</div>
-          <h2 className="jb-h2 text-foreground">Guiding Vision</h2>
-          <div className="jb-rule mt-2" />
+      <section className="relative -mx-4 sm:-mx-6 lg:-mx-8 px-6 sm:px-8 py-14 rounded-3xl bg-gradient-to-b from-[#18110b] via-[#22170e] to-[#140e08] border border-[#3d2b1c]/50 overflow-hidden flex flex-col items-center gap-8 shadow-2xl">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#6e3a15]/20 blur-[90px] pointer-events-none rounded-full" />
+        
+        <div className="relative z-10 flex flex-col gap-2 text-center w-full max-w-md items-center">
+          <div className="jb-eyebrow text-gold-400">Institutional Patrons</div>
+          <h2 className="jb-h2 text-white">Guiding Vision</h2>
+          <div className="jb-rule w-24 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full justify-items-center max-w-4xl">
           {LEADERSHIP.map((leader, i) => (
             <ProfileCard key={leader.name} person={leader} index={i} />
           ))}
