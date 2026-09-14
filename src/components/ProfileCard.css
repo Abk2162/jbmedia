@@ -24,13 +24,12 @@
   --sunpillar-clr-4: var(--sunpillar-4);
   --sunpillar-clr-5: var(--sunpillar-5);
   --sunpillar-clr-6: var(--sunpillar-6);
-  --card-radius: 26px;
+  --card-radius: 24px;
 }
 
 /* Outer 3D Perspective Stage */
 .pc-card-wrapper {
-  perspective: 750px;
-  transform: translate3d(0, 0, 0.1px);
+  perspective: 950px;
   position: relative;
   touch-action: none;
   width: 100%;
@@ -50,27 +49,24 @@
   --card-opacity: 1;
 }
 
-/* 3D Floating / Hovering Card Shell */
+/* 3D Floating / Hovering Card Shell — Instant responsive tracking, zero delay */
 .pc-card-shell {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 480px;
   max-height: 520px;
-  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms ease;
   transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
-/* Powerful Hover Lift — "More Hovery" floating 3D perspective */
+/* Refined, seamless hover lift — Subtle 1% scale, no massive popup */
 .pc-card-wrapper:hover .pc-card-shell,
 .pc-card-wrapper.active .pc-card-shell {
-  transition: transform 90ms ease-out;
-  transform: translate3d(0, -6px, 26px) rotateX(var(--rotate-y)) rotateY(var(--rotate-x)) scale3d(1.045, 1.045, 1.045);
-}
-
-.pc-card-shell.entering {
-  transition: transform 160ms ease-out;
+  transition: transform 60ms linear, box-shadow 150ms ease;
+  transform: translate3d(0, -3px, 0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x)) scale(1.012);
 }
 
 /* Card Body — Deep Midnight Base with Precision Brushed Gold Bezel */
@@ -89,17 +85,17 @@
   backface-visibility: hidden;
   overflow: hidden;
   transform-style: preserve-3d;
-  transition: border-color 300ms ease, box-shadow 300ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
-/* Hover Edge Sheen — Crisp Pokémon TCG Foil Edge */
+/* Clean, crisp rim on hover */
 .pc-card-wrapper:hover .pc-card,
 .pc-card-wrapper.active .pc-card {
-  border-color: rgba(245, 197, 66, 0.8);
+  border-color: rgba(245, 197, 66, 0.85);
   box-shadow:
-    0 35px 70px -15px rgba(0, 0, 0, 0.95),
-    0 0 24px -2px rgba(245, 197, 66, 0.35),
-    inset 0 0 2px 1px rgba(255, 255, 255, 0.25);
+    0 22px 46px -12px rgba(0, 0, 0, 0.95),
+    0 0 16px rgba(245, 197, 66, 0.25),
+    inset 0 0 2px 1px rgba(255, 255, 255, 0.2);
 }
 
 .pc-card * {
@@ -117,30 +113,30 @@
 }
 
 /* -------------------------------------------------------------
-   POKÉMON TCG HOLOGRAPHIC FOIL SHINE & STAMPED ICONS
+   POKÉMON TCG HOLOGRAPHIC FOIL SHINE & MEDIA LOGO STAMP
    ------------------------------------------------------------- */
 .pc-shine {
   mask-image: var(--icon);
-  mask-mode: luminance;
+  mask-mode: alpha;
   mask-repeat: repeat;
-  mask-size: 96px 96px;
-  mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
+  mask-size: 78px 78px;
+  mask-position: top calc(160% - (var(--background-y) * 3)) left calc(80% - var(--background-x));
   -webkit-mask-image: var(--icon);
   -webkit-mask-repeat: repeat;
-  -webkit-mask-size: 96px 96px;
-  -webkit-mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
-  transition: opacity 0.4s ease, filter 0.4s ease;
+  -webkit-mask-size: 78px 78px;
+  -webkit-mask-position: top calc(160% - (var(--background-y) * 3)) left calc(80% - var(--background-x));
+  transition: opacity 160ms ease, filter 160ms ease;
   filter: brightness(0.85) contrast(1.4) saturate(1.2);
   mix-blend-mode: color-dodge;
-  opacity: 0.32;
+  opacity: 0.2;
   z-index: 2;
   transform: translateZ(1px);
 }
 
 .pc-card-wrapper:hover .pc-shine,
 .pc-card-wrapper.active .pc-shine {
-  opacity: 0.92;
-  filter: brightness(1.25) contrast(1.75) saturate(1.45);
+  opacity: 0.85;
+  filter: brightness(1.25) contrast(1.65) saturate(1.4);
 }
 
 .pc-shine,
@@ -174,8 +170,8 @@
     ),
     radial-gradient(
       farthest-corner circle at var(--pointer-x) var(--pointer-y),
-      hsla(210, 95%, 55%, 0.45) 10%,
-      hsla(280, 85%, 45%, 0.35) 24%,
+      hsla(210, 95%, 55%, 0.4) 10%,
+      hsla(280, 85%, 45%, 0.3) 24%,
       transparent 70%
     );
   background-position:
@@ -219,12 +215,12 @@
   filter: brightness(calc(1.8 - var(--pointer-from-center) * 0.5)) contrast(2.2) saturate(1.4);
   mix-blend-mode: color-dodge;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 160ms ease;
 }
 
 .pc-card-wrapper:hover .pc-shine::before,
 .pc-card-wrapper.active .pc-shine::before {
-  opacity: 0.78;
+  opacity: 0.75;
 }
 
 /* Metallic Difference Shimmer */
@@ -243,12 +239,12 @@
   mix-blend-mode: difference;
   filter: brightness(0.88) contrast(1.6);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 160ms ease;
 }
 
 .pc-card-wrapper:hover .pc-shine::after,
 .pc-card-wrapper.active .pc-shine::after {
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 /* Specular Light Reflection Flare across the card */
@@ -257,28 +253,78 @@
   overflow: hidden;
   background-image: radial-gradient(
     farthest-corner circle at var(--pointer-x) var(--pointer-y),
-    rgba(255, 255, 255, 0.45) 5%,
-    rgba(245, 197, 66, 0.25) 22%,
+    rgba(255, 255, 255, 0.4) 5%,
+    rgba(245, 197, 66, 0.2) 22%,
     transparent 65%
   );
   mix-blend-mode: overlay;
-  opacity: 0.12;
-  transition: opacity 0.3s ease;
+  opacity: 0.06;
+  transition: opacity 160ms ease;
   z-index: 3;
 }
 
 .pc-card-wrapper:hover .pc-glare,
 .pc-card-wrapper.active .pc-glare {
+  opacity: 0.52;
+}
+
+/* -------------------------------------------------------------
+   OFFICIAL JB MEDIA HOLOGRAPHIC FOIL STAMP SEAL
+   ------------------------------------------------------------- */
+.pc-foil-stamp {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  z-index: 5;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 197, 66, 0.45);
+  background: radial-gradient(circle, rgba(20, 16, 12, 0.85) 0%, rgba(10, 8, 6, 0.95) 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), inset 0 0 6px rgba(245, 197, 66, 0.25);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pc-card-wrapper:hover .pc-foil-stamp,
+.pc-card-wrapper.active .pc-foil-stamp {
+  border-color: rgba(245, 197, 66, 0.85);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.85), 0 0 10px rgba(245, 197, 66, 0.5);
+  transform: scale(1.04);
+}
+
+.pc-foil-stamp-img {
+  width: 90% !important;
+  height: 90% !important;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.pc-foil-stamp-shine {
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(
+    135deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 65%
+  );
+  transform: translate3d(calc(var(--pointer-from-left) * 40px - 20px), calc(var(--pointer-from-top) * 40px - 20px), 0);
+  mix-blend-mode: overlay;
   opacity: 0.6;
 }
 
 /* -------------------------------------------------------------
-   FOREGROUND CUTOUT AVATAR (3D POP-OUT PARALLAX DEPTH)
+   FOREGROUND CUTOUT AVATAR (SUBTLE 3D PARALLAX DEPTH)
    ------------------------------------------------------------- */
 .pc-avatar-content {
   mix-blend-mode: normal;
   overflow: visible;
-  transform: translateZ(12px);
+  transform: translateZ(6px);
   backface-visibility: hidden;
   z-index: 4;
 }
@@ -289,13 +335,13 @@
   position: absolute;
   left: 50%;
   transform-origin: 50% 100%;
-  transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 14px)) translateZ(16px);
+  transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 8px)) translateZ(8px);
   bottom: 0;
   object-fit: contain;
   object-position: bottom;
   backface-visibility: hidden;
   will-change: transform;
-  transition: transform 120ms ease-out;
+  transition: transform 60ms linear;
   filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.95));
 }
 
@@ -306,9 +352,9 @@
   text-align: center;
   position: relative;
   transform: translate3d(
-    calc(var(--pointer-from-left) * -6px + 3px),
-    calc(var(--pointer-from-top) * -6px + 3px),
-    18px
+    calc(var(--pointer-from-left) * -3px + 1.5px),
+    calc(var(--pointer-from-top) * -3px + 1.5px),
+    8px
   );
   z-index: 5;
 }

@@ -1,19 +1,8 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 
-// Authentic Pokémon TCG style holographic foil stamped symbols (corner runes, 8-point stars, micro-sparkles)
-const DEFAULT_HOLO_ICON = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none"><path d="M16 10h14v14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M28 22v14h-14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M64 58h14v14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M76 70v14h-14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><polygon points="24,68 26.5,61 33,63.5 26.5,66 24,73 21.5,66 15,63.5 21.5,61" fill="white"/><polygon points="72,20 74.5,13 81,15.5 74.5,18 72,25 69.5,18 63,15.5 69.5,13" fill="white"/><polygon points="48,48 50.5,42 56,44.5 50.5,47 48,53 45.5,47 40,44.5 45.5,42" fill="white" opacity="0.9"/><circle cx="48" cy="18" r="2" fill="white"/><circle cx="18" cy="48" r="2" fill="white"/><circle cx="78" cy="48" r="2" fill="white"/><circle cx="48" cy="78" r="2" fill="white"/></svg>`;
-
-// Starlight holographic glitter noise
+// Default holographic starlight glitter noise
 const DEFAULT_GRAIN = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0"/></filter><rect width="100%" height="100%" filter="url(%23g)"/></svg>`;
-
-const ANIMATION_CONFIG = {
-  INITIAL_DURATION: 1200,
-  INITIAL_X_OFFSET: 70,
-  INITIAL_Y_OFFSET: 60,
-  DEVICE_BETA_OFFSET: 20,
-  ENTER_TRANSITION_MS: 160
-};
 
 const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
 const round = (v, precision = 3) => parseFloat(v.toFixed(precision));
@@ -22,16 +11,13 @@ const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v -
 const ProfileCardComponent = ({
   avatarUrl,
   portrait,
-  iconUrl,
+  iconUrl = '/jb-media-logo.webp',
   grainUrl,
   innerGradient,
-  behindGlowEnabled = false,
-  behindGlowColor = 'rgba(212, 162, 46, 0.35)',
-  behindGlowSize = '30%',
   className = '',
   enableTilt = true,
   enableMobileTilt = true,
-  mobileTiltSensitivity = 6,
+  mobileTiltSensitivity = 4,
   miniAvatarUrl,
   name,
   title,
@@ -49,184 +35,98 @@ const ProfileCardComponent = ({
 
   const wrapRef = useRef(null);
   const shellRef = useRef(null);
-
-  const enterTimerRef = useRef(null);
-  const leaveRafRef = useRef(null);
-
-  const tiltEngine = useMemo(() => {
-    if (!enableTilt) return null;
-
-    let rafId = null;
-    let running = false;
-    let lastTs = 0;
-
-    let currentX = 0;
-    let currentY = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    const DEFAULT_TAU = 0.12;
-    const INITIAL_TAU = 0.5;
-    let initialUntil = 0;
-
-    const setVarsFromXY = (x, y) => {
-      const shell = shellRef.current;
-      const wrap = wrapRef.current;
-      if (!shell || !wrap) return;
-
-      const width = shell.clientWidth || 1;
-      const height = shell.clientHeight || 1;
-
-      const percentX = clamp((100 / width) * x);
-      const percentY = clamp((100 / height) * y);
-
-      const centerX = percentX - 50;
-      const centerY = percentY - 50;
-
-      const properties = {
-        '--pointer-x': `${percentX}%`,
-        '--pointer-y': `${percentY}%`,
-        '--background-x': `${adjust(percentX, 0, 100, 25, 75)}%`,
-        '--background-y': `${adjust(percentY, 0, 100, 25, 75)}%`,
-        '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
-        '--pointer-from-top': `${percentY / 100}`,
-        '--pointer-from-left': `${percentX / 100}`,
-        '--rotate-x': `${round(-(centerX / 3.8))}deg`,
-        '--rotate-y': `${round(centerY / 3.2)}deg`
-      };
-
-      for (const [k, v] of Object.entries(properties)) wrap.style.setProperty(k, v);
-    };
-
-    const step = ts => {
-      if (!running) return;
-      if (lastTs === 0) lastTs = ts;
-      const dt = (ts - lastTs) / 1000;
-      lastTs = ts;
-
-      const tau = ts < initialUntil ? INITIAL_TAU : DEFAULT_TAU;
-      const k = 1 - Math.exp(-dt / tau);
-
-      currentX += (targetX - currentX) * k;
-      currentY += (targetY - currentY) * k;
-
-      setVarsFromXY(currentX, currentY);
-
-      const stillFar = Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05;
-
-      if (stillFar || (typeof document !== 'undefined' && document.hasFocus())) {
-        rafId = requestAnimationFrame(step);
-      } else {
-        running = false;
-        lastTs = 0;
-        if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      }
-    };
-
-    const start = () => {
-      if (running) return;
-      running = true;
-      lastTs = 0;
-      rafId = requestAnimationFrame(step);
-    };
-
-    return {
-      setImmediate(x, y) {
-        currentX = x;
-        currentY = y;
-        setVarsFromXY(currentX, currentY);
-      },
-      setTarget(x, y) {
-        targetX = x;
-        targetY = y;
-        start();
-      },
-      toCenter() {
-        const shell = shellRef.current;
-        if (!shell) return;
-        this.setTarget(shell.clientWidth / 2, shell.clientHeight / 2);
-      },
-      beginInitial(durationMs) {
-        initialUntil = performance.now() + durationMs;
-        start();
-      },
-      getCurrent() {
-        return { x: currentX, y: currentY, tx: targetX, ty: targetY };
-      },
-      cancel() {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        running = false;
-        lastTs = 0;
-      }
-    };
-  }, [enableTilt]);
+  const rafRef = useRef(null);
 
   const getOffsets = (evt, el) => {
     const rect = el.getBoundingClientRect();
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
   };
 
-  const handlePointerMove = useCallback(
-    event => {
-      const shell = shellRef.current;
-      if (!shell || !tiltEngine) return;
-      const { x, y } = getOffsets(event, shell);
-      tiltEngine.setTarget(x, y);
-    },
-    [tiltEngine]
-  );
+  const updateCardVars = useCallback((x, y) => {
+    const shell = shellRef.current;
+    const wrap = wrapRef.current;
+    if (!shell || !wrap) return;
+
+    const width = shell.clientWidth || 1;
+    const height = shell.clientHeight || 1;
+
+    const percentX = clamp((100 / width) * x);
+    const percentY = clamp((100 / height) * y);
+
+    const centerX = percentX - 50;
+    const centerY = percentY - 50;
+
+    // Refined, subtle, classy tilt angles (±5.5° max)
+    const properties = {
+      '--pointer-x': `${percentX}%`,
+      '--pointer-y': `${percentY}%`,
+      '--background-x': `${adjust(percentX, 0, 100, 30, 70)}%`,
+      '--background-y': `${adjust(percentY, 0, 100, 30, 70)}%`,
+      '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
+      '--pointer-from-top': `${percentY / 100}`,
+      '--pointer-from-left': `${percentX / 100}`,
+      '--rotate-x': `${round(-(centerX / 8.5))}deg`,
+      '--rotate-y': `${round(centerY / 7.5)}deg`
+    };
+
+    for (const [k, v] of Object.entries(properties)) {
+      wrap.style.setProperty(k, v);
+    }
+  }, []);
 
   const handlePointerEnter = useCallback(
     event => {
+      if (!enableTilt) return;
       const shell = shellRef.current;
       const wrap = wrapRef.current;
-      if (!shell || !tiltEngine) return;
+      if (!shell || !wrap) return;
+
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
       shell.classList.add('active');
-      shell.classList.add('entering');
-      if (wrap) wrap.classList.add('active');
-
-      if (enterTimerRef.current) window.clearTimeout(enterTimerRef.current);
-      enterTimerRef.current = window.setTimeout(() => {
-        shell.classList.remove('entering');
-      }, ANIMATION_CONFIG.ENTER_TRANSITION_MS);
+      wrap.classList.add('active');
 
       const { x, y } = getOffsets(event, shell);
-      tiltEngine.setTarget(x, y);
+      updateCardVars(x, y);
     },
-    [tiltEngine]
+    [enableTilt, updateCardVars]
+  );
+
+  const handlePointerMove = useCallback(
+    event => {
+      if (!enableTilt) return;
+      const shell = shellRef.current;
+      if (!shell) return;
+      const { x, y } = getOffsets(event, shell);
+      updateCardVars(x, y);
+    },
+    [enableTilt, updateCardVars]
   );
 
   const handlePointerLeave = useCallback(() => {
+    if (!enableTilt) return;
     const shell = shellRef.current;
     const wrap = wrapRef.current;
-    if (!shell || !tiltEngine) return;
+    if (!shell || !wrap) return;
 
-    tiltEngine.toCenter();
+    // Instantly remove active class for immediate, seamless return without lingering delay
+    shell.classList.remove('active');
+    wrap.classList.remove('active');
 
-    const checkSettle = () => {
-      const { x, y, tx, ty } = tiltEngine.getCurrent();
-      const settled = Math.hypot(tx - x, ty - y) < 0.6;
-      if (settled) {
-        shell.classList.remove('active');
-        if (wrap) wrap.classList.remove('active');
-        leaveRafRef.current = null;
-      } else {
-        leaveRafRef.current = requestAnimationFrame(checkSettle);
-      }
-    };
-    if (leaveRafRef.current) cancelAnimationFrame(leaveRafRef.current);
-    leaveRafRef.current = requestAnimationFrame(checkSettle);
-  }, [tiltEngine]);
+    // Smoothly reset CSS variables to neutral center
+    wrap.style.setProperty('--rotate-x', '0deg');
+    wrap.style.setProperty('--rotate-y', '0deg');
+    wrap.style.setProperty('--pointer-x', '50%');
+    wrap.style.setProperty('--pointer-y', '50%');
+    wrap.style.setProperty('--pointer-from-center', '0');
+    wrap.style.setProperty('--background-x', '50%');
+    wrap.style.setProperty('--background-y', '50%');
+  }, [enableTilt]);
 
   const handleDeviceOrientation = useCallback(
     event => {
       const shell = shellRef.current;
-      if (!shell || !tiltEngine) return;
+      if (!shell) return;
 
       const { beta, gamma } = event;
       if (beta == null || gamma == null) return;
@@ -234,31 +134,21 @@ const ProfileCardComponent = ({
       const centerX = shell.clientWidth / 2;
       const centerY = shell.clientHeight / 2;
       const x = clamp(centerX + gamma * mobileTiltSensitivity, 0, shell.clientWidth);
-      const y = clamp(
-        centerY + (beta - ANIMATION_CONFIG.DEVICE_BETA_OFFSET) * mobileTiltSensitivity,
-        0,
-        shell.clientHeight
-      );
+      const y = clamp(centerY + (beta - 20) * mobileTiltSensitivity, 0, shell.clientHeight);
 
-      tiltEngine.setTarget(x, y);
+      updateCardVars(x, y);
     },
-    [tiltEngine, mobileTiltSensitivity]
+    [mobileTiltSensitivity, updateCardVars]
   );
 
   useEffect(() => {
-    if (!enableTilt || !tiltEngine) return;
-
+    if (!enableTilt) return;
     const shell = shellRef.current;
     if (!shell) return;
 
-    const pointerMoveHandler = handlePointerMove;
-    const pointerEnterHandler = handlePointerEnter;
-    const pointerLeaveHandler = handlePointerLeave;
-    const deviceOrientationHandler = handleDeviceOrientation;
-
-    shell.addEventListener('pointerenter', pointerEnterHandler);
-    shell.addEventListener('pointermove', pointerMoveHandler);
-    shell.addEventListener('pointerleave', pointerLeaveHandler);
+    shell.addEventListener('pointerenter', handlePointerEnter);
+    shell.addEventListener('pointermove', handlePointerMove);
+    shell.addEventListener('pointerleave', handlePointerLeave);
 
     const handleClick = () => {
       if (!enableMobileTilt || (typeof location !== 'undefined' && location.protocol !== 'https:')) return;
@@ -268,54 +158,42 @@ const ProfileCardComponent = ({
           .requestPermission()
           .then(state => {
             if (state === 'granted') {
-              window.addEventListener('deviceorientation', deviceOrientationHandler);
+              window.addEventListener('deviceorientation', handleDeviceOrientation);
             }
           })
           .catch(console.error);
       } else {
-        window.addEventListener('deviceorientation', deviceOrientationHandler);
+        window.addEventListener('deviceorientation', handleDeviceOrientation);
       }
     };
     shell.addEventListener('click', handleClick);
 
-    const initialX = (shell.clientWidth || 0) - ANIMATION_CONFIG.INITIAL_X_OFFSET;
-    const initialY = ANIMATION_CONFIG.INITIAL_Y_OFFSET;
-    tiltEngine.setImmediate(initialX, initialY);
-    tiltEngine.toCenter();
-    tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
-
     return () => {
-      shell.removeEventListener('pointerenter', pointerEnterHandler);
-      shell.removeEventListener('pointermove', pointerMoveHandler);
-      shell.removeEventListener('pointerleave', pointerLeaveHandler);
+      shell.removeEventListener('pointerenter', handlePointerEnter);
+      shell.removeEventListener('pointermove', handlePointerMove);
+      shell.removeEventListener('pointerleave', handlePointerLeave);
       shell.removeEventListener('click', handleClick);
-      window.removeEventListener('deviceorientation', deviceOrientationHandler);
-      if (enterTimerRef.current) window.clearTimeout(enterTimerRef.current);
-      if (leaveRafRef.current) cancelAnimationFrame(leaveRafRef.current);
-      tiltEngine.cancel();
-      shell.classList.remove('entering');
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [
     enableTilt,
     enableMobileTilt,
-    tiltEngine,
-    handlePointerMove,
     handlePointerEnter,
+    handlePointerMove,
     handlePointerLeave,
     handleDeviceOrientation
   ]);
 
   const cardStyle = useMemo(() => {
-    const finalIcon = iconUrl || DEFAULT_HOLO_ICON;
+    const finalIcon = iconUrl || '/jb-media-logo.webp';
     const finalGrain = grainUrl || DEFAULT_GRAIN;
     return {
       '--icon': `url('${finalIcon}')`,
       '--grain': `url('${finalGrain}')`,
-      '--inner-gradient': innerGradient ?? 'none',
-      '--behind-glow-color': behindGlowColor ?? 'rgba(212, 162, 46, 0.35)',
-      '--behind-glow-size': behindGlowSize ?? '30%'
+      '--inner-gradient': innerGradient ?? 'none'
     };
-  }, [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]);
+  }, [iconUrl, grainUrl, innerGradient]);
 
   const handleContactClick = useCallback(() => {
     onContactClick?.();
@@ -323,14 +201,23 @@ const ProfileCardComponent = ({
 
   return (
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
-      {behindGlowEnabled && <div className="pc-behind" />}
       <div ref={shellRef} className="pc-card-shell">
         <section className="pc-card">
           <div className="pc-inside">
-            {/* Holographic Foil Layer (Pokémon TCG Foil Sheen) */}
+            {/* Holographic Foil Layer (JB Media Logo Pattern) */}
             <div className="pc-shine" />
             {/* Dynamic Specular Light Glare Flare */}
             <div className="pc-glare" />
+
+            {/* Official JB Media Holographic Foil Seal Stamp */}
+            <div className="pc-foil-stamp" aria-hidden="true">
+              <img
+                src="/jb-media-logo.webp"
+                alt="JB Media Holo Stamp"
+                className="pc-foil-stamp-img"
+              />
+              <div className="pc-foil-stamp-shine" />
+            </div>
 
             {/* Foreground Avatar Layer with 3D Parallax */}
             <div className="pc-content pc-avatar-content">
