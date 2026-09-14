@@ -12,12 +12,13 @@
   --grain: none;
   --icon: none;
   --inner-gradient: none;
-  --sunpillar-1: hsl(2, 100%, 73%);
-  --sunpillar-2: hsl(53, 100%, 69%);
-  --sunpillar-3: hsl(93, 100%, 69%);
-  --sunpillar-4: hsl(176, 100%, 76%);
-  --sunpillar-5: hsl(228, 100%, 74%);
-  --sunpillar-6: hsl(283, 100%, 73%);
+  /* Mild Executive Metallic Luster Palette — Champagne Gold, Bronze, Platinum Silver */
+  --sunpillar-1: hsla(43, 85%, 68%, 0.85);
+  --sunpillar-2: hsla(38, 90%, 60%, 0.75);
+  --sunpillar-3: hsla(215, 25%, 82%, 0.7);
+  --sunpillar-4: hsla(195, 45%, 72%, 0.5);
+  --sunpillar-5: hsla(40, 95%, 72%, 0.8);
+  --sunpillar-6: hsla(28, 75%, 54%, 0.7);
   --sunpillar-clr-1: var(--sunpillar-1);
   --sunpillar-clr-2: var(--sunpillar-2);
   --sunpillar-clr-3: var(--sunpillar-3);
@@ -69,7 +70,7 @@
   transform: translate3d(0, -3px, 0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x)) scale(1.012);
 }
 
-/* Card Body — Deep Midnight Base with Precision Brushed Gold Bezel */
+/* Card Body — Deep Midnight Obsidian Foundation with Precision Brushed Gold Bezel */
 .pc-card {
   width: 100%;
   height: 100%;
@@ -77,25 +78,29 @@
   aspect-ratio: 0.72;
   border-radius: var(--card-radius);
   position: relative;
-  background: linear-gradient(165deg, #0e162b 0%, #080d19 50%, #050811 100%);
+  background: linear-gradient(165deg, #101626 0%, #090e1a 50%, #050811 100%);
   border: 1.5px solid rgba(212, 162, 46, 0.35);
   box-shadow:
-    0 16px 36px -10px rgba(0, 0, 0, 0.85),
-    0 0 1px 1px rgba(212, 162, 46, 0.25);
+    0 20px 42px -10px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 20px rgba(0, 0, 0, 0.6);
   backface-visibility: hidden;
   overflow: hidden;
   transform-style: preserve-3d;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-/* Clean, crisp rim on hover */
+/* Crisp, refined rim on hover */
 .pc-card-wrapper:hover .pc-card,
 .pc-card-wrapper.active .pc-card {
-  border-color: rgba(245, 197, 66, 0.85);
+  border-color: rgba(245, 197, 66, 0.75);
   box-shadow:
-    0 22px 46px -12px rgba(0, 0, 0, 0.95),
-    0 0 16px rgba(245, 197, 66, 0.25),
-    inset 0 0 2px 1px rgba(255, 255, 255, 0.2);
+    0 24px 50px -10px rgba(0, 0, 0, 0.95),
+    0 0 18px rgba(212, 162, 46, 0.2),
+    0 0 0 1px rgba(245, 197, 66, 0.25),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 24px rgba(212, 162, 46, 0.06);
 }
 
 .pc-card * {
@@ -108,40 +113,42 @@
 .pc-inside {
   inset: 0;
   position: absolute;
-  background: linear-gradient(165deg, #0e162b 0%, #080d19 50%, #050811 100%);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 162, 46, 0.1) 0%, transparent 60%),
+    linear-gradient(165deg, #0e1628 0%, #080d19 50%, #040710 100%);
   transform: translateZ(0);
 }
 
 /* -------------------------------------------------------------
-   POKÉMON TCG HOLOGRAPHIC FOIL SHINE & MEDIA LOGO STAMP
+   MILD EXECUTIVE METALLIC FOIL LUSTER (SUBTLE & REFINED)
    ------------------------------------------------------------- */
 .pc-shine {
   mask-image: var(--icon);
-  mask-mode: alpha;
+  mask-mode: luminance;
   mask-repeat: repeat;
-  mask-size: 78px 78px;
-  mask-position: top calc(160% - (var(--background-y) * 3)) left calc(80% - var(--background-x));
+  mask-size: 60px 60px;
+  mask-position: top calc(160% - (var(--background-y) * 2)) left calc(80% - var(--background-x));
   -webkit-mask-image: var(--icon);
   -webkit-mask-repeat: repeat;
-  -webkit-mask-size: 78px 78px;
-  -webkit-mask-position: top calc(160% - (var(--background-y) * 3)) left calc(80% - var(--background-x));
-  transition: opacity 160ms ease, filter 160ms ease;
-  filter: brightness(0.85) contrast(1.4) saturate(1.2);
+  -webkit-mask-size: 60px 60px;
+  -webkit-mask-position: top calc(160% - (var(--background-y) * 2)) left calc(80% - var(--background-x));
+  transition: opacity 200ms ease, filter 200ms ease;
+  filter: brightness(1.05) contrast(1.2) saturate(1.1);
   mix-blend-mode: color-dodge;
-  opacity: 0.2;
+  opacity: 0.06;
   z-index: 2;
   transform: translateZ(1px);
 }
 
 .pc-card-wrapper:hover .pc-shine,
 .pc-card-wrapper.active .pc-shine {
-  opacity: 0.85;
-  filter: brightness(1.25) contrast(1.65) saturate(1.4);
+  opacity: 0.4;
+  filter: brightness(1.15) contrast(1.25) saturate(1.15);
 }
 
 .pc-shine,
 .pc-shine::after {
-  --space: 5%;
+  --space: 6%;
   --angle: -45deg;
   transform: translate3d(0, 0, 1px);
   overflow: hidden;
@@ -161,32 +168,32 @@
     ),
     repeating-linear-gradient(
       var(--angle),
-      rgba(14, 21, 46, 0.5) 0%,
-      hsl(180, 80%, 65%) 3.8%,
-      hsl(280, 85%, 68%) 4.5%,
-      hsl(50, 95%, 65%) 5.2%,
-      rgba(14, 21, 46, 0.5) 10%,
-      rgba(14, 21, 46, 0.5) 12%
+      rgba(10, 15, 30, 0.6) 0%,
+      hsla(43, 90%, 75%, 0.45) 3.5%,
+      hsla(215, 30%, 85%, 0.4) 4.2%,
+      hsla(38, 85%, 65%, 0.45) 5%,
+      rgba(10, 15, 30, 0.6) 9%,
+      rgba(10, 15, 30, 0.6) 12%
     ),
     radial-gradient(
       farthest-corner circle at var(--pointer-x) var(--pointer-y),
-      hsla(210, 95%, 55%, 0.4) 10%,
-      hsla(280, 85%, 45%, 0.3) 24%,
+      hsla(43, 90%, 70%, 0.35) 10%,
+      hsla(35, 80%, 55%, 0.2) 28%,
       transparent 70%
     );
   background-position:
     0 var(--background-y),
     var(--background-x) var(--background-y),
     center;
-  background-blend-mode: color-dodge, hard-light;
+  background-blend-mode: color-dodge, soft-light;
   background-size:
-    400% 400%,
-    260% 260%,
-    160% 160%;
+    300% 300%,
+    240% 240%,
+    150% 150%;
   background-repeat: repeat;
 }
 
-/* Starlight Glitter Noise Layer (Cosmos Foil) */
+/* Starlight Glitter Noise Layer (Subtle Gold Metallic Dust) */
 .pc-shine::before {
   content: '';
   position: absolute;
@@ -201,10 +208,10 @@
       var(--sunpillar-2),
       var(--sunpillar-3)
     ),
-    radial-gradient(circle at var(--pointer-x) var(--pointer-y), hsl(45, 100%, 75%) 0%, hsla(220, 80%, 40%, 0.3) 80%),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), hsla(43, 90%, 75%, 0.35) 0%, hsla(220, 40%, 30%, 0.12) 75%),
     var(--grain);
   background-size:
-    240% 240%,
+    200% 200%,
     100% 100%,
     160px 160px;
   background-position:
@@ -212,15 +219,15 @@
     center,
     calc(var(--pointer-x) * 0.02) calc(var(--pointer-y) * 0.02);
   background-blend-mode: color-dodge;
-  filter: brightness(calc(1.8 - var(--pointer-from-center) * 0.5)) contrast(2.2) saturate(1.4);
+  filter: brightness(1.1) contrast(1.25) saturate(1.1);
   mix-blend-mode: color-dodge;
   opacity: 0;
-  transition: opacity 160ms ease;
+  transition: opacity 200ms ease;
 }
 
 .pc-card-wrapper:hover .pc-shine::before,
 .pc-card-wrapper.active .pc-shine::before {
-  opacity: 0.75;
+  opacity: 0.28;
 }
 
 /* Metallic Difference Shimmer */
@@ -230,21 +237,21 @@
   inset: 0;
   background-position:
     0 var(--background-y),
-    calc(var(--background-x) * 0.4) calc(var(--background-y) * 0.5),
+    calc(var(--background-x) * 0.3) calc(var(--background-y) * 0.4),
     center;
   background-size:
-    200% 300%,
-    700% 700%,
+    180% 250%,
+    500% 500%,
     100% 100%;
-  mix-blend-mode: difference;
-  filter: brightness(0.88) contrast(1.6);
+  mix-blend-mode: soft-light;
+  filter: brightness(0.95) contrast(1.2);
   opacity: 0;
-  transition: opacity 160ms ease;
+  transition: opacity 200ms ease;
 }
 
 .pc-card-wrapper:hover .pc-shine::after,
 .pc-card-wrapper.active .pc-shine::after {
-  opacity: 0.6;
+  opacity: 0.22;
 }
 
 /* Specular Light Reflection Flare across the card */
@@ -253,69 +260,19 @@
   overflow: hidden;
   background-image: radial-gradient(
     farthest-corner circle at var(--pointer-x) var(--pointer-y),
-    rgba(255, 255, 255, 0.4) 5%,
-    rgba(245, 197, 66, 0.2) 22%,
+    rgba(255, 255, 255, 0.28) 5%,
+    rgba(245, 197, 66, 0.14) 24%,
     transparent 65%
   );
   mix-blend-mode: overlay;
-  opacity: 0.06;
-  transition: opacity 160ms ease;
+  opacity: 0.04;
+  transition: opacity 180ms ease;
   z-index: 3;
 }
 
 .pc-card-wrapper:hover .pc-glare,
 .pc-card-wrapper.active .pc-glare {
-  opacity: 0.52;
-}
-
-/* -------------------------------------------------------------
-   OFFICIAL JB MEDIA HOLOGRAPHIC FOIL STAMP SEAL
-   ------------------------------------------------------------- */
-.pc-foil-stamp {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  z-index: 5;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(245, 197, 66, 0.45);
-  background: radial-gradient(circle, rgba(20, 16, 12, 0.85) 0%, rgba(10, 8, 6, 0.95) 100%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), inset 0 0 6px rgba(245, 197, 66, 0.25);
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.pc-card-wrapper:hover .pc-foil-stamp,
-.pc-card-wrapper.active .pc-foil-stamp {
-  border-color: rgba(245, 197, 66, 0.85);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.85), 0 0 10px rgba(245, 197, 66, 0.5);
-  transform: scale(1.04);
-}
-
-.pc-foil-stamp-img {
-  width: 90% !important;
-  height: 90% !important;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
-}
-
-.pc-foil-stamp-shine {
-  position: absolute;
-  inset: -100%;
-  background: linear-gradient(
-    135deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.6) 50%,
-    transparent 65%
-  );
-  transform: translate3d(calc(var(--pointer-from-left) * 40px - 20px), calc(var(--pointer-from-top) * 40px - 20px), 0);
-  mix-blend-mode: overlay;
-  opacity: 0.6;
+  opacity: 0.38;
 }
 
 /* -------------------------------------------------------------

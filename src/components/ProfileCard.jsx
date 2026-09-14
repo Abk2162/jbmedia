@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 
-// Default holographic starlight glitter noise
+// Elegant luxury micro-etched guilloché & star foil pattern (subtle, mild, precision metallic luster)
+const DEFAULT_HOLO_ICON = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 0 L60 30 L30 60 L0 30 Z" stroke="white" stroke-width="0.5" stroke-opacity="0.3"/><polygon points="30,27 31,29 33,30 31,31 30,33 29,31 27,30 29,29" fill="white" fill-opacity="0.45"/><circle cx="0" cy="0" r="1.2" fill="white" fill-opacity="0.25"/><circle cx="60" cy="0" r="1.2" fill="white" fill-opacity="0.25"/><circle cx="0" cy="60" r="1.2" fill="white" fill-opacity="0.25"/><circle cx="60" cy="60" r="1.2" fill="white" fill-opacity="0.25"/></svg>`;
+
+// Starlight holographic glitter noise
 const DEFAULT_GRAIN = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0"/></filter><rect width="100%" height="100%" filter="url(%23g)"/></svg>`;
 
 const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
@@ -11,7 +14,7 @@ const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v -
 const ProfileCardComponent = ({
   avatarUrl,
   portrait,
-  iconUrl = '/jb-media-logo.webp',
+  iconUrl,
   grainUrl,
   innerGradient,
   className = '',
@@ -186,7 +189,7 @@ const ProfileCardComponent = ({
   ]);
 
   const cardStyle = useMemo(() => {
-    const finalIcon = iconUrl || '/jb-media-logo.webp';
+    const finalIcon = iconUrl || DEFAULT_HOLO_ICON;
     const finalGrain = grainUrl || DEFAULT_GRAIN;
     return {
       '--icon': `url('${finalIcon}')`,
@@ -204,20 +207,10 @@ const ProfileCardComponent = ({
       <div ref={shellRef} className="pc-card-shell">
         <section className="pc-card">
           <div className="pc-inside">
-            {/* Holographic Foil Layer (JB Media Logo Pattern) */}
+            {/* Mild Luxury Holographic Foil Sheen */}
             <div className="pc-shine" />
-            {/* Dynamic Specular Light Glare Flare */}
+            {/* Smooth Specular Light Glare */}
             <div className="pc-glare" />
-
-            {/* Official JB Media Holographic Foil Seal Stamp */}
-            <div className="pc-foil-stamp" aria-hidden="true">
-              <img
-                src="/jb-media-logo.webp"
-                alt="JB Media Holo Stamp"
-                className="pc-foil-stamp-img"
-              />
-              <div className="pc-foil-stamp-shine" />
-            </div>
 
             {/* Foreground Avatar Layer with 3D Parallax */}
             <div className="pc-content pc-avatar-content">
