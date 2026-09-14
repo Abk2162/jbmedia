@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
-import ElectricBorder from './ElectricBorder';
 import './ProfileCard.css';
 
-const DEFAULT_INNER_GRADIENT = 'none';
+// Authentic Pokémon TCG style holographic foil stamped symbols (corner runes, 8-point stars, micro-sparkles)
+const DEFAULT_HOLO_ICON = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none"><path d="M16 10h14v14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M28 22v14h-14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M64 58h14v14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M76 70v14h-14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><polygon points="24,68 26.5,61 33,63.5 26.5,66 24,73 21.5,66 15,63.5 21.5,61" fill="white"/><polygon points="72,20 74.5,13 81,15.5 74.5,18 72,25 69.5,18 63,15.5 69.5,13" fill="white"/><polygon points="48,48 50.5,42 56,44.5 50.5,47 48,53 45.5,47 40,44.5 45.5,42" fill="white" opacity="0.9"/><circle cx="48" cy="18" r="2" fill="white"/><circle cx="18" cy="48" r="2" fill="white"/><circle cx="78" cy="48" r="2" fill="white"/><circle cx="48" cy="78" r="2" fill="white"/></svg>`;
+
+// Starlight holographic glitter noise
+const DEFAULT_GRAIN = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0"/></filter><rect width="100%" height="100%" filter="url(%23g)"/></svg>`;
 
 const ANIMATION_CONFIG = {
   INITIAL_DURATION: 1200,
   INITIAL_X_OFFSET: 70,
   INITIAL_Y_OFFSET: 60,
   DEVICE_BETA_OFFSET: 20,
-  ENTER_TRANSITION_MS: 180
+  ENTER_TRANSITION_MS: 160
 };
 
 const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
@@ -22,28 +25,23 @@ const ProfileCardComponent = ({
   iconUrl,
   grainUrl,
   innerGradient,
-  behindGlowEnabled = true,
+  behindGlowEnabled = false,
   behindGlowColor = 'rgba(212, 162, 46, 0.35)',
-  behindGlowSize = '40%',
+  behindGlowSize = '30%',
   className = '',
   enableTilt = true,
-  enableMobileTilt = false,
-  mobileTiltSensitivity = 5,
+  enableMobileTilt = true,
+  mobileTiltSensitivity = 6,
   miniAvatarUrl,
   name,
   title,
   role,
   handle,
   status,
-  contactText = 'Contact',
+  contactText = 'Profile',
   showUserInfo = false,
   onContactClick,
-  person,
-  electricBorder = true,
-  electricColor = '#D4A22E',
-  electricSpeed = 1.4,
-  electricChaos = 0.04,
-  borderRadius = 28
+  person
 }) => {
   const finalName = name || person?.name || 'Leader Name';
   const finalTitle = title || role || person?.role || 'Leadership';
@@ -67,8 +65,8 @@ const ProfileCardComponent = ({
     let targetX = 0;
     let targetY = 0;
 
-    const DEFAULT_TAU = 0.14;
-    const INITIAL_TAU = 0.6;
+    const DEFAULT_TAU = 0.12;
+    const INITIAL_TAU = 0.5;
     let initialUntil = 0;
 
     const setVarsFromXY = (x, y) => {
@@ -88,13 +86,13 @@ const ProfileCardComponent = ({
       const properties = {
         '--pointer-x': `${percentX}%`,
         '--pointer-y': `${percentY}%`,
-        '--background-x': `${adjust(percentX, 0, 100, 35, 65)}%`,
-        '--background-y': `${adjust(percentY, 0, 100, 35, 65)}%`,
+        '--background-x': `${adjust(percentX, 0, 100, 25, 75)}%`,
+        '--background-y': `${adjust(percentY, 0, 100, 25, 75)}%`,
         '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
         '--pointer-from-top': `${percentY / 100}`,
         '--pointer-from-left': `${percentX / 100}`,
-        '--rotate-x': `${round(-(centerX / 5.5))}deg`,
-        '--rotate-y': `${round(centerY / 4.5)}deg`
+        '--rotate-x': `${round(-(centerX / 3.8))}deg`,
+        '--rotate-y': `${round(centerY / 3.2)}deg`
       };
 
       for (const [k, v] of Object.entries(properties)) wrap.style.setProperty(k, v);
@@ -185,10 +183,13 @@ const ProfileCardComponent = ({
   const handlePointerEnter = useCallback(
     event => {
       const shell = shellRef.current;
+      const wrap = wrapRef.current;
       if (!shell || !tiltEngine) return;
 
       shell.classList.add('active');
       shell.classList.add('entering');
+      if (wrap) wrap.classList.add('active');
+
       if (enterTimerRef.current) window.clearTimeout(enterTimerRef.current);
       enterTimerRef.current = window.setTimeout(() => {
         shell.classList.remove('entering');
@@ -202,6 +203,7 @@ const ProfileCardComponent = ({
 
   const handlePointerLeave = useCallback(() => {
     const shell = shellRef.current;
+    const wrap = wrapRef.current;
     if (!shell || !tiltEngine) return;
 
     tiltEngine.toCenter();
@@ -211,6 +213,7 @@ const ProfileCardComponent = ({
       const settled = Math.hypot(tx - x, ty - y) < 0.6;
       if (settled) {
         shell.classList.remove('active');
+        if (wrap) wrap.classList.remove('active');
         leaveRafRef.current = null;
       } else {
         leaveRafRef.current = requestAnimationFrame(checkSettle);
@@ -302,16 +305,17 @@ const ProfileCardComponent = ({
     handleDeviceOrientation
   ]);
 
-  const cardStyle = useMemo(
-    () => ({
-      '--icon': iconUrl ? `url(${iconUrl})` : 'none',
-      '--grain': grainUrl ? `url(${grainUrl})` : 'none',
-      '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT,
-      '--behind-glow-color': behindGlowColor ?? 'rgba(75, 155, 255, 0.7)',
-      '--behind-glow-size': behindGlowSize ?? '42%'
-    }),
-    [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]
-  );
+  const cardStyle = useMemo(() => {
+    const finalIcon = iconUrl || DEFAULT_HOLO_ICON;
+    const finalGrain = grainUrl || DEFAULT_GRAIN;
+    return {
+      '--icon': `url('${finalIcon}')`,
+      '--grain': `url('${finalGrain}')`,
+      '--inner-gradient': innerGradient ?? 'none',
+      '--behind-glow-color': behindGlowColor ?? 'rgba(212, 162, 46, 0.35)',
+      '--behind-glow-size': behindGlowSize ?? '30%'
+    };
+  }, [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]);
 
   const handleContactClick = useCallback(() => {
     onContactClick?.();
@@ -321,139 +325,74 @@ const ProfileCardComponent = ({
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
       {behindGlowEnabled && <div className="pc-behind" />}
       <div ref={shellRef} className="pc-card-shell">
-        {electricBorder ? (
-          <ElectricBorder
-            color={electricColor}
-            speed={electricSpeed}
-            chaos={electricChaos}
-            borderRadius={borderRadius}
-            className="pc-electric-container"
-          >
-            <section className="pc-card">
-              <div className="pc-inside">
-                <div className="pc-shine" />
-                <div className="pc-glare" />
-                <div className="pc-content pc-avatar-content">
-                  {finalAvatar ? (
-                    <img
-                      className="avatar"
-                      src={finalAvatar}
-                      alt={`${finalName} portrait`}
-                      loading="lazy"
-                      onError={e => {
-                        const t = e.target;
-                        t.style.display = 'none';
-                      }}
-                    />
-                  ) : (
-                    <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
-                      {finalName.charAt(0)}
-                    </div>
-                  )}
-                  {showUserInfo && (
-                    <div className="pc-user-info">
-                      <div className="pc-user-details">
-                        <div className="pc-mini-avatar">
-                          <img
-                            src={miniAvatarUrl || finalAvatar}
-                            alt={`${finalName} mini avatar`}
-                            loading="lazy"
-                            onError={e => {
-                              const t = e.target;
-                              t.style.opacity = '0.5';
-                              t.src = finalAvatar;
-                            }}
-                          />
-                        </div>
-                        <div className="pc-user-text">
-                          <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
-                          <div className="pc-status">{status || 'Leadership'}</div>
-                        </div>
-                      </div>
-                      <button
-                        className="pc-contact-btn"
-                        onClick={handleContactClick}
-                        style={{ pointerEvents: 'auto' }}
-                        type="button"
-                        aria-label={`Contact ${finalName}`}
-                      >
-                        {contactText}
-                      </button>
-                    </div>
-                  )}
+        <section className="pc-card">
+          <div className="pc-inside">
+            {/* Holographic Foil Layer (Pokémon TCG Foil Sheen) */}
+            <div className="pc-shine" />
+            {/* Dynamic Specular Light Glare Flare */}
+            <div className="pc-glare" />
+
+            {/* Foreground Avatar Layer with 3D Parallax */}
+            <div className="pc-content pc-avatar-content">
+              {finalAvatar ? (
+                <img
+                  className="avatar"
+                  src={finalAvatar}
+                  alt={`${finalName} portrait`}
+                  loading="lazy"
+                  onError={e => {
+                    const t = e.target;
+                    t.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-gold-500/20 border border-gold-400/30 flex items-center justify-center text-gold-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
+                  {finalName.charAt(0)}
                 </div>
-                <div className="pc-content">
-                  <div className="pc-details">
-                    <h3>{finalName}</h3>
-                    <p>{finalTitle}</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </ElectricBorder>
-        ) : (
-          <section className="pc-card">
-            <div className="pc-inside">
-              <div className="pc-shine" />
-              <div className="pc-glare" />
-              <div className="pc-content pc-avatar-content">
-                {finalAvatar ? (
-                  <img
-                    className="avatar"
-                    src={finalAvatar}
-                    alt={`${finalName} portrait`}
-                    loading="lazy"
-                    onError={e => {
-                      const t = e.target;
-                      t.style.display = 'none';
-                    }}
-                  />
-                ) : (
-                  <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-200 font-bold text-2xl absolute bottom-12 left-1/2 -translate-x-1/2">
-                    {finalName.charAt(0)}
-                  </div>
-                )}
-                {showUserInfo && (
-                  <div className="pc-user-info">
-                    <div className="pc-user-details">
-                      <div className="pc-mini-avatar">
-                        <img
-                          src={miniAvatarUrl || finalAvatar}
-                          alt={`${finalName} mini avatar`}
-                          loading="lazy"
-                          onError={e => {
-                            const t = e.target;
-                            t.style.opacity = '0.5';
-                            t.src = finalAvatar;
-                          }}
-                        />
-                      </div>
-                      <div className="pc-user-text">
-                        <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
-                        <div className="pc-status">{status || 'Leadership'}</div>
-                      </div>
+              )}
+
+              {showUserInfo && (
+                <div className="pc-user-info">
+                  <div className="pc-user-details">
+                    <div className="pc-mini-avatar">
+                      <img
+                        src={miniAvatarUrl || finalAvatar}
+                        alt={`${finalName} mini avatar`}
+                        loading="lazy"
+                        onError={e => {
+                          const t = e.target;
+                          t.style.opacity = '0.5';
+                          t.src = finalAvatar;
+                        }}
+                      />
                     </div>
-                    <button
-                      className="pc-contact-btn"
-                      onClick={handleContactClick}
-                      style={{ pointerEvents: 'auto' }}
-                      type="button"
-                      aria-label={`Contact ${finalName}`}
-                    >
-                      {contactText}
-                    </button>
+                    <div className="pc-user-text">
+                      <div className="pc-handle">{handle ? `@${handle}` : finalTitle}</div>
+                      <div className="pc-status">{status || 'Leadership'}</div>
+                    </div>
                   </div>
-                )}
-              </div>
-              <div className="pc-content">
-                <div className="pc-details">
-                  <h3>{finalName}</h3>
-                  <p>{finalTitle}</p>
+                  <button
+                    className="pc-contact-btn"
+                    onClick={handleContactClick}
+                    style={{ pointerEvents: 'auto' }}
+                    type="button"
+                    aria-label={`Contact ${finalName}`}
+                  >
+                    {contactText}
+                  </button>
                 </div>
+              )}
+            </div>
+
+            {/* Typography Header */}
+            <div className="pc-content">
+              <div className="pc-details">
+                <h3>{finalName}</h3>
+                <p>{finalTitle}</p>
               </div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
       </div>
     </div>
   );
