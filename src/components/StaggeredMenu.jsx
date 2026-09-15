@@ -109,7 +109,9 @@ export const StaggeredMenu = ({
 
     const itemEls = Array.from(panel.querySelectorAll(".sm-panel-itemLabel"));
     const numberEls = Array.from(panel.querySelectorAll(".sm-panel-itemNum"));
+    const brandEl = panel.querySelector(".sm-panel-brand");
     const socialTitle = panel.querySelector(".sm-socials-title");
+    const socialContact = panel.querySelector(".sm-socials-contact");
     const socialLinks = Array.from(panel.querySelectorAll(".sm-socials-link"));
 
     const offscreen = position === "left" ? -100 : 100;
@@ -122,8 +124,14 @@ export const StaggeredMenu = ({
     if (numberEls.length) {
       gsap.set(numberEls, { "--sm-num-opacity": 0 });
     }
+    if (brandEl) {
+      gsap.set(brandEl, { y: 20, opacity: 0 });
+    }
     if (socialTitle) {
       gsap.set(socialTitle, { opacity: 0 });
+    }
+    if (socialContact) {
+      gsap.set(socialContact, { opacity: 0 });
     }
     if (socialLinks.length) {
       gsap.set(socialLinks, { y: 25, opacity: 0 });
@@ -158,6 +166,7 @@ export const StaggeredMenu = ({
         },
         itemsStart
       );
+
       if (numberEls.length) {
         tl.to(
           numberEls,
@@ -170,6 +179,19 @@ export const StaggeredMenu = ({
           itemsStart + 0.1
         );
       }
+
+      if (brandEl) {
+        tl.to(
+          brandEl,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          itemsStart + 0.22
+        );
+      }
     }
 
     if (socialTitle || socialLinks.length) {
@@ -177,6 +199,17 @@ export const StaggeredMenu = ({
       if (socialTitle) {
         tl.to(
           socialTitle,
+          {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          socialsStart
+        );
+      }
+      if (socialContact) {
+        tl.to(
+          socialContact,
           {
             opacity: 1,
             duration: 0.5,
@@ -247,9 +280,13 @@ export const StaggeredMenu = ({
         if (numberEls.length) {
           gsap.set(numberEls, { "--sm-num-opacity": 0 });
         }
+        const brandEl = panel.querySelector(".sm-panel-brand");
+        if (brandEl) gsap.set(brandEl, { opacity: 0, y: 20 });
         const socialTitle = panel.querySelector(".sm-socials-title");
+        const socialContact = panel.querySelector(".sm-socials-contact");
         const socialLinks = Array.from(panel.querySelectorAll(".sm-socials-link"));
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+        if (socialContact) gsap.set(socialContact, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
         busyRef.current = false;
       }
@@ -396,6 +433,13 @@ export const StaggeredMenu = ({
       data-position={position}
       data-open={open || undefined}
     >
+      {/* Dimmer backdrop for desktop & tablet */}
+      <div
+        className={`sm-backdrop ${open ? "is-open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
       {/* Multi-layered Staggered Underlays */}
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
         {(() => {
@@ -406,7 +450,7 @@ export const StaggeredMenu = ({
 
       {/* Main Top Header Navigation Bar */}
       <header className={`staggered-menu-header ${scrolled ? "is-scrolled" : ""}`} aria-label="Main navigation header">
-        <Link to="/" className="sm-logo" aria-label="JB Media Logo">
+        <Link to="/" className="sm-logo" aria-label="JB Media Logo" onClick={closeMenu}>
           <div className="sm-logo-wrap">
             <div className="sm-logo-badge">
               <img
@@ -485,9 +529,23 @@ export const StaggeredMenu = ({
             )}
           </ul>
 
+          {/* Brand Presence Context Box */}
+          <div className="sm-panel-brand">
+            <div className="sm-brand-tagline">
+              <span className="sm-brand-dot" />
+              <span>Official Student Media Body</span>
+            </div>
+            <p className="sm-brand-desc">
+              Capturing history, celebrating campus talent, and shaping Brand JBIET.
+            </p>
+          </div>
+
           {displaySocials && socialItems && socialItems.length > 0 && (
             <div className="sm-socials" aria-label="Social links">
-              <h3 className="sm-socials-title">Socials & Press</h3>
+              <div className="sm-socials-header">
+                <h3 className="sm-socials-title">Socials & Press</h3>
+                <span className="sm-socials-contact">media@jbiet.edu.in</span>
+              </div>
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (
                   <li key={s.label + i} className="sm-socials-item">
