@@ -31,17 +31,7 @@ void main() {
     vec3 centerPos = (uWorldMatrix * aInstanceMatrix * vec4(0., 0., 0., 1.)).xyz;
     float radius = length(centerPos.xyz);
 
-    if (gl_VertexID > 0) {
-        vec3 rotationAxis = uRotationAxisVelocity.xyz;
-        float rotationVelocity = min(.2, uRotationAxisVelocity.w * 14.);
-        vec3 stretchDir = normalize(cross(centerPos, rotationAxis));
-        vec3 relativeVertexPos = normalize(worldPosition.xyz - centerPos);
-        float strength = dot(stretchDir, relativeVertexPos);
-        float invAbsStrength = min(0., abs(strength) - 1.);
-        strength = rotationVelocity * sign(strength) * abs(invAbsStrength * invAbsStrength * invAbsStrength + 1.);
-        worldPosition.xyz += stretchDir * (strength * 1.0);
-    }
-
+    // Keep discs geometrically rigid and crisp on the 3D sphere (eliminates gooey jelly warping)
     worldPosition.xyz = radius * normalize(worldPosition.xyz);
 
     gl_Position = uProjectionMatrix * uViewMatrix * worldPosition;
@@ -442,8 +432,8 @@ class ArcballControl {
     const snapRotation = quat.create();
 
     if (this.isPointerDown) {
-      const INTENSITY = 0.35 * timeScale;
-      const ANGLE_AMPLIFICATION = 5.2 / timeScale;
+      const INTENSITY = 0.28 * timeScale;
+      const ANGLE_AMPLIFICATION = 2.4 / timeScale;
 
       const midPointerPos = vec2.sub(vec2.create(), this.pointerPos, this.previousPointerPos);
       vec2.scale(midPointerPos, midPointerPos, INTENSITY);
@@ -464,20 +454,20 @@ class ArcballControl {
         quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
       }
     } else {
-      const INTENSITY = (0.1 / this.dampingFactor) * timeScale;
+      const INTENSITY = (0.05 / this.dampingFactor) * timeScale;
       quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
 
       if (this.autoRotate) {
         const autoQ = quat.create();
         const spinAxis = vec3.normalize(vec3.create(), [0.12, 1.0, 0.04]);
-        quat.setAxisAngle(autoQ, spinAxis, this.autoRotateSpeed * 0.02 * timeScale);
+        quat.setAxisAngle(autoQ, spinAxis, this.autoRotateSpeed * 0.015 * timeScale);
         quat.multiply(this.orientation, autoQ, this.orientation);
       } else if (this.snapTargetDirection) {
-        const SNAPPING_INTENSITY = 0.22;
+        const SNAPPING_INTENSITY = 0.08;
         const a = this.snapTargetDirection;
         const b = this.snapDirection;
         const sqrDist = vec3.squaredDistance(a, b);
-        const distanceFactor = Math.max(0.1, 1 - sqrDist * 10);
+        const distanceFactor = Math.min(1.0, Math.max(0.08, 1 - sqrDist * 4));
         angleFactor *= SNAPPING_INTENSITY * distanceFactor;
         this.quatFromVectors(a, b, snapRotation, angleFactor);
       }
@@ -983,10 +973,10 @@ export class InfiniteGridMenu {
 
   #onControlUpdate(deltaTime) {
     const timeScale = deltaTime / this.TARGET_FRAME_DURATION + 0.0001;
-    let damping = (5 / this.control.dampingFactor) / timeScale;
-    let cameraTargetZ = 4.0 * this.scaleFactor;
+    const damping = (10 / this.control.dampingFactor) / timeScale;
+    const cameraTargetZ = 4.0 * this.scaleFactor;
 
-    const isMoving = this.control.isPointerDown || (!this.control.autoRotate && Math.abs(this.smoothRotationVelocity) > 0.008);
+    const isMoving = this.control.isPointerDown || (!this.control.autoRotate && Math.abs(this.smoothRotationVelocity) > 0.005);
 
     if (isMoving !== this.movementActive) {
       this.movementActive = isMoving;
@@ -1006,9 +996,6 @@ export class InfiniteGridMenu {
       } else {
         this.control.snapTargetDirection = null;
       }
-    } else {
-      cameraTargetZ += this.control.rotationVelocity * 45 + 1.2;
-      damping = (7 / this.control.dampingFactor) / timeScale;
     }
 
     this.camera.position[2] += (cameraTargetZ - this.camera.position[2]) / Math.max(1, damping);
