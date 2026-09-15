@@ -454,20 +454,20 @@ class ArcballControl {
         quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
       }
     } else {
-      const INTENSITY = (0.05 / this.dampingFactor) * timeScale;
+      const INTENSITY = (0.12 / this.dampingFactor) * timeScale;
       quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
 
       if (this.autoRotate) {
         const autoQ = quat.create();
         const spinAxis = vec3.normalize(vec3.create(), [0.12, 1.0, 0.04]);
-        quat.setAxisAngle(autoQ, spinAxis, this.autoRotateSpeed * 0.015 * timeScale);
+        quat.setAxisAngle(autoQ, spinAxis, this.autoRotateSpeed * 0.02 * timeScale);
         quat.multiply(this.orientation, autoQ, this.orientation);
       } else if (this.snapTargetDirection) {
-        const SNAPPING_INTENSITY = 0.08;
+        const SNAPPING_INTENSITY = 0.32;
         const a = this.snapTargetDirection;
         const b = this.snapDirection;
         const sqrDist = vec3.squaredDistance(a, b);
-        const distanceFactor = Math.min(1.0, Math.max(0.08, 1 - sqrDist * 4));
+        const distanceFactor = Math.max(0.25, 1 - sqrDist * 3);
         angleFactor *= SNAPPING_INTENSITY * distanceFactor;
         this.quatFromVectors(a, b, snapRotation, angleFactor);
       }
@@ -973,8 +973,8 @@ export class InfiniteGridMenu {
 
   #onControlUpdate(deltaTime) {
     const timeScale = deltaTime / this.TARGET_FRAME_DURATION + 0.0001;
-    const damping = (10 / this.control.dampingFactor) / timeScale;
-    const cameraTargetZ = 4.0 * this.scaleFactor;
+    let damping = (4.8 / this.control.dampingFactor) / timeScale;
+    let cameraTargetZ = 4.0 * this.scaleFactor;
 
     const isMoving = this.control.isPointerDown || (!this.control.autoRotate && Math.abs(this.smoothRotationVelocity) > 0.005);
 
@@ -996,6 +996,11 @@ export class InfiniteGridMenu {
       } else {
         this.control.snapTargetDirection = null;
       }
+    } else {
+      // Tactile pull & push depth force on touch and rotation velocity
+      const velocityDepth = Math.min(1.0, Math.abs(this.control.rotationVelocity) * 25);
+      cameraTargetZ += 0.4 + velocityDepth;
+      damping = (5.5 / this.control.dampingFactor) / timeScale;
     }
 
     this.camera.position[2] += (cameraTargetZ - this.camera.position[2]) / Math.max(1, damping);
